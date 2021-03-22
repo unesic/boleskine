@@ -1,0 +1,28 @@
+.heading {
+	font-family: Copper_Penny, sans-serif;
+}
+
+.moleskine {
+	font-family: Moleskine, sans-serif;
+}
+
+.handwriting {
+	font-family: signpainter_medium, sans-serif;
+}
+
+.font-light {
+	font-family: brandon_light, sans-serif;
+}
+
+.font-medium {
+	font-family: brandon_medium, sans-serif;
+}
+
+.font-regular {
+	font-family: brandon_regular, sans-serif;
+}
+
+.icon {
+	font-family: moleskine_icons, sans-serif;
+	font-weight: 400;
+}
