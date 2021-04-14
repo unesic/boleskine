@@ -1,7 +1,14 @@
+import React, { useState, useContext, FormEvent } from "react";
 import { useMutation } from "@apollo/client";
+import { Link } from "react-router-dom";
+
 import { AuthContext } from "lib/AuthContext";
 import { USER_REGISTER } from "lib/graphql/user.queries";
-import React, { useState, useContext, FormEvent } from "react";
+
+import { InputText } from "ui/form/InputText";
+import { Button } from "ui/misc/Button";
+import Card, { Header, Title } from "ui/card/Card";
+import { Caption } from "ui/form/Caption";
 
 interface RegisterProps {
 	history: any;
@@ -41,62 +48,40 @@ export const Register: React.FC<RegisterProps> = ({ history, location }) => {
 	};
 
 	return (
-		<div className="p-6 rounded-lg bg-gray-600 shadow-2xl">
-			<form onSubmit={submitHandler} className="w-64">
-				<fieldset className="flex flex-col mb-4">
-					<label
-						htmlFor="email"
-						className="mb-2 text-lg font-semibold text-gray-100"
-					>
-						Email
-					</label>
-					<input
-						type="email"
-						name="email"
-						id="email"
-						value={email}
-						onChange={(e) => setEmail(e.target.value)}
-						className="py-2 px-4 rounded"
-					/>
-				</fieldset>
-				<fieldset className="flex flex-col mb-4">
-					<label
-						htmlFor="password"
-						className="mb-2 text-lg font-semibold text-gray-100"
-					>
-						Password
-					</label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						value={password}
-						onChange={(e) => setPassword(e.target.value)}
-						className="py-2 px-4 rounded"
-					/>
-				</fieldset>
-				<fieldset className="flex flex-col mb-4">
-					<label
-						htmlFor="rePassword"
-						className="mb-2 text-lg font-semibold text-gray-100"
-					>
-						Re-password
-					</label>
-					<input
-						type="password"
-						name="rePassword"
-						id="rePassword"
-						value={rePassword}
-						onChange={(e) => setRePassword(e.target.value)}
-						className="py-2 px-4 rounded"
-					/>
-				</fieldset>
-				<input
-					type="submit"
-					value="Submit"
-					className="py-2 px-4 rounded bg-teal-500 text-gray-100"
+		<Card>
+			<Header>
+				<Title>Register</Title>
+			</Header>
+			<form onSubmit={submitHandler} className="w-80">
+				<InputText
+					type="email"
+					name="email"
+					value={email}
+					onChange={(e) => setEmail(e.target.value)}
+					label="Email"
 				/>
+				<InputText
+					type="password"
+					name="password"
+					value={password}
+					onChange={(e) => setPassword(e.target.value)}
+					label="Password"
+				/>
+				<InputText
+					type="password"
+					name="rePassword"
+					value={rePassword}
+					onChange={(e) => setRePassword(e.target.value)}
+					label="Re-password"
+				/>
+				<Button>Register</Button>
 			</form>
-		</div>
+			<Caption className="mt-4">
+				Already have an account?{" "}
+				<Link to="/login" className="text-app-accent-blue">
+					Log in
+				</Link>
+			</Caption>
+		</Card>
 	);
 };

@@ -1,28 +1,58 @@
-.heading {
-	font-family: Copper_Penny, sans-serif;
-}
+@layer base {
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6,
+	.h1,
+	.h2,
+	.h3,
+	.h4,
+	.h5,
+	.h6 {
+		@apply font-heading;
+	}
 
-.moleskine {
-	font-family: Moleskine, sans-serif;
-}
+	h1,
+	.h1 {
+		@apply text-5xl;
+	}
 
-.handwriting {
-	font-family: signpainter_medium, sans-serif;
-}
+	h2,
+	.h2 {
+		@apply text-4xl;
+	}
 
-.font-light {
-	font-family: brandon_light, sans-serif;
-}
+	h3,
+	.h3 {
+		@apply text-3xl;
+	}
 
-.font-medium {
-	font-family: brandon_medium, sans-serif;
-}
+	h4,
+	.h4 {
+		@apply text-2xl;
+	}
 
-.font-regular {
-	font-family: brandon_regular, sans-serif;
-}
+	h5,
+	.h5 {
+		@apply text-xl;
+	}
 
-.icon {
-	font-family: moleskine_icons, sans-serif;
-	font-weight: 400;
+	h6,
+	.h6 {
+		@apply text-lg;
+	}
+
+	.icon {
+		@apply font-icon;
+	}
+
+	body {
+		@apply font-body-regular;
+	}
+
+	strong {
+		@apply font-body-medium;
+	}
 }

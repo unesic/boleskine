@@ -1,17 +1,13 @@
-/* @tailwind base; */
-@import "tailwind/base";
 @import "base/Typography.css";
+@import "components/Form.css";
+@import "components/Card.css";
+@import "components/Button.css";
 
-/* @tailwind components; */
-@import "tailwind/components";
-
-/* @tailwind utilities; */
-@import "tailwind/utilities";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 body {
-	@apply flex justify-center items-center h-screen bg-gray-300;
-}
-
-.App__Title {
-	@apply text-6xl font-semibold;
+	@apply h-screen;
+	@apply bg-gradient-to-br from-app-dark-secondary to-app-dark-quaternary;
 }
