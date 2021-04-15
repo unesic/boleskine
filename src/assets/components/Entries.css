@@ -1,0 +1,38 @@
+@layer components {
+	.Entries {
+		@apply mt-2;
+
+		&__Entry {
+			@apply bg-black bg-opacity-0 hover:bg-opacity-20;
+			@apply transition-colors duration-200 ease-out;
+
+			&:not(:last-of-type) {
+				@apply border-b border-solid border-black border-opacity-20;
+			}
+
+			&:last-of-type {
+				@apply rounded-b;
+			}
+
+			&__Inner {
+				@apply flex justify-between items-center px-4 py-2;
+			}
+
+			&__Text {
+				@apply text-app-light-secondary;
+			}
+
+			&__Amount {
+				@apply font-body-medium;
+
+				&.inc {
+					@apply text-app-accent-green;
+				}
+
+				&.exp {
+					@apply text-app-accent-red;
+				}
+			}
+		}
+	}
+}

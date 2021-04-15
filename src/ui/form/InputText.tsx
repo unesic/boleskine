@@ -1,7 +1,8 @@
 import React from "react";
+import "assets/dist/components/Form.InputText.css";
 
 interface InputTextProps {
-	type: string;
+	type: "text" | "email" | "password" | "number";
 	name: string;
 	value: string;
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,7 +20,7 @@ export const InputText: React.FC<InputTextProps> = ({
 		<div className="Field">
 			<fieldset
 				className={`Field--Text ${
-					value.trim() !== "" ? "has-value" : ""
+					value !== "" ? "has-value" : ""
 				}`.trim()}
 			>
 				<input
@@ -29,8 +30,9 @@ export const InputText: React.FC<InputTextProps> = ({
 					value={value}
 					onChange={onChange}
 					className={`Field--Text__Input ${
-						value.trim() !== "" ? "has-value" : ""
+						value !== "" ? "has-value" : ""
 					}`.trim()}
+					min={type === "number" ? 0 : undefined}
 				/>
 				<label htmlFor={name} className="Field--Text__Label">
 					{label}

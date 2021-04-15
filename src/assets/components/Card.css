@@ -1,9 +1,9 @@
 @layer components {
 	.Card {
-		@apply rounded-lg p-2 bg-black bg-opacity-25 shadow-card;
+		@apply rounded-lg p-2 h-full bg-black bg-opacity-25 shadow-card;
 
 		&__Header {
-			@apply flex justify-between mb-4;
+			@apply flex justify-between items-center mb-4;
 		}
 
 		&__Title {
@@ -11,7 +11,20 @@
 		}
 
 		&__Options {
-			@apply flex gap-2;
+			@apply flex items-center gap-2;
+		}
+
+		&__Button {
+			@apply flex justify-center items-center;
+			@apply rounded-full p-1 w-6 h-6 bg-app-dark-primary bg-opacity-10;
+			@apply text-app-light-secondary text-opacity-80;
+			@apply transition-all duration-200 ease-out;
+
+			&:hover,
+			&:focus {
+				@apply bg-app-dark-quaternary bg-opacity-40 text-opacity-100;
+				@apply outline-none shadow-gradient-focus;
+			}
 		}
 	}
 }

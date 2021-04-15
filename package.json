@@ -4,6 +4,7 @@
 	"private": true,
 	"dependencies": {
 		"@apollo/client": "^3.3.12",
+		"@heroicons/react": "^1.0.1",
 		"@testing-library/jest-dom": "^5.11.4",
 		"@testing-library/react": "^11.1.0",
 		"@testing-library/user-event": "^12.1.10",
@@ -14,7 +15,9 @@
 		"graphql": "^15.5.0",
 		"graphql-tag": "^2.11.0",
 		"jwt-decode": "^3.1.2",
+		"moment": "^2.29.1",
 		"react": "^17.0.1",
+		"react-calendar": "^3.3.1",
 		"react-dom": "^17.0.1",
 		"react-router": "^5.2.0",
 		"react-router-dom": "^5.2.0",
@@ -27,7 +30,12 @@
 		"build": "react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"watch:css": "postcss src/assets/main.css -o src/assets/app.css --watch",
+		"watch:css": "npm run watch:main & npm run watch:components",
+		"watch:main": "postcss src/assets/main.css -o src/assets/dist/main.css --watch",
+		"watch:components": "postcss src/assets/components --dir src/assets/dist/components --watch",
+		"build:css": "npm run build:main && npm run build:components",
+		"build:main": "postcss src/assets/main.css -o src/assets/dist/main.css",
+		"build:components": "postcss src/assets/components --dir src/assets/dist/components",
 		"build:opt": "node ./scripts/build-non-split.js"
 	},
 	"eslintConfig": {
@@ -50,6 +58,7 @@
 	},
 	"devDependencies": {
 		"@types/jwt-decode": "^3.1.0",
+		"@types/react-calendar": "^3.1.4",
 		"@types/react-router-dom": "^5.1.7",
 		"autoprefixer": "^10.2.5",
 		"postcss": "^8.2.10",

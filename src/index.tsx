@@ -8,7 +8,7 @@ import {
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 
-import "assets/app.css";
+import "assets/dist/main.css";
 import "lib/Object.filter";
 import { App } from "App";
 import { AuthProvider } from "lib/AuthContext";

@@ -7,7 +7,7 @@ import { USER_REGISTER } from "lib/graphql/user.queries";
 
 import { InputText } from "ui/form/InputText";
 import { Button } from "ui/misc/Button";
-import Card, { Header, Title } from "ui/card/Card";
+import Card, { Header } from "ui/card/Card";
 import { Caption } from "ui/form/Caption";
 
 interface RegisterProps {
@@ -49,9 +49,7 @@ export const Register: React.FC<RegisterProps> = ({ history, location }) => {
 
 	return (
 		<Card>
-			<Header>
-				<Title>Register</Title>
-			</Header>
+			<Header title="Register" />
 			<form onSubmit={submitHandler} className="w-80">
 				<InputText
 					type="email"

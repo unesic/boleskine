@@ -1,0 +1,53 @@
+.Entries {
+  margin-top: 0.5rem;
+}
+  .Entries__Entry {
+    --tw-bg-opacity: 1;
+    background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
+    --tw-bg-opacity: 0
+  }
+  .Entries__Entry:hover {
+    --tw-bg-opacity: 0.2
+  }
+  .Entries__Entry {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+  .Entries__Entry:not(:last-of-type) {
+      --tw-border-opacity: 1;
+      border-color: rgba(0, 0, 0, var(--tw-border-opacity));
+      --tw-border-opacity: 0.2;
+      border-style: solid;
+      border-bottom-width: 1px;
+    }
+  .Entries__Entry:last-of-type {
+      border-bottom-right-radius: 0.25rem;
+      border-bottom-left-radius: 0.25rem;
+    }
+  .Entries__Entry__Inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  .Entries__Entry__Text {
+      --tw-text-opacity: 1;
+      color: rgba(193, 195, 207, var(--tw-text-opacity));
+    }
+  .Entries__Entry__Amount {
+      font-family: brandon_medium;
+    }
+  .Entries__Entry__Amount.inc {
+        --tw-text-opacity: 1;
+        color: rgba(45, 133, 21, var(--tw-text-opacity));
+      }
+  .Entries__Entry__Amount.exp {
+        --tw-text-opacity: 1;
+        color: rgba(219, 42, 52, var(--tw-text-opacity));
+      }

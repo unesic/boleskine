@@ -1,6 +1,8 @@
 import React from "react";
 import { Caption } from "./Caption";
 
+import "assets/dist/components/Form.InputCheckbox.css";
+
 interface InputCheckboxProps {
 	options: { name: string; checked: boolean; label: string }[];
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;

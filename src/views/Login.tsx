@@ -8,7 +8,7 @@ import { USER_LOGIN } from "lib/graphql/user.queries";
 import { InputText } from "ui/form/InputText";
 import { InputCheckbox } from "ui/form/InputCheckbox";
 import { Button } from "ui/misc/Button";
-import Card, { Header, Title } from "ui/card/Card";
+import Card, { Header } from "ui/card/Card";
 import { Caption } from "ui/form/Caption";
 
 interface LoginProps {
@@ -50,9 +50,7 @@ export const Login: React.FC<LoginProps> = ({ history, location }) => {
 
 	return (
 		<Card>
-			<Header>
-				<Title>Log In</Title>
-			</Header>
+			<Header title="Log in" />
 			<form onSubmit={submitHandler} className="w-80">
 				<InputText
 					type="email"

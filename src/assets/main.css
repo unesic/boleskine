@@ -1,13 +1,16 @@
 @import "base/Typography.css";
-@import "components/Form.css";
-@import "components/Card.css";
-@import "components/Button.css";
+@import "base/Button.css";
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#root {
+	@apply min-h-screen;
+}
+
 body {
-	@apply h-screen;
 	@apply bg-gradient-to-br from-app-dark-secondary to-app-dark-quaternary;
 }

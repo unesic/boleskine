@@ -5,6 +5,15 @@ module.exports = {
 	darkMode: false,
 	theme: {
 		extend: {
+			maxHeight: {
+				"fit-content": "fit-content",
+				"min-content": "min-content",
+				"max-content": "max-content",
+			},
+			height: {
+				min: "min-content",
+				max: "max-content",
+			},
 			fontFamily: {
 				moleskine: ["Moleskine"],
 				heading: ["Copper_Penny"],
@@ -31,12 +40,16 @@ module.exports = {
 					"dark-quinternary": "#00000B",
 				},
 			},
-			boxShadow: {
+			boxShadow: (theme) => ({
 				card:
 					"0 25px 20px -20px rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(0, 0, 0, 0.06)",
-				"input-focus": "0 0 4px 0 rgba(255, 255, 255, 0.25)",
-			},
+				"gradient-focus": "0 0 4px 0 rgba(255, 255, 255, 0.25)",
+				"solid-focus": `0 0 0 1px ${theme(
+					'colors.app["accent-blue"]'
+				)}`,
+			}),
 			opacity: {
+				1: "1%",
 				80: "80%",
 			},
 		},
