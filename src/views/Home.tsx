@@ -15,6 +15,7 @@ import { InputText } from "ui/form/InputText";
 import { InputSelect } from "ui/form/InputSelect";
 import { Button } from "ui/misc/Button";
 import { Days, DaysType } from "components/Days";
+import { Sidebar } from "components/Sidebar";
 
 interface HomeProps {}
 
@@ -234,7 +235,7 @@ export const Home: React.FC<HomeProps> = () => {
 
 	return (
 		<div className="grid grid-cols-12 gap-4 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
-			<aside className="col-span-2 row-span-3">sidebar</aside>
+			<Sidebar />
 			<main className="relative col-span-10 flex gap-4 justify-between">
 				<div
 					className="flex flex-col gap-4"
