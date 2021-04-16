@@ -5,6 +5,8 @@ import {
 	XIcon,
 	SwitchHorizontalIcon,
 } from "@heroicons/react/outline";
+import { DraggableProvidedDragHandleProps } from "react-beautiful-dnd";
+
 import "assets/dist/components/Card.css";
 
 interface CardProps {}
@@ -21,6 +23,8 @@ interface HeaderProps {
 	yMove?: boolean;
 	noSettings?: boolean;
 	noClose?: boolean;
+	dragHandleX?: DraggableProvidedDragHandleProps | undefined;
+	dragHandleY?: DraggableProvidedDragHandleProps | undefined;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -29,6 +33,8 @@ export const Header: React.FC<HeaderProps> = ({
 	yMove = false,
 	noSettings = false,
 	noClose = false,
+	dragHandleX = undefined,
+	dragHandleY = undefined,
 }) => {
 	return (
 		<div className="Card__Header">
@@ -38,6 +44,8 @@ export const Header: React.FC<HeaderProps> = ({
 				yMove={yMove}
 				noSettings={noSettings}
 				noClose={noClose}
+				dragHandleX={dragHandleX}
+				dragHandleY={dragHandleY}
 			/>
 		</div>
 	);
@@ -54,6 +62,8 @@ interface OptionsProps {
 	yMove: boolean;
 	noSettings: boolean;
 	noClose: boolean;
+	dragHandleX?: DraggableProvidedDragHandleProps | undefined;
+	dragHandleY?: DraggableProvidedDragHandleProps | undefined;
 }
 
 export const Options: React.FC<OptionsProps> = ({
@@ -61,16 +71,18 @@ export const Options: React.FC<OptionsProps> = ({
 	yMove,
 	noSettings,
 	noClose,
+	dragHandleX,
+	dragHandleY,
 }) => {
 	return (
 		<div className="Card__Options">
 			{xMove ? (
-				<button className="Card__Button">
+				<button className="Card__Button" {...dragHandleX}>
 					<SwitchHorizontalIcon />
 				</button>
 			) : null}
 			{yMove ? (
-				<button className="Card__Button">
+				<button className="Card__Button" {...dragHandleY}>
 					<SwitchVerticalIcon />
 				</button>
 			) : null}
