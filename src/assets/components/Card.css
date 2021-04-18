@@ -18,7 +18,7 @@
 			@apply flex justify-center items-center;
 			@apply rounded-full p-1 w-6 h-6 bg-app-dark-primary bg-opacity-10;
 			@apply text-app-light-secondary text-opacity-80;
-			@apply transition-all duration-200 ease-out;
+			@apply outline-none transition-all duration-200 ease-out;
 
 			&:hover,
 			&:focus {
