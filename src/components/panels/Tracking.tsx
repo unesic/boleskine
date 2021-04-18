@@ -11,9 +11,15 @@ interface TrackingProps {
 	id: string;
 	idx: number;
 	days?: TrackingType;
+	active: string;
 }
 
-export const Tracking: React.FC<TrackingProps> = ({ id, idx, days }) => {
+export const Tracking: React.FC<TrackingProps> = ({
+	id,
+	idx,
+	days,
+	active,
+}) => {
 	const dummyDays: TrackingType = [
 		{
 			id: "1",
@@ -171,7 +177,7 @@ export const Tracking: React.FC<TrackingProps> = ({ id, idx, days }) => {
 						/>
 						<div className="Tracking">
 							{dummyDays.map((day) => (
-								<Day key={day.id} {...day} />
+								<Day key={day.id} {...day} dropDisabled={day.id !== active} />
 							))}
 						</div>
 					</Card>
