@@ -1,55 +1,70 @@
-import React, { useState } from "react";
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import React, { Dispatch, SetStateAction, useState } from "react";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
 import { Sidebar } from "components/Sidebar";
-import { Widgets } from "components/Widgets";
-import { Days } from "components/Days";
-import { NewEntry } from "components/NewEntry";
+import { Widgets } from "components/panels/Widgets";
+import { Tracking } from "components/panels/Tracking";
+import { NewEntry } from "components/panels/NewEntry";
 
 interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = () => {
-	const [widgetsOrder, setWidgetsOrder] = useState([
-		"calendar",
-		"week",
-		"month",
-	]);
+	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
+	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
 
 	const onDragEndHandler = (result: DropResult) => {
-		if (result.type === "WIDGETS") reorderWidgets(result);
+		const { type } = result;
+		if (type === "WIDGETS") reorder(result, widgets, setWidgets);
+		else if (type === "PANNELS") reorder(result, pannels, setPannels);
 	};
 
-	const reorderWidgets = ({ source, destination }: DropResult) => {
-		const newOrder = [...widgetsOrder];
+	const reorder = (
+		{ source, destination }: DropResult,
+		oldOrder: string[],
+		cbFn: Dispatch<SetStateAction<string[]>>
+	) => {
+		const newOrder = [...oldOrder];
 		const [moved] = newOrder.splice(source.index, 1);
 		newOrder.splice(destination!.index, 0, moved);
-		setWidgetsOrder(newOrder);
+		cbFn(newOrder);
 	};
 
 	return (
-		<div className="grid grid-cols-12 gap-4 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
+		<div className="grid grid-cols-12 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
 			<Sidebar />
-			<DragDropContext onDragEnd={onDragEndHandler}>
-				<main className="relative col-span-10 flex gap-4 justify-between">
-					<div style={{ flex: "1 0 25%", maxWidth: "25%" }}>
-						<Widgets order={widgetsOrder} />
-					</div>
-
-					<div
-						className="absolute left-1/4 h-full px-4"
-						style={{ width: "42%" }}
+			<main className="col-span-10">
+				<DragDropContext onDragEnd={onDragEndHandler}>
+					<Droppable
+						droppableId="PANNELS"
+						type="PANNELS"
+						direction="horizontal"
 					>
-						<Days />
-					</div>
-
-					<div
-						className="h-max"
-						style={{ flex: "1 0 33%", maxWidth: "33%" }}
-					>
-						<NewEntry />
-					</div>
-				</main>
-			</DragDropContext>
+						{(provided) => (
+							<div
+								ref={provided.innerRef}
+								{...provided.droppableProps}
+								className="grid grid-cols-12 h-full"
+							>
+								{pannels.map((id, idx) =>
+									id === "widgets" ? (
+										<Widgets
+											key={id}
+											id={id}
+											idx={idx}
+											order={widgets}
+										/>
+									) : id === "tracking" ? (
+										<Tracking key={id} id={id} idx={idx} />
+									) : id === "newEntry" ? (
+										<NewEntry key={id} id={id} idx={idx} />
+									) : null
+								)}
+								{provided.placeholder}
+							</div>
+						)}
+					</Droppable>
+				</DragDropContext>
+			</main>
 		</div>
 	);
 };

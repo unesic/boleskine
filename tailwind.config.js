@@ -5,6 +5,9 @@ module.exports = {
 	darkMode: false,
 	theme: {
 		extend: {
+			spacing: {
+				13: "3.25rem"
+			},
 			maxHeight: {
 				"fit-content": "fit-content",
 				"min-content": "min-content",
