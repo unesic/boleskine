@@ -18,7 +18,7 @@
 
 		&__Menu {
 			&__title {
-				@apply text-xs font-body-medium text-app-light-tertiary text-opacity-30;
+				@apply mb-2 text-xs font-body-medium text-app-light-tertiary text-opacity-30;
 			}
 
 			&__Submenu {
@@ -34,7 +34,7 @@
 		}
 
 		&__Extra {
-			@apply flex-1 flex justify-center items-end gap-4;
+			@apply flex-1 flex justify-evenly items-end gap-2;
 
 			&__link {
 				@apply text-xs text-app-light-secondary text-opacity-60 transition-colors duration-200 ease-out;

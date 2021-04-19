@@ -2,7 +2,7 @@
 	.Tracking {
 		max-height: calc(100% - theme("spacing[14]"));
 		width: calc(100% - theme("spacing[8]"));
-		@apply absolute overflow-y-auto;
+		@apply absolute overflow-y-auto grid gap-2;
 
 		&::-webkit-scrollbar {
 			@apply w-2;
@@ -17,11 +17,8 @@
 		}
 
 		&__Day {
-			@apply rounded pt-2 bg-white bg-opacity-1 transition-all duration-200 ease-out hover:bg-opacity-5;
-
-			&:not(:last-of-type) {
-				@apply mb-2;
-			}
+			@apply rounded pt-2 bg-white bg-opacity-1 hover:bg-opacity-5;
+			@apply transition-colors duration-200 ease-out;
 
 			&__Heading {
 				@apply px-2 text-xs text-app-light-tertiary text-opacity-30 font-body-medium uppercase;

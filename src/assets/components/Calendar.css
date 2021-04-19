@@ -3,8 +3,13 @@
 		&__tile {
 			@apply bg-app-dark-primary bg-opacity-10;
 
-			&--active,
 			&--now {
+				@apply bg-opacity-50;
+			}
+
+			&--active,
+			&--active[class*="marked"],
+			&--now[class*="active"] {
 				@apply bg-opacity-80;
 
 				abbr {
@@ -12,7 +17,8 @@
 				}
 			}
 
-			&, abbr {
+			&,
+			abbr {
 				@apply text-app-light-primary text-opacity-80;
 			}
 		}
@@ -137,8 +143,8 @@
 				@apply gap-2;
 
 				&__month {
-					flex-basis: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important; 
-					max-width: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important; 
+					flex-basis: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important;
+					max-width: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important;
 					@apply rounded py-2 text-sm;
 				}
 			}
@@ -149,8 +155,8 @@
 				@apply gap-2;
 
 				&__year {
-					flex-basis: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important; 
-					max-width: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important; 
+					flex-basis: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important;
+					max-width: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important;
 					@apply rounded py-2 text-sm;
 				}
 			}
@@ -161,8 +167,8 @@
 				@apply gap-2;
 
 				&__decade {
-					flex-basis: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important; 
-					max-width: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important; 
+					flex-basis: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important;
+					max-width: calc(100% / 3 - 2 * theme("spacing.2") / 3) !important;
 					@apply rounded py-2 text-sm;
 				}
 			}

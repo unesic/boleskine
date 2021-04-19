@@ -14,3 +14,8 @@ body,
 body {
 	@apply bg-gradient-to-br from-app-dark-secondary to-app-dark-quaternary;
 }
+
+* {
+	@apply outline-none;
+	@apply focus:outline-none focus:shadow-solid-focus;
+}

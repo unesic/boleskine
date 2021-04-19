@@ -1,4 +1,3 @@
-import React from "react";
 import { Caption } from "./Caption";
 
 import "assets/dist/components/Form.InputCheckbox.css";
@@ -34,10 +33,7 @@ export const InputCheckbox: React.FC<InputCheckboxProps> = ({
 								onChange={onChange}
 								className="Field--Checkbox__Input"
 							/>
-							<label
-								htmlFor={name}
-								className="Field--Checkbox__Label"
-							>
+							<label htmlFor={name} className="Field--Checkbox__Label">
 								{label}
 							</label>
 						</div>

@@ -1,8 +1,10 @@
 .Tracking {
   max-height: calc(100% - 3.5rem);
   width: calc(100% - 2rem);
+  display: grid;
   overflow-y: auto;
   position: absolute;
+  gap: 0.5rem;
 }
   .Tracking::-webkit-scrollbar {
     width: 0.5rem;
@@ -27,15 +29,12 @@
   .Tracking__Day {
     border-radius: 0.25rem;
     padding-top: 0.5rem;
-    transition-property: all;
+    transition-property: background-color, border-color, color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
     transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
     transition-duration: 200ms;
   }
-  .Tracking__Day:not(:last-of-type) {
-      margin-bottom: 0.5rem;
-    }
   .Tracking__Day__Heading {
       font-family: brandon_medium;
       font-size: 0.75rem;

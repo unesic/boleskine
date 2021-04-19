@@ -3,10 +3,13 @@
     background-color: rgba(71, 77, 132, var(--tw-bg-opacity));
     --tw-bg-opacity: 0.1;
   }
-    .react-calendar__tile--active, .react-calendar__tile--now {
+    .react-calendar__tile--now {
+      --tw-bg-opacity: 0.5;
+    }
+    .react-calendar__tile--active, .react-calendar__tile--active[class*="marked"], .react-calendar__tile--now[class*="active"] {
       --tw-bg-opacity: 80%;
     }
-    .react-calendar__tile--active abbr, .react-calendar__tile--now abbr {
+    .react-calendar__tile--active abbr, .react-calendar__tile--active[class*="marked"] abbr, .react-calendar__tile--now[class*="active"] abbr {
         --tw-text-opacity: 1;
       }
     .react-calendar__tile, .react-calendar__tile abbr {

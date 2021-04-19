@@ -1,6 +1,8 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
+import dummyDays from "./dummyDays";
+
 import { Sidebar } from "components/Sidebar";
 import { Widgets } from "components/panels/Widgets";
 import { Tracking } from "components/panels/Tracking";
@@ -11,11 +13,13 @@ interface HomeProps {}
 export const Home: React.FC<HomeProps> = () => {
 	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
+	const [days, setDays] = useState(dummyDays);
 
 	const onDragEndHandler = (result: DropResult) => {
 		const { type } = result;
 		if (type === "WIDGETS") reorder(result, widgets, setWidgets);
 		else if (type === "PANNELS") reorder(result, pannels, setPannels);
+		else if (type.includes("ENTRIES")) reorder2(result);
 	};
 
 	const reorder = (
@@ -23,10 +27,29 @@ export const Home: React.FC<HomeProps> = () => {
 		oldOrder: string[],
 		cbFn: Dispatch<SetStateAction<string[]>>
 	) => {
+		if (!destination) return;
+
 		const newOrder = [...oldOrder];
 		const [moved] = newOrder.splice(source.index, 1);
-		newOrder.splice(destination!.index, 0, moved);
+		newOrder.splice(destination.index, 0, moved);
 		cbFn(newOrder);
+	};
+
+	const reorder2 = ({ source, destination }: DropResult) => {
+		if (!destination) return;
+
+		const newDays = [...days];
+		const day = newDays.find(({ id }) => id === source.droppableId);
+		if (!day) return;
+		const dayIdx = days.findIndex(({ id }) => id === day.id);
+
+		const newEntries = [...day.entries];
+		const [moved] = newEntries.splice(source.index, 1);
+		newEntries.splice(destination.index, 0, moved);
+		day.entries = [...newEntries];
+
+		newDays.splice(dayIdx, 1, day);
+		setDays(newDays);
 	};
 
 	return (
@@ -47,14 +70,9 @@ export const Home: React.FC<HomeProps> = () => {
 							>
 								{pannels.map((id, idx) =>
 									id === "widgets" ? (
-										<Widgets
-											key={id}
-											id={id}
-											idx={idx}
-											order={widgets}
-										/>
+										<Widgets key={id} id={id} idx={idx} order={widgets} />
 									) : id === "tracking" ? (
-										<Tracking key={id} id={id} idx={idx} />
+										<Tracking key={id} id={id} idx={idx} days={days} />
 									) : id === "newEntry" ? (
 										<NewEntry key={id} id={id} idx={idx} />
 									) : null

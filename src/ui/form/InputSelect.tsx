@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 
 import "assets/dist/components/Form.InputSelect.css";

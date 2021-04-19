@@ -1,5 +1,6 @@
-import React from "react";
+import { FC } from "react";
 import moment from "moment";
+
 import { Entries, EntriesType } from "./Entries";
 
 export type DayType = {
@@ -14,13 +15,13 @@ interface DayProps {
 	entries: EntriesType;
 }
 
-export const Day: React.FC<DayProps> = ({ id, date, entries }) => {
+export const Day: FC<DayProps> = ({ id, date, entries }) => {
 	return (
 		<div className="Tracking__Day">
 			<div className="Tracking__Day__Heading">
 				{moment(date).format("ddd DD MMMM[,] YYYY")}
 			</div>
-			<Entries entries={entries} />
+			<Entries entries={entries} dayId={id} />
 		</div>
 	);
 };

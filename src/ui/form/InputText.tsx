@@ -1,4 +1,3 @@
-import React from "react";
 import "assets/dist/components/Form.InputText.css";
 
 interface InputTextProps {
@@ -19,9 +18,7 @@ export const InputText: React.FC<InputTextProps> = ({
 	return (
 		<div className="Field">
 			<fieldset
-				className={`Field--Text ${
-					value !== "" ? "has-value" : ""
-				}`.trim()}
+				className={`Field--Text ${value !== "" ? "has-value" : ""}`.trim()}
 			>
 				<input
 					type={type}
