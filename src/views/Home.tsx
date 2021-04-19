@@ -1,10 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import {
-	DragDropContext,
-	DragStart,
-	Droppable,
-	DropResult,
-} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
 import dummyDays from "./dummyDays";
 
@@ -18,18 +13,13 @@ interface HomeProps {}
 export const Home: React.FC<HomeProps> = () => {
 	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
-	const [activeDayId, setActiveDayId] = useState("");
 	const [days, setDays] = useState(dummyDays);
-
-	const onDragStartHandler = (initial: DragStart) => {
-		setActiveDayId(initial.source.droppableId);
-	};
 
 	const onDragEndHandler = (result: DropResult) => {
 		const { type } = result;
 		if (type === "WIDGETS") reorder(result, widgets, setWidgets);
 		else if (type === "PANNELS") reorder(result, pannels, setPannels);
-		else if (type === "ENTRIES") reorder2(result);
+		else if (type.includes("ENTRIES")) reorder2(result);
 	};
 
 	const reorder = (
@@ -60,17 +50,13 @@ export const Home: React.FC<HomeProps> = () => {
 
 		newDays.splice(dayIdx, 1, day);
 		setDays(newDays);
-		setActiveDayId("");
 	};
 
 	return (
 		<div className="grid grid-cols-12 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
 			<Sidebar />
 			<main className="col-span-10">
-				<DragDropContext
-					onDragEnd={onDragEndHandler}
-					onDragStart={onDragStartHandler}
-				>
+				<DragDropContext onDragEnd={onDragEndHandler}>
 					<Droppable
 						droppableId="PANNELS"
 						type="PANNELS"
@@ -86,13 +72,7 @@ export const Home: React.FC<HomeProps> = () => {
 									id === "widgets" ? (
 										<Widgets key={id} id={id} idx={idx} order={widgets} />
 									) : id === "tracking" ? (
-										<Tracking
-											key={id}
-											id={id}
-											idx={idx}
-											days={days}
-											active={activeDayId}
-										/>
+										<Tracking key={id} id={id} idx={idx} days={days} />
 									) : id === "newEntry" ? (
 										<NewEntry key={id} id={id} idx={idx} />
 									) : null

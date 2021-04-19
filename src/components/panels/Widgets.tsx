@@ -1,4 +1,3 @@
-import React from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Calendar } from "./Widgets.lib/Calendar";
@@ -19,11 +18,11 @@ export const Widgets: React.FC<WidgetsProps> = ({ id, idx, order }) => {
 					ref={innerRef}
 					{...draggableProps}
 					{...dragHandleProps}
-					className="col-span-3 px-2"
+					className="col-span-3"
 				>
 					<Droppable droppableId="WIDGETS" type="WIDGETS">
 						{({ innerRef, placeholder }) => (
-							<div ref={innerRef} className="flex flex-col gap-4">
+							<div ref={innerRef} className="flex flex-col gap-4 px-2">
 								{order.map((id, idx) =>
 									id === "calendar" ? (
 										<Calendar key={id} id={id} idx={idx} />

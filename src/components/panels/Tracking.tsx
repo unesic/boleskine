@@ -1,4 +1,3 @@
-import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 import "assets/dist/components/Tracking.css";
@@ -11,15 +10,9 @@ interface TrackingProps {
 	id: string;
 	idx: number;
 	days: TrackingType;
-	active: string;
 }
 
-export const Tracking: React.FC<TrackingProps> = ({
-	id,
-	idx,
-	days,
-	active,
-}) => {
+export const Tracking: React.FC<TrackingProps> = ({ id, idx, days }) => {
 	return (
 		<Draggable draggableId={id} index={idx}>
 			{({ innerRef, draggableProps, dragHandleProps }) => (
@@ -36,7 +29,7 @@ export const Tracking: React.FC<TrackingProps> = ({
 						/>
 						<div className="Tracking">
 							{days.map((day) => (
-								<Day key={day.id} {...day} dropDisabled={day.id !== active} />
+								<Day key={day.id} {...day} />
 							))}
 						</div>
 					</Card>

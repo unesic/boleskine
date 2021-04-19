@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useCallback, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 import { DotsVerticalIcon, SwitchVerticalIcon } from "@heroicons/react/outline";
 
@@ -15,6 +15,7 @@ interface EntryProps {
 	type: string;
 	amount?: string;
 	idx: number;
+	draggingOver: boolean;
 }
 
 export const Entry: React.FC<EntryProps> = ({
@@ -23,18 +24,27 @@ export const Entry: React.FC<EntryProps> = ({
 	type,
 	amount,
 	idx,
+	draggingOver,
 }) => {
 	const [hovering, setHovering] = useState(false);
 
+	const classes = useCallback(
+		(isDragging) =>
+			`Entries__Entry ${hovering ? "hover" : ""} ${
+				isDragging ? "drag" : ""
+			}`.trim(),
+		[hovering]
+	);
+
 	return (
 		<Draggable draggableId={id} index={idx}>
-			{({ innerRef, draggableProps, dragHandleProps }) => (
+			{({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => (
 				<div
-					ref={innerRef}
 					{...draggableProps}
-					className="Entries__Entry"
-					onMouseEnter={() => setHovering(true)}
-					onMouseLeave={() => setHovering(false)}
+					ref={innerRef}
+					onMouseEnter={() => draggingOver || setHovering(true)}
+					onMouseLeave={() => draggingOver || setHovering(false)}
+					className={classes(isDragging)}
 				>
 					<div className="Entries__Entry__Inner">
 						<button
@@ -43,14 +53,18 @@ export const Entry: React.FC<EntryProps> = ({
 						>
 							<SwitchVerticalIcon />
 						</button>
+
 						<p className="Entries__Entry__Text">{text}</p>
+
 						{type !== "not" && amount ? (
 							<p className={`Entries__Entry__Amount ${type}`}>
 								{type === "inc" ? "+" : type === "exp" ? "-" : null}
 								{amount}
 							</p>
 						) : null}
+
 						<button
+							onClick={() => {}}
 							className={`Option Option--${hovering ? "visible" : "hidden"}`}
 						>
 							<DotsVerticalIcon />

@@ -4,12 +4,7 @@
   .Entries__Entry {
     --tw-bg-opacity: 1;
     background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
-    --tw-bg-opacity: 0
-  }
-  .Entries__Entry:hover {
-    --tw-bg-opacity: 0.2
-  }
-  .Entries__Entry {
+    --tw-bg-opacity: 0;
     transition-property: background-color, border-color, color, fill, stroke;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -26,6 +21,13 @@
   .Entries__Entry:last-of-type {
       border-bottom-right-radius: 0.25rem;
       border-bottom-left-radius: 0.25rem;
+    }
+  .Entries__Entry.hover {
+      --tw-bg-opacity: 0.2;
+    }
+  .Entries__Entry.drag {
+      --tw-bg-opacity: 0.2;
+      border-radius: 0.25rem;
     }
   .Entries__Entry__Inner {
       display: flex;
@@ -55,7 +57,7 @@
       }
   .Entries__Entry__Inner .Option:focus {
         --tw-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
-        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
       }
   .Entries__Entry__Inner .Option:hover, .Entries__Entry__Inner .Option:focus {
           --tw-bg-opacity: 1;
@@ -63,7 +65,7 @@
           --tw-bg-opacity: 0.4;
           outline: 2px solid transparent;
           outline-offset: 2px;
-          --tw-text-opacity: 1
+          --tw-text-opacity: 1;
         }
   .Entries__Entry__Inner .Option--visible {
           height: 1.5rem;

@@ -1,5 +1,4 @@
-import React from "react";
-import { Droppable } from "react-beautiful-dnd";
+import { FC } from "react";
 import moment from "moment";
 
 import { Entries, EntriesType } from "./Entries";
@@ -14,23 +13,15 @@ interface DayProps {
 	id: string;
 	date: Date;
 	entries: EntriesType;
-	dropDisabled: boolean;
 }
 
-export const Day: React.FC<DayProps> = ({
-	id,
-	date,
-	entries,
-	dropDisabled = true,
-}) => {
+export const Day: FC<DayProps> = ({ id, date, entries }) => {
 	return (
 		<div className="Tracking__Day">
 			<div className="Tracking__Day__Heading">
 				{moment(date).format("ddd DD MMMM[,] YYYY")}
 			</div>
-			<Droppable droppableId={id} type="ENTRIES" isDropDisabled={dropDisabled}>
-				{(provided) => <Entries entries={entries} provided={provided} />}
-			</Droppable>
+			<Entries entries={entries} dayId={id} />
 		</div>
 	);
 };

@@ -1,4 +1,3 @@
-import React from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 import Card, { Header } from "ui/card/Card";
@@ -21,10 +20,7 @@ export const CurrentWeek: React.FC<CurrentWeekProps> = ({ id, idx }) => {
 							dragHandleY={provided.dragHandleProps}
 						/>
 						<Totals
-							date={[
-								new Date().toISOString(),
-								new Date().toISOString(),
-							]}
+							date={[new Date().toISOString(), new Date().toISOString()]}
 							income={1337}
 							expense={360}
 						/>

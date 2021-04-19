@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 import Card, { Header } from "ui/card/Card";
@@ -25,11 +25,7 @@ export const NewEntry: React.FC<NewEntryProps> = ({ id, idx }) => {
 					className="col-span-4 px-2 h-max"
 				>
 					<Card>
-						<Header
-							title="Add new entry"
-							xMove
-							dragHandleX={dragHandleProps}
-						/>
+						<Header title="Add new entry" xMove dragHandleX={dragHandleProps} />
 						<InputText
 							type="text"
 							name="description"

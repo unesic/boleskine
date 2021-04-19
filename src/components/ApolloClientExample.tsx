@@ -1,4 +1,3 @@
-import React from "react";
 import { useQuery, useLazyQuery, useMutation } from "@apollo/client";
 
 import { GET, CREATE } from "lib/graphql/example.queries";

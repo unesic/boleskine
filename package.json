@@ -65,7 +65,6 @@
 		"autoprefixer": "^10.2.5",
 		"postcss": "^8.2.10",
 		"postcss-cli": "^8.3.1",
-		"postcss-env-function": "^3.0.0",
 		"postcss-import": "^14.0.0",
 		"postcss-loader": "^4.1.0",
 		"postcss-nested": "^5.0.5",
