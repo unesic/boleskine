@@ -21,7 +21,7 @@ export const Day: React.FC<DayProps> = ({
 	id,
 	date,
 	entries,
-	dropDisabled,
+	dropDisabled = true,
 }) => {
 	return (
 		<div className="Tracking__Day">
