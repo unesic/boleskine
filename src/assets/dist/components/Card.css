@@ -1,6 +1,4 @@
 .Card {
-  -webkit-backdrop-filter: blur(0.75rem);
-          backdrop-filter: blur(0.75rem);
   --tw-bg-opacity: 1;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
   --tw-bg-opacity: 0.25;
@@ -10,6 +8,10 @@
   --tw-shadow: 0 25px 20px -20px rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(0, 0, 0, 0.06);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
+  .Card.drag {
+    -webkit-backdrop-filter: blur(0.75rem);
+            backdrop-filter: blur(0.75rem);
+  }
   .Card__Header {
     display: flex;
     align-items: center;

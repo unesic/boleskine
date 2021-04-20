@@ -1,19 +1,22 @@
 @layer components {
 	.Tracking {
-		max-height: calc(100% - theme("spacing[14]"));
-		width: calc(100% - theme("spacing[4]"));
-		@apply absolute overflow-y-auto grid gap-2;
+		height: calc(100% - theme("spacing[10]"));
+		@apply relative;
 
-		&::-webkit-scrollbar {
-			@apply w-2;
-		}
+		&__inner {
+			@apply absolute overflow-y-auto grid gap-2 w-full h-full;
 
-		&::-webkit-scrollbar-track {
-			@apply bg-transparent;
-		}
+			&::-webkit-scrollbar {
+				@apply w-2;
+			}
 
-		&::-webkit-scrollbar-thumb {
-			@apply rounded-full bg-app-dark-quinternary bg-opacity-40;
+			&::-webkit-scrollbar-track {
+				@apply bg-transparent;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				@apply rounded-full bg-app-dark-quinternary bg-opacity-40;
+			}
 		}
 
 		&__Day {

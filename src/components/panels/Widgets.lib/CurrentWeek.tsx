@@ -1,6 +1,4 @@
-import { Draggable } from "react-beautiful-dnd";
-
-import Card, { Header } from "ui/card/Card";
+import { DraggableCard, Header } from "ui/card";
 import { Totals } from "./Totals";
 
 interface CurrentWeekProps {
@@ -9,24 +7,16 @@ interface CurrentWeekProps {
 }
 
 export const CurrentWeek: React.FC<CurrentWeekProps> = ({ id, idx }) => {
+	const dates = [new Date().toISOString(), new Date().toISOString()];
+
 	return (
-		<Draggable draggableId={id} index={idx}>
-			{(provided) => (
-				<div ref={provided.innerRef} {...provided.draggableProps}>
-					<Card>
-						<Header
-							title="Current week"
-							yMove
-							dragHandleY={provided.dragHandleProps}
-						/>
-						<Totals
-							date={[new Date().toISOString(), new Date().toISOString()]}
-							income={1337}
-							expense={360}
-						/>
-					</Card>
-				</div>
+		<DraggableCard draggableId={id} index={idx}>
+			{(dragHandleProps) => (
+				<>
+					<Header title="Current week" yMove dragHandleY={dragHandleProps} />
+					<Totals date={dates} income={1337} expense={360} />
+				</>
 			)}
-		</Draggable>
+		</DraggableCard>
 	);
 };

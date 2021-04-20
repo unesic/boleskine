@@ -1,7 +1,6 @@
-import { Draggable } from "react-beautiful-dnd";
-
 import "assets/dist/components/Tracking.css";
-import Card, { Header } from "ui/card/Card";
+
+import { DraggableCard, Header } from "ui/card";
 import { Day, DayType } from "./Days.lib/Day";
 
 export type TrackingType = DayType[];
@@ -14,27 +13,23 @@ interface TrackingProps {
 
 export const Tracking: React.FC<TrackingProps> = ({ id, idx, days }) => {
 	return (
-		<Draggable draggableId={id} index={idx}>
-			{({ innerRef, draggableProps, dragHandleProps }) => (
-				<div
-					ref={innerRef}
-					{...draggableProps}
-					className="col-span-5 relative px-2 h-full"
-				>
-					<Card>
-						<Header
-							title="Expense and income"
-							xMove
-							dragHandleX={dragHandleProps}
-						/>
-						<div className="Tracking">
+		<DraggableCard
+			draggableId={id}
+			index={idx}
+			className="col-span-5 px-2 h-full"
+		>
+			{(dragHandleProps) => (
+				<>
+					<Header title="Tracking" xMove dragHandleX={dragHandleProps} />
+					<div className="Tracking">
+						<div className="Tracking__inner">
 							{days.map((day) => (
 								<Day key={day.id} {...day} />
 							))}
 						</div>
-					</Card>
-				</div>
+					</div>
+				</>
 			)}
-		</Draggable>
+		</DraggableCard>
 	);
 };

@@ -1,5 +1,4 @@
 import { FC, useMemo, useState } from "react";
-import { Draggable } from "react-beautiful-dnd";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
 import {
 	ChevronDoubleLeftIcon,
@@ -10,7 +9,7 @@ import {
 import moment from "moment";
 
 import "assets/dist/components/Calendar.css";
-import Card, { Header } from "ui/card/Card";
+import { DraggableCard, Header } from "ui/card";
 
 interface CalendarProps {
 	id: string;
@@ -90,30 +89,25 @@ export const Calendar: FC<CalendarProps> = ({ id, idx }) => {
 			({ date }) => date === moment(target).format("DD-MM-YYYY")
 		);
 	}
+
 	return (
-		<Draggable draggableId={id} index={idx}>
-			{(provided) => (
-				<div ref={provided.innerRef} {...provided.draggableProps}>
-					<Card>
-						<Header
-							title="Calendar"
-							yMove
-							dragHandleY={provided.dragHandleProps}
-						/>
-						<ReactCalendar
-							value={date}
-							onChange={onChange}
-							tileClassName={setTileClassName}
-							tileDisabled={setTileDisabled}
-							tileContent={setTileContent}
-							nextLabel={<ChevronRightIcon />}
-							next2Label={<ChevronDoubleRightIcon />}
-							prevLabel={<ChevronLeftIcon />}
-							prev2Label={<ChevronDoubleLeftIcon />}
-						/>
-					</Card>
-				</div>
+		<DraggableCard draggableId={id} index={idx}>
+			{(dragHandleProps) => (
+				<>
+					<Header title="Calendar" yMove dragHandleY={dragHandleProps} />
+					<ReactCalendar
+						value={date}
+						onChange={onChange}
+						tileClassName={setTileClassName}
+						tileDisabled={setTileDisabled}
+						tileContent={setTileContent}
+						nextLabel={<ChevronRightIcon />}
+						next2Label={<ChevronDoubleRightIcon />}
+						prevLabel={<ChevronLeftIcon />}
+						prev2Label={<ChevronDoubleLeftIcon />}
+					/>
+				</>
 			)}
-		</Draggable>
+		</DraggableCard>
 	);
 };

@@ -7,7 +7,7 @@ import { USER_REGISTER } from "lib/graphql/user.queries";
 
 import { InputText } from "ui/form/InputText";
 import { Button } from "ui/misc/Button";
-import Card, { Header } from "ui/card/Card";
+import { Card, Header } from "ui/card";
 import { Caption } from "ui/form/Caption";
 
 interface RegisterProps {

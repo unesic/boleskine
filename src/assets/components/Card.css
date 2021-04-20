@@ -1,7 +1,10 @@
 @layer components {
 	.Card {
-		backdrop-filter: blur(theme("spacing[3]"));
 		@apply rounded-lg p-2 h-full bg-black bg-opacity-25 shadow-card;
+
+		&.drag {
+			backdrop-filter: blur(theme("spacing[3]"));
+		}
 
 		&__Header {
 			@apply flex justify-between items-center mb-4;
