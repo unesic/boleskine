@@ -1,7 +1,7 @@
 @layer components {
 	.Tracking {
 		max-height: calc(100% - theme("spacing[14]"));
-		width: calc(100% - theme("spacing[8]"));
+		width: calc(100% - theme("spacing[4]"));
 		@apply absolute overflow-y-auto grid gap-2;
 
 		&::-webkit-scrollbar {

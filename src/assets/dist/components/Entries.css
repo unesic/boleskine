@@ -26,8 +26,11 @@
       --tw-bg-opacity: 0.2;
     }
   .Entries__Entry.drag {
-      --tw-bg-opacity: 0.2;
+      -webkit-backdrop-filter: blur(0.75rem);
+              backdrop-filter: blur(0.75rem);
+      --tw-bg-opacity: 0.4;
       border-radius: 0.25rem;
+      border-style: none;
     }
   .Entries__Entry__Inner {
       display: flex;

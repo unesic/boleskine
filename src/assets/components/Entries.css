@@ -19,7 +19,8 @@
 			}
 
 			&.drag {
-				@apply rounded bg-opacity-20;
+				backdrop-filter: blur(theme("spacing[3]"));
+				@apply border-none rounded bg-opacity-40;
 			}
 
 			&__Inner {

@@ -1,15 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
+
+import { setContext } from "@apollo/client/link/context";
 import {
 	ApolloProvider,
 	ApolloClient,
 	InMemoryCache,
 	createHttpLink,
 } from "@apollo/client";
-import { setContext } from "@apollo/client/link/context";
 
 import "assets/dist/main.css";
-import "lib/Object.filter";
 import { App } from "App";
 import { AuthProvider } from "lib/AuthContext";
 

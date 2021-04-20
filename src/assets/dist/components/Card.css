@@ -1,4 +1,6 @@
 .Card {
+  -webkit-backdrop-filter: blur(0.75rem);
+          backdrop-filter: blur(0.75rem);
   --tw-bg-opacity: 1;
   background-color: rgba(0, 0, 0, var(--tw-bg-opacity));
   --tw-bg-opacity: 0.25;

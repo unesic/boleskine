@@ -18,11 +18,11 @@ export const Widgets: React.FC<WidgetsProps> = ({ id, idx, order }) => {
 					ref={innerRef}
 					{...draggableProps}
 					{...dragHandleProps}
-					className="col-span-3"
+					className="col-span-3 px-2"
 				>
 					<Droppable droppableId="WIDGETS" type="WIDGETS">
 						{({ innerRef, placeholder }) => (
-							<div ref={innerRef} className="flex flex-col gap-4 px-2">
+							<div ref={innerRef} className="flex flex-col gap-4">
 								{order.map((id, idx) =>
 									id === "calendar" ? (
 										<Calendar key={id} id={id} idx={idx} />
