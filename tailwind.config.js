@@ -6,7 +6,7 @@ module.exports = {
 	theme: {
 		extend: {
 			spacing: {
-				13: "3.25rem"
+				13: "3.25rem",
 			},
 			maxHeight: {
 				"fit-content": "fit-content",
@@ -47,9 +47,8 @@ module.exports = {
 				card:
 					"0 25px 20px -20px rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(0, 0, 0, 0.06)",
 				"gradient-focus": "0 0 4px 0 rgba(255, 255, 255, 0.25)",
-				"solid-focus": `0 0 0 1px ${theme(
-					'colors.app["accent-blue"]'
-				)}`,
+				"solid-focus": `0 0 0 1px ${theme(`colors.app["accent-blue"]`)}`,
+				"solid-error": `0 0 0 1px ${theme(`colors.app["accent-red"]`)}`,
 			}),
 			opacity: {
 				1: "1%",

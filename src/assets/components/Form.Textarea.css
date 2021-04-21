@@ -1,16 +1,20 @@
 @import "./Form.Field.css";
 
 @layer components {
-	.Field--Text {
-		@apply relative rounded p-1 bg-app-dark-quinternary bg-opacity-40 transition-all duration-200 ease-out;
+	.Field--Textarea {
+		@apply relative flex rounded p-1 bg-app-dark-quinternary bg-opacity-40 transition-all duration-200 ease-out;
 
 		&:focus-within,
-		&.has-value {
+		&--has-value {
 			@apply pt-6;
 		}
 
-		&__Input {
-			@apply rounded p-2 w-full bg-app-dark-quinternary bg-opacity-0 outline-none text-app-light-primary focus:shadow-solid-focus;
+		&--has-errors {
+			@apply shadow-solid-error;
+		}
+
+		&__input {
+			@apply rounded p-2 w-full bg-app-dark-quinternary bg-opacity-0 outline-none resize-none text-app-light-primary focus:shadow-solid-focus;
 			@apply transition-all duration-200 ease-out hover:bg-opacity-40;
 
 			&::-webkit-outer-spin-button,
@@ -19,21 +23,17 @@
 				margin: 0;
 			}
 
-			&[type="number"] {
-				-moz-appearance: textfield;
-			}
-
 			&:focus,
-			&.has-value {
+			&--has-value {
 				@apply bg-opacity-40;
 
-				& ~ [class*="_Label"] {
+				& ~ [class*="_label"] {
 					@apply top-1 left-1 text-xs;
 				}
 			}
 		}
 
-		&__Label {
+		&__label {
 			@apply absolute top-3 left-3 text-base text-app-light-tertiary text-opacity-70;
 			@apply transition-all duration-200 ease-out;
 		}

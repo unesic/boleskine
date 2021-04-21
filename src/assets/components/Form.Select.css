@@ -1,0 +1,127 @@
+@import "./Form.Field.css";
+
+@layer components {
+	.Field .Field--Select {
+		@apply border-green-900;
+
+		&--has-errors {
+			.Field--Select__control {
+				@apply shadow-solid-error;
+			}
+		}
+
+		/* Main element */
+		&__control {
+			@apply border-none rounded p-1 bg-app-dark-quinternary bg-opacity-40;
+
+			&--menu-is-open {
+			}
+		}
+
+		&__value-container {
+			&--has-value {
+			}
+
+			&--is-multi {
+			}
+		}
+
+		&__single-value {
+			@apply text-app-light-primary;
+		}
+
+		&__multi-value {
+			@apply rounded bg-app-dark-primary bg-opacity-80;
+
+			&__label {
+				@apply text-app-light-primary;
+			}
+
+			&__remove {
+				@apply text-app-light-secondary;
+				@apply transition duration-200 ease-out;
+
+				&:hover {
+					@apply bg-app-dark-primary text-app-light-primary;
+				}
+			}
+		}
+
+		&__input {
+			input {
+				@apply focus:shadow-none text-app-light-secondary !important;
+			}
+		}
+
+		/* Dropdown menu buttons */
+		&__indicators {
+		}
+
+		&__indicator {
+			@apply text-app-light-primary text-opacity-40 hover:text-opacity-100 transition duration-200 ease-out;
+		}
+
+		&__indicator-separator {
+			@apply bg-app-light-tertiary bg-opacity-40;
+		}
+
+		&__dropdown-indicator {
+		}
+
+		&__clear-indicator {
+		}
+
+		/* Dropdown menu */
+		&__menu {
+			@apply rounded p-1 bg-app-dark-quinternary bg-opacity-40;
+			@apply transition-all duration-200 ease-out;
+			backdrop-filter: blur(theme("spacing[3]"));
+		}
+
+		&__menu-list {
+			@apply py-0;
+
+			&::-webkit-scrollbar {
+				@apply w-2;
+			}
+
+			&::-webkit-scrollbar-track {
+				@apply bg-transparent;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				@apply rounded-full bg-app-dark-primary bg-opacity-40;
+			}
+
+			&--is-multi {
+			}
+		}
+
+		&__option {
+			@apply rounded p-2 transition-all duration-200 ease-out focus:outline-none;
+			@apply text-sm text-left text-app-light-secondary text-opacity-70 transition-colors duration-200 ease-out;
+
+			&:not(:last-of-type) {
+				@apply mb-1;
+			}
+
+			&--is-focused {
+				@apply bg-app-light-primary bg-opacity-5 text-opacity-100;
+			}
+
+			&:active,
+			&--is-selected {
+				@apply bg-app-dark-secondary bg-opacity-50 text-opacity-100;
+			}
+		}
+
+		/* Misc */
+		&__no-options-message {
+			@apply text-app-light-secondary text-opacity-60;
+		}
+
+		&__placeholder {
+			@apply text-app-light-tertiary text-opacity-70;
+		}
+	}
+}
