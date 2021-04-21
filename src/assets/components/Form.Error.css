@@ -1,0 +1,5 @@
+@layer components {
+	.Error {
+		@apply mt-1 pl-2 text-xs text-app-accent-red;
+	}
+}

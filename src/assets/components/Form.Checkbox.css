@@ -7,19 +7,28 @@
 		}
 
 		&__Option {
-			@apply flex items-center gap-1 mb-1 rounded p-2 transition-all duration-200 ease-out;
+			@apply flex items-center gap-1 mb-1 rounded p-2 bg-app-dark-secondary bg-opacity-0 text-sm text-app-light-secondary text-opacity-70;
+			@apply transition-all duration-200 ease-out;
 
 			&:hover,
-			&:focus-within {
-				@apply bg-app-light-primary bg-opacity-5;
+			&--focus {
+				@apply bg-opacity-80 text-opacity-100;
+			}
 
-				[class*="Label"] {
-					@apply text-opacity-100;
+			&--checked {
+				@apply bg-opacity-40 text-opacity-100;
+
+				&:hover {
+					@apply bg-opacity-20;
 				}
+			}
+
+			&:active {
+				@apply bg-opacity-60;
 			}
 		}
 
-		&__Input {
+		&__input {
 			color-adjust: exact;
 			background-origin: border-box;
 			@apply appearance-none select-none inline-block flex-shrink-0 align-middle;
@@ -31,10 +40,6 @@
 				background-size: 100% 100%;
 				@apply bg-no-repeat bg-center border-app-light-primary border-opacity-100 bg-current;
 			}
-		}
-
-		&__Label {
-			@apply w-full text-sm text-app-light-secondary text-opacity-70 transition-colors duration-200 ease-out;
 		}
 	}
 }
