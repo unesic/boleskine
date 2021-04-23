@@ -1,19 +1,17 @@
 import { ComponentProps } from "react";
 import { Story } from "@storybook/react";
 
-import { Checkbox } from "ui/form/Checkbox";
+import { Checkbox as Cb } from "ui/form/Checkbox";
 
 export default {
 	title: "UI/Form Fields/Checkbox",
-	component: Checkbox,
+	component: Cb,
 };
 
-const Template: Story<ComponentProps<typeof Checkbox>> = (args) => (
-	<Checkbox {...args} />
-);
+const Template: Story<ComponentProps<typeof Cb>> = (args) => <Cb {...args} />;
 
-export const Base = Template.bind({});
-Base.args = {
+export const Checkbox = Template.bind({});
+Checkbox.args = {
 	options: [
 		{ name: "1", label: "Option 1" },
 		{ name: "2", label: "Option 2" },
