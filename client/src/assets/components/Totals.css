@@ -1,0 +1,31 @@
+@layer components {
+	.Totals {
+		&__title {
+			@apply text-xs text-app-light-tertiary text-opacity-30 font-body-medium;
+		}
+
+		&__Inner {
+			@apply px-2 pb-2;
+
+			.Total {
+				@apply mt-4;
+
+				&__title {
+					@apply text-sm;
+
+					&--inc {
+						@apply text-app-accent-green;
+					}
+
+					&--exp {
+						@apply text-app-accent-red;
+					}
+				}
+
+				&__value {
+					@apply mt-2 pl-2 text-2xl text-app-light-primary font-body-medium;
+				}
+			}
+		}
+	}
+}

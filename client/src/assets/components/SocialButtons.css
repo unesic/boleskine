@@ -1,0 +1,32 @@
+@layer components {
+	.SocialButtons {
+		@apply flex flex-col gap-4 items-center self-center;
+
+		&__button {
+			@apply flex justify-center items-center gap-2 w-64;
+			@apply rounded px-6 py-4 bg-app-dark-secondary;
+			@apply font-body-medium text-app-light-primary;
+			@apply transition-all duration-200 ease-out;
+
+			&:hover {
+				filter: brightness(0.8);
+			}
+
+			&--github {
+				@apply bg-app-social-github;
+			}
+
+			&--google {
+				@apply bg-app-social-google;
+			}
+
+			&--facebook {
+				@apply bg-app-social-facebook;
+			}
+
+			&--linkedin {
+				@apply bg-app-social-linkedin;
+			}
+		}
+	}
+}

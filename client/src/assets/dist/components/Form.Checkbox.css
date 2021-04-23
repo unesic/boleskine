@@ -1,0 +1,103 @@
+.Field:not(:last-of-type) {
+    margin-bottom: 0.5rem;
+  }
+  .Field__Caption {
+    --tw-text-opacity: 1;
+    color: rgba(165, 167, 184, var(--tw-text-opacity));
+  }
+
+.Field--Checkbox__Options {
+    margin-top: 0.25rem;
+    padding: 0.25rem;
+  }
+
+.Field--Checkbox__Option {
+    --tw-bg-opacity: 1;
+    background-color: rgba(51, 56, 103, var(--tw-bg-opacity));
+    --tw-bg-opacity: 0;
+    border-radius: 0.25rem;
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-bottom: 0.25rem;
+    padding: 0.5rem;
+    --tw-text-opacity: 1;
+    color: rgba(193, 195, 207, var(--tw-text-opacity));
+    --tw-text-opacity: 0.7;
+    gap: 0.25rem;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+.Field--Checkbox__Option:hover, .Field--Checkbox__Option--focus {
+      --tw-bg-opacity: 80%;
+      --tw-text-opacity: 1;
+    }
+
+.Field--Checkbox__Option--checked {
+      --tw-bg-opacity: 0.4;
+      --tw-text-opacity: 1;
+    }
+
+.Field--Checkbox__Option--checked:hover {
+        --tw-bg-opacity: 0.2;
+      }
+
+.Field--Checkbox__Option:active {
+      --tw-bg-opacity: 0.6;
+    }
+
+.Field--Checkbox__input {
+    -webkit-print-color-adjust: exact;
+            color-adjust: exact;
+    background-origin: border-box;
+    -webkit-appearance: none;
+            appearance: none;
+    display: inline-block;
+    flex-shrink: 0;
+    -webkit-user-select: none;
+            user-select: none;
+    vertical-align: middle;
+    --tw-bg-opacity: 1;
+    background-color: rgba(193, 195, 207, var(--tw-bg-opacity));
+    --tw-bg-opacity: 0.2;
+    --tw-border-opacity: 1;
+    border-color: rgba(165, 167, 184, var(--tw-border-opacity));
+    --tw-border-opacity: 80%;
+    border-radius: 0.125rem;
+    border-width: 1px;
+    height: 0.75rem;
+    width: 0.75rem
+  }
+
+.Field--Checkbox__input:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    --tw-shadow: 0 0 4px 0 rgba(255, 255, 255, 0.25);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+
+.Field--Checkbox__input {
+    --tw-text-opacity: 1;
+    color: rgba(4, 6, 32, var(--tw-text-opacity));
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    transition-duration: 200ms;
+  }
+
+.Field--Checkbox__input:checked {
+      background-image: url("http://localhost:5001/assets/icons/check.svg");
+      background-size: 100% 100%;
+      background-color: currentColor;
+      background-position: center;
+      background-repeat: no-repeat;
+      --tw-border-opacity: 1;
+      border-color: rgba(244, 244, 245, var(--tw-border-opacity));
+      --tw-border-opacity: 1;
+    }
