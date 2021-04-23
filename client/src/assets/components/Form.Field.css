@@ -1,0 +1,11 @@
+@layer components {
+	.Field {
+		&:not(:last-of-type) {
+			@apply mb-2;
+		}
+
+		&__Caption {
+			@apply text-app-light-tertiary;
+		}
+	}
+}
