@@ -4,7 +4,7 @@ import { Error } from "./Error";
 interface TextProps {
 	id: string;
 	name: string;
-	type: string;
+	type: "text" | "email" | "password" | "number";
 	value: any;
 	onChange: (e: React.ChangeEvent<any>) => void;
 	onBlur: (e: React.FocusEvent<any>) => void;

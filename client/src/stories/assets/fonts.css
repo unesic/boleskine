@@ -1,0 +1,89 @@
+@font-face {
+	font-family: "brandon_light";
+	src: url("http://localhost:5001/assets/fonts/brandontext-light.eot");
+	src:
+		url("http://localhost:5001/assets/fonts/brandontext-light.eot?#iefix") format("embedded-opentype"),
+		url("http://localhost:5001/assets/fonts/brandontext-light.woff2") format("woff2"),
+		url("http://localhost:5001/assets/fonts/brandontext-light.woff") format("woff"),
+		url("http://localhost:5001/assets/fonts/brandontext-light.ttf") format("truetype"),
+		url("http://localhost:5001/assets/fonts/brandontext-light.svg#brandon_textlight") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "brandon_medium";
+	src: url("http://localhost:5001/assets/fonts/brandontext-medium.eot");
+	src:
+		url("http://localhost:5001/assets/fonts/brandontext-medium.eot?#iefix") format("embedded-opentype"),
+		url("http://localhost:5001/assets/fonts/brandontext-medium.woff2") format("woff2"),
+		url("http://localhost:5001/assets/fonts/brandontext-medium.woff") format("woff"),
+		url("http://localhost:5001/assets/fonts/brandontext-medium.ttf") format("truetype"),
+		url("http://localhost:5001/assets/fonts/brandontext-medium.svg#brandon_textmedium") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "brandon_regular";
+	src: url("http://localhost:5001/assets/fonts/brandontext-regular.eot");
+	src:
+		url("http://localhost:5001/assets/fonts/brandontext-regular.eot?#iefix")
+		format("embedded-opentype"),
+		url("http://localhost:5001/assets/fonts/brandontext-regular.woff2") format("woff2"),
+		url("http://localhost:5001/assets/fonts/brandontext-regular.woff") format("woff"),
+		url("http://localhost:5001/assets/fonts/brandontext-regular.ttf") format("truetype"),
+		url("http://localhost:5001/assets/fonts/brandontext-regular.svg#brandon_text_regularregular")
+		format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "signpainter_medium";
+	src: url("http://localhost:5001/assets/fonts/signpainter-housescript-webfont.eot");
+	src:
+		url("http://localhost:5001/assets/fonts/signpainter-housescript-webfont.eot?#iefix")
+		format("embedded-opentype"),
+		url("http://localhost:5001/assets/fonts/signpainter-housescript-webfont.woff2") format("woff2"),
+		url("http://localhost:5001/assets/fonts/signpainter-housescript-webfont.woff") format("woff"),
+		url("http://localhost:5001/assets/fonts/signpainter-housescript-webfont.ttf") format("truetype"),
+		url("http://localhost:5001/assets/fonts/signpainter-housescript-webfont.svg#signpaintermedium")
+		format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "moleskine_icons";
+	src: url("http://localhost:5001/assets/fonts/moleskine_icons-regular-webfont.eot");
+	src:
+		url("http://localhost:5001/assets/fonts/moleskine_icons-regular-webfont.eot?#iefix")
+		format("embedded-opentype"),
+		url("http://localhost:5001/assets/fonts/moleskine_icons-regular-webfont.woff2") format("woff2"),
+		url("http://localhost:5001/assets/fonts/moleskine_icons-regular-webfont.woff") format("woff"),
+		url("http://localhost:5001/assets/fonts/moleskine_icons-regular-webfont.ttf") format("truetype"),
+		url("http://localhost:5001/assets/fonts/moleskine_icons-regular-webfont.svg#moleskine_iconsregular")
+		format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Moleskine";
+	src: url("http://localhost:5001/assets/fonts/Moleskine.eot?c3x9e0");
+	src:
+		url("http://localhost:5001/assets/fonts/Moleskine.eot?c3x9e0#iefix") format("embedded-opentype"),
+		url("http://localhost:5001/assets/fonts/Moleskine.ttf?c3x9e0") format("truetype"),
+		url("http://localhost:5001/assets/fonts/Moleskine.woff?c3x9e0") format("woff"),
+		url("http://localhost:5001/assets/fonts/Moleskine.svg?c3x9e0#Moleskine") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: "Copper_Penny";
+	src:
+		url("http://localhost:5001/assets/fonts/Copper-Penny-DTP-Normal.ttf.woff") format("woff"),
+		url("http://localhost:5001/assets/fonts/Copper-Penny-DTP-Normal.ttf.svg#Copper-Penny-DTP-Normal")
+		format("svg"),
+		url("http://localhost:5001/assets/fonts/Copper-Penny-DTP-Normal.ttf.eot"),
+		url("http://localhost:5001/assets/fonts/Copper-Penny-DTP-Normal.eot?#iefix")
+		format("embedded-opentype");
+	font-weight: normal;
+	font-style: normal;
+}

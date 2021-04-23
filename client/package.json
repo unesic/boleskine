@@ -42,12 +42,24 @@
 		"build:css": "npm run build:main && npm run build:components",
 		"build:main": "postcss src/assets/main.css -o src/assets/dist/main.css",
 		"build:components": "postcss src/assets/components --dir src/assets/dist/components",
-		"build:opt": "node ./scripts/build-non-split.js"
+		"build:opt": "node ./scripts/build-non-split.js",
+		"storybook": "start-storybook -p 6006 -s public",
+		"build-storybook": "build-storybook -s public"
 	},
 	"eslintConfig": {
 		"extends": [
 			"react-app",
 			"react-app/jest"
+		],
+		"overrides": [
+			{
+				"files": [
+					"**/*.stories.*"
+				],
+				"rules": {
+					"import/no-anonymous-default-export": "off"
+				}
+			}
 		]
 	},
 	"browserslist": {
@@ -63,7 +75,12 @@
 		]
 	},
 	"devDependencies": {
-		"@types/jwt-decode": "^3.1.0",
+		"@storybook/addon-actions": "^6.2.9",
+		"@storybook/addon-essentials": "^6.2.9",
+		"@storybook/addon-links": "^6.2.9",
+		"@storybook/node-logger": "^6.2.9",
+		"@storybook/preset-create-react-app": "^3.1.7",
+		"@storybook/react": "^6.2.9",
 		"@types/react-beautiful-dnd": "^13.0.0",
 		"@types/react-calendar": "^3.1.4",
 		"@types/react-router-dom": "^5.1.7",
