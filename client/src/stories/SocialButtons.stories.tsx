@@ -8,9 +8,7 @@ export default {
 	component: SB,
 };
 
-const Template: Story<ComponentProps<typeof SB>> = (args) => (
-	<SocialButtons {...args} />
-);
+const Template: Story<ComponentProps<typeof SB>> = (args) => <SB {...args} />;
 
 export const SocialButtons = Template.bind({});
 SocialButtons.args = {
