@@ -13,15 +13,26 @@ const generateToken = (user, remember) => {
 	return jwt.sign(
 		{
 			id: user._id,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			image: user.image,
 			email: user.email,
 		},
 		process.env.JWT_SECRET,
-		remember ? {} : { expiresIn: "1h" }
+		remember ? {} : { expiresIn: "7d" }
 	);
 };
 
 module.exports = {
 	Query: {
+		getAllUsers: async () => {
+			try {
+				const users = await Users.find();
+				return users;
+			} catch (err) {
+				throw new Error(err);
+			}
+		},
 		getUser: async (_, { userId }) => {
 			try {
 				const user = await Users.findById(userId);
@@ -37,9 +48,6 @@ module.exports = {
 	},
 	Mutation: {
 		createUser: async (_, { email, password, rePassword }) => {
-			console.log(email);
-			console.log(password);
-			console.log(rePassword);
 			const { valid, errors } = validateRegisterInput(
 				email,
 				password,
@@ -72,7 +80,7 @@ module.exports = {
 			return {
 				...res._doc,
 				id: res._id,
-				token,
+				token: token,
 			};
 		},
 		loginUser: async (_, { email, password, remember }) => {
@@ -146,6 +154,47 @@ module.exports = {
 				...res._doc,
 				id: res._id,
 				token,
+			};
+		},
+		authUser: async (_, { email, firstName, lastName, image }) => {
+			const currUser = await Users.findOne({ email });
+			let user;
+
+			if (currUser) {
+				if (!currUser.firstName || currUser.firstName === "") {
+					currUser.firstName = firstName;
+				}
+
+				if (!currUser.lastName || currUser.lastName === "") {
+					currUser.lastName = lastName;
+				}
+
+				if (!currUser.image || currUser.image === "") {
+					currUser.image = image;
+				}
+
+				user = await currUser.save();
+			} else if (!currUser) {
+				const newUser = new Users({
+					email,
+					firstName,
+					lastName,
+					image,
+				});
+				user = await newUser.save();
+			}
+
+			const token = generateToken(currUser);
+			console.log({
+				...user._doc,
+				id: user._id,
+				token: token,
+			});
+
+			return {
+				...user._doc,
+				id: user._id,
+				token: token,
 			};
 		},
 	},

@@ -4,27 +4,44 @@ module.exports = gql`
 	type User {
 		id: ID!
 		email: String!
+		firstName: String
+		lastName: String
+		image: String
 		token: String!
+		createdAt: String
+		updatedAt: String
 	}
 
-	type Example {
+	type Entry {
 		id: ID!
 		userId: ID!
-		type: String!
-		foo: Boolean
+		monthId: ID!
+		timestamp: String!
+		description: String!
+		amount: String
+		createdAt: String
+		updatedAt: String
+	}
+
+	type Month {
+		id: ID!
+		userId: ID!
+		date: String!
+		entries: [Entry]
 	}
 
 	type Query {
+		getAllUsers: [User]
 		getUser(userId: ID!): User
-		exampleGet(id: ID!): Example
+
+		getAllEntries: [Entry]
+		getEntry(id: ID!): Entry
+
+		getMonth(id: ID!): Month
 	}
 
 	type Mutation {
-		createUser(
-			email: String!
-			password: String!
-			rePassword: String!
-		): User!
+		createUser(email: String!, password: String!, rePassword: String!): User!
 		loginUser(email: String!, password: String!, remember: Boolean!): User
 		updateUser(
 			id: ID!
@@ -32,6 +49,24 @@ module.exports = gql`
 			password: String
 			rePassword: String
 		): User!
-		exampleCreate(type: String!, foo: Boolean): Example!
+		authUser(
+			email: String!
+			firstName: String
+			lastName: String
+			image: String
+		): User
+
+		createMonth(date: String!, entries: [ID]): Month
+		updateMonth(entries: [ID]): Month
+		deleteMonth(id: ID!): String
+
+		createEntry(
+			monthId: ID!
+			timestamp: String!
+			description: String!
+			type: String!
+			amount: String
+		): Entry
+		deleteEntry(id: ID!): String
 	}
 `;

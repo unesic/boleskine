@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
-import jwtDecode from "jwt-decode";
 
 import dummyDays from "./dummyDays";
 
@@ -19,8 +18,6 @@ export const Home: React.FC<HomeProps> = ({ location }) => {
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
 	const [days, setDays] = useState(dummyDays);
 
-	// console.log(jwtDecode(location.hash.split("=")[1]));
-
 	const onDragEndHandler = (result: DropResult) => {
 		const { type } = result;
 		if (type === "WIDGETS") reorder(result, widgets, setWidgets);
@@ -31,7 +28,7 @@ export const Home: React.FC<HomeProps> = ({ location }) => {
 	return (
 		<div className="grid grid-cols-12 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
 			<Sidebar />
-			<main className="col-span-10">
+			<main className="col-span-10 relative">
 				<DragDropContext onDragEnd={onDragEndHandler}>
 					<Droppable
 						droppableId="PANNELS"

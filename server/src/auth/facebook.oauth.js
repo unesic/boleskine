@@ -10,7 +10,7 @@ module.exports = function (app, passport) {
 				clientID: process.env.FACEBOOK_OAUTH_CLIENT_ID,
 				clientSecret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET,
 				callbackURL: `${process.env.SERVER_URL}:${process.env.PORT}/oauth/facebook/callback`,
-				profileFields: ["id", "email", "name", "short_name"],
+				profileFields: ["id", "email", "name", "picture.type(large)"],
 			},
 			function (_, __, profile, done) {
 				userProfile = profile;
@@ -29,7 +29,9 @@ module.exports = function (app, passport) {
 		passport.authenticate("facebook", { failureRedirect: "/error" }),
 		function (req, res) {
 			const token = jwt.sign(userProfile._json, process.env.JWT_SECRET, {});
-			res.redirect(`${process.env.CLIENT_REDIRECT_URL}/#access_token=${token}`);
+			res.redirect(
+				`${process.env.CLIENT_REDIRECT_URL}/?provider=facebook&access_token=${token}`
+			);
 		}
 	);
 };

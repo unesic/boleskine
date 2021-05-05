@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import {
 	HiOutlineUser,
 	HiOutlineChartSquareBar,
@@ -8,18 +9,31 @@ import {
 } from "react-icons/hi";
 
 import "assets/dist/components/Sidebar.css";
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "lib/AuthContext";
 
 interface SidebarProps {}
 
 export const Sidebar: React.FC<SidebarProps> = () => {
+	const { user, logoutUser } = useContext(AuthContext);
+
 	return (
 		<aside className="Sidebar">
-			<Link to="/" className="Sidebar__User">
+			<Link to={`/u/${user.id}`} className="Sidebar__User">
 				<span className="Sidebar__User__image">
-					<HiOutlineUser width={30} />
+					{user.image ? (
+						<img
+							src={user.image}
+							alt={`${user.firstName} ${user.lastName}'s avatar`}
+						/>
+					) : (
+						<HiOutlineUser width={30} />
+					)}
 				</span>
-				<span className="Sidebar__User__name">John Doe</span>
+				<div className="Sidebar__User__Details">
+					<div className="Sidebar__User__Details__name">{`${user.firstName} ${user.lastName}`}</div>
+					<div className="Sidebar__User__Details__email">{user.email}</div>
+				</div>
 			</Link>
 
 			<div className="Sidebar__Menu">
@@ -44,7 +58,11 @@ export const Sidebar: React.FC<SidebarProps> = () => {
 					<Link to="/" className="Sidebar__Menu__Submenu__item">
 						<HiOutlineCog size={20} /> Help &amp; Support
 					</Link>
-					<Link to="/logout" className="Sidebar__Menu__Submenu__item">
+					<Link
+						to="/logout"
+						onClick={() => logoutUser()}
+						className="Sidebar__Menu__Submenu__item"
+					>
 						<HiOutlineLogout size={20} /> Log out
 					</Link>
 				</div>

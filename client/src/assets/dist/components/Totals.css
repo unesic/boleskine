@@ -1,5 +1,5 @@
 .Totals__title {
-    font-family: brandon_medium;
+    font-family: brandon_medium, ui-sans-serif, system-ui, sans-serif;
     font-size: 0.75rem;
     line-height: 1rem;
     --tw-text-opacity: 1;
@@ -27,7 +27,7 @@
           color: rgba(219, 42, 52, var(--tw-text-opacity));
         }
   .Totals__Inner .Total__value {
-        font-family: brandon_medium;
+        font-family: brandon_medium, ui-sans-serif, system-ui, sans-serif;
         font-size: 1.5rem;
         line-height: 2rem;
         margin-top: 0.5rem;

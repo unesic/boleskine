@@ -28,7 +28,9 @@ module.exports = function (app, passport) {
 		passport.authenticate("google", { failureRedirect: "/error" }),
 		function (req, res) {
 			const token = jwt.sign(userProfile._json, process.env.JWT_SECRET, {});
-			res.redirect(`${process.env.CLIENT_REDIRECT_URL}/#access_token=${token}`);
+			res.redirect(
+				`${process.env.CLIENT_REDIRECT_URL}/?provider=google&access_token=${token}`
+			);
 		}
 	);
 };

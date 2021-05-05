@@ -8,11 +8,21 @@
 			@apply hover:bg-opacity-10;
 
 			&__image {
-				@apply flex justify-center items-center w-12 h-12 rounded-full bg-app-light-primary;
+				@apply flex justify-center items-center w-12 h-12 rounded-full bg-app-light-primary overflow-hidden;
+
+				img {
+					@apply w-full h-full;
+				}
 			}
 
-			&__name {
-				@apply text-2xl text-app-light-primary;
+			&__Details {
+				&__name {
+					@apply text-xl text-app-light-primary;
+				}
+
+				&__email {
+					@apply text-xs text-app-light-tertiary text-opacity-50;
+				}
 			}
 		}
 

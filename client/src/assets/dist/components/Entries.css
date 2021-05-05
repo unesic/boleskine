@@ -85,7 +85,7 @@
       color: rgba(193, 195, 207, var(--tw-text-opacity));
     }
   .Entries__Entry__Amount {
-      font-family: brandon_medium;
+      font-family: brandon_medium, ui-sans-serif, system-ui, sans-serif;
     }
   .Entries__Entry__Amount.inc {
         --tw-text-opacity: 1;

@@ -29,7 +29,9 @@ module.exports = function (app, passport) {
 			const { displayName, emails, id, name, photos, provider } = userProfile;
 			const data = { displayName, emails, id, name, photos, provider };
 			const token = jwt.sign(data, process.env.JWT_SECRET, {});
-			res.redirect(`${process.env.CLIENT_REDIRECT_URL}/#access_token=${token}`);
+			res.redirect(
+				`${process.env.CLIENT_REDIRECT_URL}/?provider=linkedin&access_token=${token}`
+			);
 		}
 	);
 };

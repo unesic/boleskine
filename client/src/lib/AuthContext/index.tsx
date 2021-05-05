@@ -7,6 +7,9 @@ import { reducer } from "./reducer";
 export type User = {
 	id: string;
 	email: string;
+	firstName: string;
+	lastName: string;
+	image: string;
 	token: string;
 };
 
