@@ -1,21 +1,26 @@
-import { FC } from "react";
+/**
+ * Base
+ */
+import { memo } from "react";
 import moment from "moment";
 
-import { Entries, EntriesType } from "./Entries";
+/**
+ * Types
+ */
+import type { EntriesType } from "lib/SharedTypes";
 
-export type DayType = {
-	id: string;
-	date: Date;
-	entries: EntriesType;
-};
+/**
+ * Components
+ */
+import { Entries } from "./Entries";
 
 interface DayProps {
 	id: string;
-	date: Date;
+	date: string;
 	entries: EntriesType;
 }
 
-export const Day: FC<DayProps> = ({ id, date, entries }) => {
+export const Day: React.FC<DayProps> = memo(({ id, date, entries }) => {
 	return (
 		<div className="Tracking__Day">
 			<div className="Tracking__Day__Heading">
@@ -24,4 +29,4 @@ export const Day: FC<DayProps> = ({ id, date, entries }) => {
 			<Entries entries={entries} dayId={id} />
 		</div>
 	);
-};
+});

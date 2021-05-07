@@ -1,6 +1,13 @@
+/**
+ * Base
+ */
 import React from "react";
 import ReactDOM from "react-dom";
+import "assets/dist/main.css";
 
+/**
+ * Apollo
+ */
 import { setContext } from "@apollo/client/link/context";
 import {
 	ApolloProvider,
@@ -9,9 +16,16 @@ import {
 	createHttpLink,
 } from "@apollo/client";
 
-import "assets/dist/main.css";
+/**
+ * Redux
+ */
+import { Provider } from "react-redux";
+import { Store } from "store";
+
+/**
+ * Components
+ */
 import { App } from "App";
-import { AuthProvider } from "lib/AuthContext";
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("auth-token");
@@ -35,9 +49,9 @@ const client = new ApolloClient({
 ReactDOM.render(
 	<React.StrictMode>
 		<ApolloProvider client={client}>
-			<AuthProvider>
+			<Provider store={Store}>
 				<App />
-			</AuthProvider>
+			</Provider>
 		</ApolloProvider>
 	</React.StrictMode>,
 	document.getElementById("root")

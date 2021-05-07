@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 
 import { Calendar } from "./Widgets.lib/Calendar";
@@ -10,7 +11,7 @@ interface WidgetsProps {
 	order: string[];
 }
 
-export const Widgets: React.FC<WidgetsProps> = ({ id, idx, order }) => {
+export const Widgets: React.FC<WidgetsProps> = memo(({ id, idx, order }) => {
 	return (
 		<Draggable draggableId={id} index={idx}>
 			{({ innerRef, draggableProps, dragHandleProps }) => (
@@ -40,4 +41,4 @@ export const Widgets: React.FC<WidgetsProps> = ({ id, idx, order }) => {
 			)}
 		</Draggable>
 	);
-};
+});

@@ -1,4 +1,19 @@
+/**
+ * Base
+ */
+import { memo } from "react";
 import { Link } from "react-router-dom";
+import "assets/dist/components/Sidebar.css";
+
+/**
+ * Redux
+ */
+import { useDispatch, useSelector } from "react-redux";
+import { userLogout, selectUser } from "store/auth.slice";
+
+/**
+ * Icons
+ */
 import {
 	HiOutlineUser,
 	HiOutlineChartSquareBar,
@@ -8,14 +23,11 @@ import {
 	HiOutlineClipboardList,
 } from "react-icons/hi";
 
-import "assets/dist/components/Sidebar.css";
-import { useContext } from "react";
-import { AuthContext } from "lib/AuthContext";
-
 interface SidebarProps {}
 
-export const Sidebar: React.FC<SidebarProps> = () => {
-	const { user, logoutUser } = useContext(AuthContext);
+export const Sidebar: React.FC<SidebarProps> = memo(() => {
+	const dispatch = useDispatch();
+	const user = useSelector(selectUser);
 
 	return (
 		<aside className="Sidebar">
@@ -60,7 +72,7 @@ export const Sidebar: React.FC<SidebarProps> = () => {
 					</Link>
 					<Link
 						to="/logout"
-						onClick={() => logoutUser()}
+						onClick={() => dispatch(userLogout())}
 						className="Sidebar__Menu__Submenu__item"
 					>
 						<HiOutlineLogout size={20} /> Log out
@@ -81,4 +93,4 @@ export const Sidebar: React.FC<SidebarProps> = () => {
 			</div>
 		</aside>
 	);
-};
+});

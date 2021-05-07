@@ -1,28 +1,48 @@
-import { useState } from "react";
+/**
+ * Base
+ */
+import { memo, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
 
-import dummyDays from "./dummyDays";
+/**
+ * Redux
+ */
+import { useDispatch, useSelector } from "react-redux";
+import { updateActiveMonth, selectActiveMonth } from "store/tracking.slice";
 
+/**
+ * Utilities & types
+ */
+import { reorder, reorderDays } from "lib/reorder";
+import { DayType } from "lib/SharedTypes";
+
+/**
+ * Components
+ */
 import { Sidebar } from "components/Sidebar";
 import { Widgets } from "components/pannels/Widgets";
-import { Tracking } from "components/pannels/Tracking";
 import { NewEntry } from "components/pannels/NewEntry";
-import { reorder, reorderDays } from "lib/reorder";
+import { Tracking } from "components/pannels/Tracking";
 
-interface HomeProps {
-	location: any;
-}
+interface HomeProps {}
 
-export const Home: React.FC<HomeProps> = ({ location }) => {
+export const Home: React.FC<HomeProps> = memo(() => {
 	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
-	const [days, setDays] = useState(dummyDays);
+	const activeMonth = useSelector(selectActiveMonth);
+	const dispatch = useDispatch();
 
 	const onDragEndHandler = (result: DropResult) => {
 		const { type } = result;
-		if (type === "WIDGETS") reorder(result, widgets, setWidgets);
-		else if (type === "PANNELS") reorder(result, pannels, setPannels);
-		else if (type.includes("ENTRIES")) reorderDays(result, days, setDays);
+		if (type.includes("ENTRIES")) {
+			reorderDays(result, activeMonth, (newDays: DayType[]) =>
+				dispatch(updateActiveMonth(newDays))
+			);
+		} else if (type === "WIDGETS") {
+			reorder(result, widgets, setWidgets);
+		} else if (type === "PANNELS") {
+			reorder(result, pannels, setPannels);
+		}
 	};
 
 	return (
@@ -45,7 +65,7 @@ export const Home: React.FC<HomeProps> = ({ location }) => {
 									id === "widgets" ? (
 										<Widgets key={id} id={id} idx={idx} order={widgets} />
 									) : id === "tracking" ? (
-										<Tracking key={id} id={id} idx={idx} days={days} />
+										<Tracking key={id} id={id} idx={idx} days={activeMonth} />
 									) : id === "newEntry" ? (
 										<NewEntry key={id} id={id} idx={idx} />
 									) : null
@@ -58,4 +78,4 @@ export const Home: React.FC<HomeProps> = ({ location }) => {
 			</main>
 		</div>
 	);
-};
+});

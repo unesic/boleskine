@@ -1,7 +1,7 @@
-import { useContext } from "react";
 import { Redirect, Route } from "react-router-dom";
 
-import { AuthContext } from "lib/AuthContext";
+import { useSelector } from "react-redux";
+import { selectUser } from "store/auth.slice";
 
 interface PublicRouteProps {
 	[key: string]: any;
@@ -11,13 +11,13 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 	component: Component,
 	...rest
 }) => {
-	const context = useContext(AuthContext);
+	const user = useSelector(selectUser);
 
 	return (
 		<Route
 			{...rest}
 			render={(props) =>
-				context.user ? (
+				user ? (
 					<Redirect
 						to={{
 							pathname: "/",

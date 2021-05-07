@@ -1,21 +1,38 @@
-import { useContext, useEffect, useState } from "react";
+/**
+ * Base
+ */
+import { useEffect, useState } from "react";
 import { useParams } from "react-router";
-
-import { AuthContext, User } from "lib/AuthContext";
-import { Card, Header } from "ui/card";
 import { useLazyQuery } from "@apollo/client";
+
+/**
+ * Redux
+ */
+import { useSelector } from "react-redux";
+import { selectUser } from "store/auth.slice";
+
+/**
+ * Utilities & types
+ */
 import { GET_USER } from "lib/graphql/user.queries";
+import type { UserType } from "lib/SharedTypes";
+
+/**
+ * Components
+ */
+import { Card, Header } from "ui/card";
 import { Caption } from "ui/form/Caption";
 
 interface ProfileProps {}
 
 export const Profile: React.FC<ProfileProps> = () => {
-	const [user, setUser] = useState<null | User>(null);
-	const context = useContext(AuthContext);
+	const [userProfile, setUserProfile] = useState<null | UserType>(null);
+
 	const params = useParams<{ id: string } | null>();
+	const user = useSelector(selectUser);
 
 	useEffect(() => {
-		if (params?.id === context.user.id) setUser(context.user);
+		if (params?.id === user.id) setUserProfile(user);
 		else getUser({ variables: { userId: params?.id } });
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -23,14 +40,14 @@ export const Profile: React.FC<ProfileProps> = () => {
 
 	const [getUser] = useLazyQuery(GET_USER, {
 		onCompleted({ getUser }) {
-			setUser(getUser);
+			setUserProfile(getUser);
 		},
 		onError(err) {
 			console.log(err);
 		},
 	});
 
-	return user ? (
+	return userProfile ? (
 		<div className="container mx-auto min-h-screen grid place-items-center">
 			<div className="min-w-min">
 				<Card>
@@ -38,18 +55,22 @@ export const Profile: React.FC<ProfileProps> = () => {
 					<div className="flex gap-4 items-center p-2">
 						<div className="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden">
 							<img
-								src={user.image}
-								alt={`${user.firstName} ${user.lastName}'s avatar`}
+								src={userProfile.image}
+								alt={`${userProfile.firstName} ${userProfile.lastName}'s avatar`}
 								className="w-full h-full"
 							/>
 						</div>
 						<div className="w-full">
 							<div className="text-xl font-body-medium text-app-light-primary">
-								{user.firstName} {user.lastName}
+								{userProfile.firstName} {userProfile.lastName}
 							</div>
-							<div className="text-app-light-secondary">{user.email}</div>
+							<div className="text-app-light-secondary">
+								{userProfile.email}
+							</div>
 							<Caption className="mt-1 text-sm opacity-60">User ID</Caption>
-							<p className="text-sm text-app-light-tertiary">{user.id}</p>
+							<p className="text-sm text-app-light-tertiary">
+								{userProfile.id}
+							</p>
 						</div>
 					</div>
 				</Card>

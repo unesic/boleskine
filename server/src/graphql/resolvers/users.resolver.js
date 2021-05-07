@@ -185,11 +185,6 @@ module.exports = {
 			}
 
 			const token = generateToken(currUser);
-			console.log({
-				...user._doc,
-				id: user._id,
-				token: token,
-			});
 
 			return {
 				...user._doc,

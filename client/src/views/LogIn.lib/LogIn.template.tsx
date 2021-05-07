@@ -1,13 +1,19 @@
+/**
+ * Base
+ */
 import { Link } from "react-router-dom";
 import { FormikProps } from "formik";
 
+/**
+ * Components
+ */
 import { Card, Header } from "ui/card";
 import { Text } from "ui/form/Text";
 import { Caption } from "ui/form/Caption";
 import { Checkbox } from "ui/form/Checkbox";
 import { Button } from "ui/misc/Button";
-import { SocialButtons } from "ui/misc/SocialButtons";
 import { Spacer } from "ui/misc/Spacer";
+import { SocialButtons } from "ui/misc/SocialButtons";
 
 interface Values {
 	email: string;

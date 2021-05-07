@@ -1,3 +1,11 @@
+/**
+ * Base
+ */
+import { memo } from "react";
+
+/**
+ * Components
+ */
 import { DraggableCard, Header } from "ui/card";
 import { Totals } from "./Totals";
 
@@ -6,7 +14,7 @@ interface CurrentWeekProps {
 	idx: number;
 }
 
-export const CurrentWeek: React.FC<CurrentWeekProps> = ({ id, idx }) => {
+export const CurrentWeek: React.FC<CurrentWeekProps> = memo(({ id, idx }) => {
 	const dates = [new Date().toISOString(), new Date().toISOString()];
 
 	return (
@@ -19,4 +27,4 @@ export const CurrentWeek: React.FC<CurrentWeekProps> = ({ id, idx }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});

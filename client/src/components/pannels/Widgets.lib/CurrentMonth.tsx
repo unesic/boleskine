@@ -1,3 +1,11 @@
+/**
+ * Base
+ */
+import { memo } from "react";
+
+/**
+ * Components
+ */
 import { DraggableCard, Header } from "ui/card";
 import { Totals } from "./Totals";
 
@@ -6,7 +14,7 @@ interface CurrentMonthProps {
 	idx: number;
 }
 
-export const CurrentMonth: React.FC<CurrentMonthProps> = ({ id, idx }) => {
+export const CurrentMonth: React.FC<CurrentMonthProps> = memo(({ id, idx }) => {
 	return (
 		<DraggableCard draggableId={id} index={idx}>
 			{(dragHandleProps) => (
@@ -21,4 +29,4 @@ export const CurrentMonth: React.FC<CurrentMonthProps> = ({ id, idx }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});

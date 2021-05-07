@@ -3,7 +3,8 @@
   position: relative;
 }
   .Tracking__inner {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     height: 100%;
     overflow-y: auto;
     position: absolute;

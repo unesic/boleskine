@@ -1,17 +1,23 @@
+/**
+ * Base
+ */
 import { Link } from "react-router-dom";
 import { FormikProps } from "formik";
 
+/**
+ * Components
+ */
 import { Card, Header } from "ui/card";
 import { Text } from "ui/form/Text";
 import { Caption } from "ui/form/Caption";
 import { Button } from "ui/misc/Button";
-import { SocialButtons } from "ui/misc/SocialButtons";
 import { Spacer } from "ui/misc/Spacer";
+import { SocialButtons } from "ui/misc/SocialButtons";
 
 interface Values {
 	email: string;
 	password: string;
-	repassword: string;
+	rePassword: string;
 }
 
 interface SignUpTemplateProps {
@@ -57,14 +63,14 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
 									label="Password"
 								/>
 								<Text
-									id="repassword"
-									name="repassword"
+									id="rePassword"
+									name="rePassword"
 									type="password"
-									value={values.repassword}
+									value={values.rePassword}
 									onChange={handleChange}
 									onBlur={handleBlur}
-									errors={errors.repassword}
-									touched={touched.repassword}
+									errors={errors.rePassword}
+									touched={touched.rePassword}
 									label="Re-type Password"
 								/>
 								<Button type="submit">Sign up</Button>

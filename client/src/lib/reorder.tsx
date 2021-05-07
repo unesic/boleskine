@@ -1,6 +1,13 @@
+/**
+ * Base
+ */
 import { Dispatch, SetStateAction } from "react";
 import { DropResult } from "react-beautiful-dnd";
-import { TrackingType } from "components/pannels/Tracking";
+
+/**
+ * Types
+ */
+import type { DayType } from "./SharedTypes";
 
 export const reorder = (
 	{ source, destination }: DropResult,
@@ -17,13 +24,16 @@ export const reorder = (
 
 export const reorderDays = (
 	{ source, destination }: DropResult,
-	state: TrackingType,
-	setState: Dispatch<SetStateAction<TrackingType>>
+	state: DayType[],
+	setState: (newState: DayType[]) => void
 ) => {
 	if (!destination) return;
 
 	const newDays = [...state];
-	const day = newDays.find(({ id }) => id === source.droppableId);
+	const day = Object.assign(
+		{},
+		newDays.find(({ id }) => id === source.droppableId)
+	);
 	if (!day) return;
 	const dayIdx = state.findIndex(({ id }) => id === day.id);
 

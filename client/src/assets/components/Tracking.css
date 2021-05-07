@@ -4,7 +4,7 @@
 		@apply relative;
 
 		&__inner {
-			@apply absolute overflow-y-auto grid gap-2 w-full h-full;
+			@apply absolute overflow-y-auto flex flex-col gap-2 w-full h-full;
 
 			&::-webkit-scrollbar {
 				@apply w-2;

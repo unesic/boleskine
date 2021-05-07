@@ -19,6 +19,7 @@ module.exports = gql`
 		timestamp: String!
 		description: String!
 		amount: String
+		type: String
 		createdAt: String
 		updatedAt: String
 	}

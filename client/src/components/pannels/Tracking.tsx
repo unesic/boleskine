@@ -1,9 +1,19 @@
+/**
+ * Base
+ */
+import { memo } from "react";
 import "assets/dist/components/Tracking.css";
 
-import { DraggableCard, Header } from "ui/card";
-import { Day, DayType } from "./Days.lib/Day";
+/**
+ * Types
+ */
+import type { TrackingType } from "lib/SharedTypes";
 
-export type TrackingType = DayType[];
+/**
+ * Components
+ */
+import { DraggableCard, Header } from "ui/card";
+import { Day } from "./Days.lib/Day";
 
 interface TrackingProps {
 	id: string;
@@ -11,7 +21,7 @@ interface TrackingProps {
 	days: TrackingType;
 }
 
-export const Tracking: React.FC<TrackingProps> = ({ id, idx, days }) => {
+export const Tracking: React.FC<TrackingProps> = memo(({ id, idx, days }) => {
 	return (
 		<DraggableCard
 			draggableId={id}
@@ -32,4 +42,4 @@ export const Tracking: React.FC<TrackingProps> = ({ id, idx, days }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});

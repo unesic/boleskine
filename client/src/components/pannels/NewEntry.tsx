@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useFormik } from "formik";
 
 import { DraggableCard, Header } from "ui/card";
@@ -12,18 +13,22 @@ import {
 	selectOptions,
 	checkboxOptions,
 } from "./NewEntry.formik";
+import { useDispatch } from "react-redux";
+import { addEntryToActiveMonth } from "store/tracking.slice";
 
 interface NewEntryProps {
 	id: string;
 	idx: number;
 }
 
-export const NewEntry: React.FC<NewEntryProps> = ({ id, idx }) => {
+export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
+	const dispatch = useDispatch();
+
 	const formik = useFormik({
 		initialValues: initialValues,
 		validationSchema: validationSchema,
 		onSubmit: (values) => {
-			console.log(values);
+			dispatch(addEntryToActiveMonth(values));
 		},
 	});
 
@@ -82,4 +87,4 @@ export const NewEntry: React.FC<NewEntryProps> = ({ id, idx }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});

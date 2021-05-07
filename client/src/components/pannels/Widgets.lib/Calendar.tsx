@@ -1,14 +1,24 @@
-import { FC, useMemo, useState } from "react";
+/**
+ * Base
+ */
+import { memo, useMemo, useState } from "react";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
+import moment from "moment";
+import "assets/dist/components/Calendar.css";
+
+/**
+ * Icons
+ */
 import {
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/outline";
-import moment from "moment";
 
-import "assets/dist/components/Calendar.css";
+/**
+ * Components
+ */
 import { DraggableCard, Header } from "ui/card";
 
 interface CalendarProps {
@@ -16,7 +26,7 @@ interface CalendarProps {
 	idx: number;
 }
 
-export const Calendar: FC<CalendarProps> = ({ id, idx }) => {
+export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 	const [date, setDate] = useState(new Date());
 
 	const markedDates = useMemo(
@@ -110,4 +120,4 @@ export const Calendar: FC<CalendarProps> = ({ id, idx }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});
