@@ -7,7 +7,7 @@ const {
 	validateLoginInput,
 	validateUpdateInput,
 } = require("../../util/validators");
-const Users = require("../../models/Users.model");
+const User = require("../../models/User.model");
 
 const generateToken = (user, remember) => {
 	return jwt.sign(
@@ -27,7 +27,7 @@ module.exports = {
 	Query: {
 		getAllUsers: async () => {
 			try {
-				const users = await Users.find();
+				const users = await User.find();
 				return users;
 			} catch (err) {
 				throw new Error(err);
@@ -35,7 +35,7 @@ module.exports = {
 		},
 		getUser: async (_, { userId }) => {
 			try {
-				const user = await Users.findById(userId);
+				const user = await User.findById(userId);
 				if (user) {
 					return user;
 				} else {
@@ -58,7 +58,7 @@ module.exports = {
 				throw new UserInputError("Errors", { errors });
 			}
 
-			const userMail = await Users.findOne({ email });
+			const userMail = await User.findOne({ email });
 
 			if (userMail) {
 				throw new UserInputError("Email is taken", {
@@ -70,7 +70,7 @@ module.exports = {
 
 			password = await bcrypt.hash(password, 12);
 
-			const newUser = new Users({
+			const newUser = new User({
 				email,
 				password,
 			});
@@ -90,7 +90,7 @@ module.exports = {
 				throw new UserInputError("Errors", { errors });
 			}
 
-			const user = await Users.findOne({ email });
+			const user = await User.findOne({ email });
 
 			if (!user) {
 				errors.general = "User not found";
@@ -122,7 +122,7 @@ module.exports = {
 				throw new UserInputError("Errors", { errors });
 			}
 
-			const userMail = await Users.findOne({ email });
+			const userMail = await User.findOne({ email });
 
 			if (userMail && userMail.id !== id) {
 				throw new UserInputError("Email is taken", {
@@ -132,13 +132,13 @@ module.exports = {
 				});
 			}
 
-			const currUser = await Users.findById(id);
+			const currUser = await User.findById(id);
 
 			if (password) {
 				password = await bcrypt.hash(password, 12);
 			}
 
-			const res = await Users.findByIdAndUpdate(
+			const res = await User.findByIdAndUpdate(
 				id,
 				{
 					username: username || currUser.username,
@@ -157,7 +157,7 @@ module.exports = {
 			};
 		},
 		authUser: async (_, { email, firstName, lastName, image }) => {
-			const currUser = await Users.findOne({ email });
+			const currUser = await User.findOne({ email });
 			let user;
 
 			if (currUser) {
@@ -175,7 +175,7 @@ module.exports = {
 
 				user = await currUser.save();
 			} else if (!currUser) {
-				const newUser = new Users({
+				const newUser = new User({
 					email,
 					firstName,
 					lastName,

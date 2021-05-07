@@ -24,3 +24,9 @@ export type UserType = {
 	image: string;
 	token: string;
 };
+
+export type MonthType = {
+	id: string;
+	date: string;
+	entries: EntriesType;
+};

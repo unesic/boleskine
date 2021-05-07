@@ -1,10 +1,21 @@
 /**
  * Base
  */
-import { memo, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
 import moment from "moment";
 import "assets/dist/components/Calendar.css";
+
+/**
+ * Redux
+ */
+import { useDispatch } from "react-redux";
+import { setActiveDate } from "store/tracking.slice";
+
+/**
+ * Components
+ */
+import { DraggableCard, Header } from "ui/card";
 
 /**
  * Icons
@@ -16,18 +27,18 @@ import {
 	ChevronRightIcon,
 } from "@heroicons/react/outline";
 
-/**
- * Components
- */
-import { DraggableCard, Header } from "ui/card";
-
 interface CalendarProps {
 	id: string;
 	idx: number;
 }
 
 export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
-	const [date, setDate] = useState(new Date());
+	const [calendarDate, setCalendarDate] = useState(new Date());
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		dispatch(setActiveDate(calendarDate.toISOString()));
+	}, [calendarDate]);
 
 	const markedDates = useMemo(
 		() => [
@@ -64,7 +75,7 @@ export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 	);
 
 	const onChange = (value: Date | Date[]) => {
-		setDate(value as Date);
+		setCalendarDate(value as Date);
 	};
 
 	const setTileClassName = (props: CalendarTileProperties): string | null => {
@@ -106,7 +117,7 @@ export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 				<>
 					<Header title="Calendar" yMove dragHandleY={dragHandleProps} />
 					<ReactCalendar
-						value={date}
+						value={calendarDate}
 						onChange={onChange}
 						tileClassName={setTileClassName}
 						tileDisabled={setTileDisabled}

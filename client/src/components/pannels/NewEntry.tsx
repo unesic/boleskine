@@ -1,20 +1,31 @@
+/**
+ * Base
+ */
 import { memo } from "react";
 import { useFormik } from "formik";
 
+/**
+ * Redux
+ */
+import { useDispatch } from "react-redux";
+import { addEntryToActiveMonthDays } from "store/tracking.slice";
+
+/**
+ * Components and utilities
+ */
 import { DraggableCard, Header } from "ui/card";
 import { Text } from "ui/form/Text";
 import { Select } from "ui/form/Select";
-import { Checkbox } from "ui/form/Checkbox";
 import { Button } from "ui/misc/Button";
-
+import { Checkbox } from "ui/form/Checkbox";
 import {
 	initialValues,
 	validationSchema,
 	selectOptions,
 	checkboxOptions,
 } from "./NewEntry.formik";
-import { useDispatch } from "react-redux";
-import { addEntryToActiveMonth } from "store/tracking.slice";
+import { useMutation } from "@apollo/client";
+import { CREATE_ENTRY } from "lib/graphql/entry.queries";
 
 interface NewEntryProps {
 	id: string;
@@ -23,12 +34,22 @@ interface NewEntryProps {
 
 export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 	const dispatch = useDispatch();
-
 	const formik = useFormik({
 		initialValues: initialValues,
 		validationSchema: validationSchema,
-		onSubmit: (values) => {
-			dispatch(addEntryToActiveMonth(values));
+		onSubmit: async (values) => {
+			await createEntry({
+				variables: { ...values, type: values.type!.value },
+			});
+		},
+	});
+
+	const [createEntry] = useMutation(CREATE_ENTRY, {
+		onCompleted({ createEntry }) {
+			dispatch(addEntryToActiveMonthDays(createEntry));
+		},
+		onError(err) {
+			console.log(err);
 		},
 	});
 

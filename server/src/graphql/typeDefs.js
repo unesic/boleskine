@@ -18,8 +18,8 @@ module.exports = gql`
 		monthId: ID!
 		timestamp: String!
 		description: String!
+		type: String!
 		amount: String
-		type: String
 		createdAt: String
 		updatedAt: String
 	}
@@ -37,8 +37,10 @@ module.exports = gql`
 
 		getAllEntries: [Entry]
 		getEntry(id: ID!): Entry
+		getUserEntries: [Entry]
 
 		getMonth(id: ID!): Month
+		getUserMonths: [Month]
 	}
 
 	type Mutation {
@@ -57,15 +59,23 @@ module.exports = gql`
 			image: String
 		): User
 
-		createMonth(date: String!, entries: [ID]): Month
-		updateMonth(entries: [ID]): Month
+		createMonth(date: String!): Month
+		# updateMonth(entries: [ID]): Month
 		deleteMonth(id: ID!): String
 
 		createEntry(
-			monthId: ID!
+			monthId: ID
+			date: String
 			timestamp: String!
 			description: String!
 			type: String!
+			amount: String
+		): Entry
+		updateEntry(
+			id: ID!
+			timestamp: String
+			description: String
+			type: String
 			amount: String
 		): Entry
 		deleteEntry(id: ID!): String

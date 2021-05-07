@@ -20,14 +20,10 @@ export const Slice = createSlice({
 	},
 	reducers: {
 		userLogin: (state, action) => {
-			console.log(action.payload);
-
 			state.user = action.payload;
 			localStorage.setItem("auth-token", action.payload.token);
 		},
 		userLogout: (state) => {
-			console.log("logoutUser called");
-
 			state.user = null;
 			localStorage.removeItem("auth-token");
 		},

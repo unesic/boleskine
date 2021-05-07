@@ -36,6 +36,7 @@ oauth(app);
 
 server.applyMiddleware({ app });
 
+mongoose.set("useFindAndModify", false);
 mongoose
 	.connect(process.env.MONGO_DB, {
 		useNewUrlParser: true,

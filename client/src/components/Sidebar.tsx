@@ -37,6 +37,7 @@ export const Sidebar: React.FC<SidebarProps> = memo(() => {
 						<img
 							src={user.image}
 							alt={`${user.firstName} ${user.lastName}'s avatar`}
+							referrerPolicy="no-referrer"
 						/>
 					) : (
 						<HiOutlineUser width={30} />

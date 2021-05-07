@@ -1,5 +1,5 @@
 import moment from "moment";
-import { EntriesType } from "lib/SharedTypes";
+import type { EntriesType } from "lib/SharedTypes";
 
 const entries: EntriesType = [
 	{

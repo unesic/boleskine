@@ -1,20 +1,28 @@
 /**
  * Base
  */
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
+import { useQuery } from "@apollo/client";
+import moment from "moment";
 
 /**
  * Redux
  */
 import { useDispatch, useSelector } from "react-redux";
-import { updateActiveMonth, selectActiveMonth } from "store/tracking.slice";
+import {
+	updateActiveMonthDays,
+	selectActiveMonthDays,
+	setMonths,
+	setActiveMonthDays,
+} from "store/tracking.slice";
 
 /**
  * Utilities & types
  */
 import { reorder, reorderDays } from "lib/reorder";
-import { DayType } from "lib/SharedTypes";
+import type { DayType } from "lib/SharedTypes";
+import { GET_USER_MONTHS } from "lib/graphql/month.queries";
 
 /**
  * Components
@@ -29,14 +37,25 @@ interface HomeProps {}
 export const Home: React.FC<HomeProps> = memo(() => {
 	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
-	const activeMonth = useSelector(selectActiveMonth);
+	const activeMonthDays = useSelector(selectActiveMonthDays);
 	const dispatch = useDispatch();
+	const { loading, error, data } = useQuery(GET_USER_MONTHS);
+
+	useEffect(() => {
+		if (!loading) {
+			dispatch(setMonths(data.getUserMonths));
+			dispatch(setActiveMonthDays(moment().format("YYYY-MM")));
+		} else if (error) {
+			console.log(error);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [loading]);
 
 	const onDragEndHandler = (result: DropResult) => {
 		const { type } = result;
 		if (type.includes("ENTRIES")) {
-			reorderDays(result, activeMonth, (newDays: DayType[]) =>
-				dispatch(updateActiveMonth(newDays))
+			reorderDays(result, activeMonthDays, (newDays: DayType[]) =>
+				dispatch(updateActiveMonthDays(newDays))
 			);
 		} else if (type === "WIDGETS") {
 			reorder(result, widgets, setWidgets);
@@ -65,7 +84,12 @@ export const Home: React.FC<HomeProps> = memo(() => {
 									id === "widgets" ? (
 										<Widgets key={id} id={id} idx={idx} order={widgets} />
 									) : id === "tracking" ? (
-										<Tracking key={id} id={id} idx={idx} days={activeMonth} />
+										<Tracking
+											key={id}
+											id={id}
+											idx={idx}
+											days={activeMonthDays}
+										/>
 									) : id === "newEntry" ? (
 										<NewEntry key={id} id={id} idx={idx} />
 									) : null

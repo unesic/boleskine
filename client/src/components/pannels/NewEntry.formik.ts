@@ -1,9 +1,14 @@
 import * as Yup from "yup";
 
+type EntryType = {
+	value: string;
+	label: string;
+};
+
 const initialValues = {
 	description: "",
 	amount: "",
-	type: null as { value: string; label: string } | null,
+	type: null as EntryType | null,
 	checks: null,
 };
 
@@ -14,12 +19,9 @@ const validationSchema = Yup.object({
 	type: Yup.object({
 		value: Yup.string(),
 		label: Yup.string(),
-	})
-		.required("Please select entry type")
-		.nullable(),
+	}).required("Please select entry type"),
 	amount: Yup.number().when("type", {
-		is: (type: null | { value: string; label: string }) =>
-			type?.value === "inc" || type?.value === "exp",
+		is: (type: EntryType) => type?.value === "inc" || type?.value === "exp",
 		then: Yup.number()
 			.positive("Amount must be a positive number")
 			.required("Please enter an amount"),

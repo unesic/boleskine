@@ -1,7 +1,7 @@
 import moment from "moment";
-import type { EntriesType, EntryType } from "./SharedTypes";
+import type { DayType, EntriesType, EntryType } from "./SharedTypes";
 
-export function formatEntries(entries: EntriesType) {
+export function formatEntries(entries: EntriesType): DayType[] {
 	const days: any = {};
 	entries.forEach((entry: EntryType) => {
 		const date = moment(entry.timestamp).format("YYYY-MM-DD");
@@ -17,5 +17,5 @@ export function formatEntries(entries: EntriesType) {
 		}
 	});
 	const res = Object.entries(days).map(([_, day]) => day);
-	return res;
+	return res as DayType[];
 }

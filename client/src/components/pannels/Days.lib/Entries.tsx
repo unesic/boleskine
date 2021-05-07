@@ -8,7 +8,7 @@ import "assets/dist/components/Entries.css";
 /**
  * Types
  */
-import { EntryType } from "lib/SharedTypes";
+import type { EntryType } from "lib/SharedTypes";
 
 /**
  * Components
