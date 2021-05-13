@@ -27,14 +27,14 @@
 				@apply flex justify-between items-center gap-2 p-2;
 
 				.Option {
-					@apply flex justify-center items-center rounded-full bg-app-dark-primary bg-opacity-10;
-					@apply text-app-light-secondary text-opacity-70;
+					@apply flex justify-center items-center rounded-full bg-app-dark-100 bg-opacity-10;
+					@apply text-app-light-200 text-opacity-70;
 					@apply transition-all duration-200 ease-out;
 					@apply outline-none focus:shadow-gradient-focus;
 
 					&:hover,
 					&:focus {
-						@apply bg-app-dark-quaternary bg-opacity-40 text-opacity-100 outline-none;
+						@apply bg-app-dark-400 bg-opacity-40 text-opacity-100 outline-none;
 					}
 
 					&--visible {
@@ -48,7 +48,7 @@
 			}
 
 			&__Text {
-				@apply flex-1 text-app-light-secondary;
+				@apply flex-1 text-app-light-200;
 			}
 
 			&__Amount {

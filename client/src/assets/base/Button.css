@@ -1,6 +1,6 @@
 @layer components {
 	.Button {
 		@apply flex items-center gap-2 mt-4 px-4 py-2 rounded bg-app-accent-blue filter hover:brightness-75;
-		@apply text-app-light-primary transition-all duration-200 ease-out;
+		@apply text-app-light-100 transition-all duration-200 ease-out;
 	}
 }

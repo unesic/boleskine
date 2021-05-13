@@ -61,14 +61,14 @@ export const Profile: React.FC<ProfileProps> = () => {
 							/>
 						</div>
 						<div className="w-full">
-							<div className="text-xl font-body-medium text-app-light-primary">
+							<div className="text-xl font-body-medium text-app-light-100">
 								{userProfile.firstName} {userProfile.lastName}
 							</div>
-							<div className="text-app-light-secondary">
+							<div className="text-app-light-200">
 								{userProfile.email}
 							</div>
 							<Caption className="mt-1 text-sm opacity-60">User ID</Caption>
-							<p className="text-sm text-app-light-tertiary">
+							<p className="text-sm text-app-light-300">
 								{userProfile.id}
 							</p>
 						</div>

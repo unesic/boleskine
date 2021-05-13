@@ -9,8 +9,12 @@ import "assets/dist/components/Calendar.css";
 /**
  * Redux
  */
-import { useDispatch } from "react-redux";
-import { setActiveDate } from "store/tracking.slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	selectActiveDate,
+	setActiveDate,
+	setActiveMonthDays,
+} from "store/tracking.slice";
 
 /**
  * Components
@@ -35,39 +39,46 @@ interface CalendarProps {
 export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 	const [calendarDate, setCalendarDate] = useState(new Date());
 	const dispatch = useDispatch();
+	const activeDate = useSelector(selectActiveDate);
 
 	useEffect(() => {
 		dispatch(setActiveDate(calendarDate.toISOString()));
+
+		const newMonth = moment(calendarDate).format("YYYY-MM");
+		if (newMonth !== activeDate.month) {
+			dispatch(setActiveMonthDays(newMonth));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [calendarDate]);
 
 	const markedDates = useMemo(
 		() => [
 			{
-				date: "30-03-2021",
+				date: "30-04-2021",
 				marks: ["inc", "exp", "not"],
 			},
 			{
-				date: "04-04-2021",
+				date: "04-05-2021",
 				marks: ["inc", "exp", "not"],
 			},
 			{
-				date: "07-04-2021",
+				date: "07-05-2021",
 				marks: ["inc", "exp", "not"],
 			},
 			{
-				date: "09-04-2021",
+				date: "09-05-2021",
 				marks: ["not"],
 			},
 			{
-				date: "10-04-2021",
+				date: "10-05-2021",
 				marks: ["inc", "not"],
 			},
 			{
-				date: "13-04-2021",
+				date: "13-05-2021",
 				marks: ["not"],
 			},
 			{
-				date: "17-04-2021",
+				date: "17-05-2021",
 				marks: ["exp", "not"],
 			},
 		],

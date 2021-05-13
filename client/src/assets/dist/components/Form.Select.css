@@ -12,7 +12,7 @@
 }
 
 .Field .Field--Select--has-errors .Field--Select__control {
-      --tw-shadow: 0 0 0 1px #DB2A34;
+      --tw-shadow: 0 0 0 1px undefined;
       box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
     }
 

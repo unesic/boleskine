@@ -31,6 +31,8 @@ import { Sidebar } from "components/Sidebar";
 import { Widgets } from "components/pannels/Widgets";
 import { NewEntry } from "components/pannels/NewEntry";
 import { Tracking } from "components/pannels/Tracking";
+import { Notifications } from "ui/misc/Notifications";
+import { addNotification } from "store/app.slice";
 
 interface HomeProps {}
 
@@ -100,6 +102,41 @@ export const Home: React.FC<HomeProps> = memo(() => {
 					</Droppable>
 				</DragDropContext>
 			</main>
+			<button
+				className="bg-app-accent-blue rounded text-white p-2"
+				onClick={() => {
+					dispatch(
+						addNotification({
+							id: new Date().toISOString(),
+							title: "Lorem Ipsum",
+							text: "Lorem ipsum dolor sit amet",
+							type: "normal",
+						})
+					);
+					dispatch(
+						addNotification({
+							id: new Date().toISOString(),
+							title: "Lorem Ipsum",
+							text: "Lorem ipsum dolor sit amet",
+							type: "success",
+						})
+					);
+					dispatch(
+						addNotification({
+							id: new Date().toISOString(),
+							title: "Lorem Ipsum",
+							text: "Lorem ipsum dolor sit amet",
+							type: "error",
+						})
+					);
+				}}
+			>
+				NOTIFY
+			</button>
+			<Notifications position="tl" />
+			<Notifications position="tr" />
+			<Notifications position="bl" />
+			<Notifications position="br" />
 		</div>
 	);
 });

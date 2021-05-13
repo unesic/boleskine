@@ -2,7 +2,7 @@
 
 @layer components {
 	.Field--Text {
-		@apply relative rounded p-1 bg-app-dark-quinternary bg-opacity-40 transition-all duration-200 ease-out;
+		@apply relative rounded p-1 bg-app-dark-500 bg-opacity-40 transition-all duration-200 ease-out;
 
 		&:focus-within,
 		&--has-value {
@@ -14,7 +14,7 @@
 		}
 
 		&__input {
-			@apply rounded p-2 w-full bg-app-dark-quinternary bg-opacity-0 outline-none text-app-light-primary focus:shadow-solid-focus;
+			@apply rounded p-2 w-full bg-app-dark-500 bg-opacity-0 outline-none text-app-light-100 focus:shadow-solid-focus;
 			@apply transition-all duration-200 ease-out hover:bg-opacity-40;
 
 			&::-webkit-outer-spin-button,
@@ -38,7 +38,7 @@
 		}
 
 		&__label {
-			@apply absolute top-3 left-3 text-base text-app-light-tertiary text-opacity-70;
+			@apply absolute top-3 left-3 text-base text-app-light-300 text-opacity-70;
 			@apply transition-all duration-200 ease-out cursor-text;
 		}
 	}

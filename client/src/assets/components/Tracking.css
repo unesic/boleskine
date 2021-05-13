@@ -15,7 +15,7 @@
 			}
 
 			&::-webkit-scrollbar-thumb {
-				@apply rounded-full bg-app-dark-quinternary bg-opacity-40;
+				@apply rounded-full bg-app-dark-500 bg-opacity-40;
 			}
 		}
 
@@ -24,7 +24,7 @@
 			@apply transition-colors duration-200 ease-out;
 
 			&__Heading {
-				@apply px-2 text-xs text-app-light-tertiary text-opacity-30 font-body-medium uppercase;
+				@apply px-2 text-xs text-app-light-300 text-opacity-30 font-body-medium uppercase;
 			}
 		}
 	}

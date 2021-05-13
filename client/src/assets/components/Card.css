@@ -11,7 +11,7 @@
 		}
 
 		&__Title {
-			@apply text-xs text-app-light-secondary text-opacity-80;
+			@apply text-xs text-app-light-200 text-opacity-80;
 		}
 
 		&__Options {
@@ -20,13 +20,13 @@
 
 		&__Button {
 			@apply flex justify-center items-center;
-			@apply rounded-full p-1 w-6 h-6 bg-app-dark-primary bg-opacity-10;
-			@apply text-app-light-secondary text-opacity-80;
+			@apply rounded-full p-1 w-6 h-6 bg-app-dark-100 bg-opacity-10;
+			@apply text-app-light-200 text-opacity-80;
 			@apply outline-none transition-all duration-200 ease-out;
 
 			&:hover,
 			&:focus {
-				@apply bg-app-dark-quaternary bg-opacity-40 text-opacity-100;
+				@apply bg-app-dark-400 bg-opacity-40 text-opacity-100;
 				@apply outline-none shadow-gradient-focus;
 			}
 		}

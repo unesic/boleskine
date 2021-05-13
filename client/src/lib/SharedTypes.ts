@@ -30,3 +30,12 @@ export type MonthType = {
 	date: string;
 	entries: EntriesType;
 };
+
+export type NotificationType = {
+	id: string;
+	title: String;
+	text: String;
+	type: "normal" | "success" | "error";
+};
+
+export type NotificationsType = NotificationType[];

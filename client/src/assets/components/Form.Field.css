@@ -5,7 +5,7 @@
 		}
 
 		&__Caption {
-			@apply text-app-light-tertiary;
+			@apply text-app-light-300;
 		}
 	}
 }

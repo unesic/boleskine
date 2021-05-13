@@ -8,7 +8,7 @@
 			@apply hover:bg-opacity-10;
 
 			&__image {
-				@apply flex justify-center items-center w-12 h-12 rounded-full bg-app-light-primary overflow-hidden;
+				@apply flex justify-center items-center w-12 h-12 rounded-full bg-app-light-100 overflow-hidden;
 
 				img {
 					@apply w-full h-full;
@@ -17,18 +17,18 @@
 
 			&__Details {
 				&__name {
-					@apply text-xl text-app-light-primary;
+					@apply text-xl text-app-light-100;
 				}
 
 				&__email {
-					@apply text-xs text-app-light-tertiary text-opacity-50;
+					@apply text-xs text-app-light-300 text-opacity-50;
 				}
 			}
 		}
 
 		&__Menu {
 			&__title {
-				@apply mb-2 text-xs font-body-medium text-app-light-tertiary text-opacity-30;
+				@apply mb-2 text-xs font-body-medium text-app-light-300 text-opacity-30;
 			}
 
 			&__Submenu {
@@ -36,7 +36,7 @@
 
 				&__item {
 					@apply flex items-center gap-2 rounded p-4 bg-black bg-opacity-0;
-					@apply text-app-light-secondary text-opacity-80;
+					@apply text-app-light-200 text-opacity-80;
 					@apply transition-colors duration-200 ease-out;
 					@apply hover:bg-opacity-10 hover:text-opacity-100;
 				}
@@ -47,7 +47,7 @@
 			@apply flex-1 flex justify-evenly items-end gap-2;
 
 			&__link {
-				@apply text-xs text-app-light-secondary text-opacity-60 transition-colors duration-200 ease-out;
+				@apply text-xs text-app-light-200 text-opacity-60 transition-colors duration-200 ease-out;
 				@apply hover:text-opacity-100;
 			}
 		}

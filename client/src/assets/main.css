@@ -12,7 +12,7 @@ body,
 }
 
 body {
-	@apply bg-gradient-to-br from-app-dark-secondary to-app-dark-quaternary;
+	@apply bg-gradient-to-br from-app-dark-200 to-app-dark-400;
 }
 
 * {
