@@ -1,5 +1,5 @@
 import moment from "moment";
-import type { DayType, EntriesType, EntryType } from "./SharedTypes";
+import type { DayType, EntriesType, EntryType, MonthType } from "./SharedTypes";
 
 export function formatEntries(entries: EntriesType): DayType[] {
 	const days: any = {};
@@ -18,4 +18,20 @@ export function formatEntries(entries: EntriesType): DayType[] {
 	});
 	const res = Object.entries(days).map(([_, day]) => day);
 	return res as DayType[];
+}
+
+export function sortMonthEntries(month: MonthType): EntriesType {
+	const entries = [...month.entries];
+
+	for (let i = 0; i < entries.length; i++) {
+		for (let j = 0; j < entries.length - i - 1; j++) {
+			const curr = moment(entries[j].timestamp);
+			const next = moment(entries[j + 1].timestamp);
+			const diff = curr.diff(next, "milliseconds");
+
+			if (diff < 0) [entries[j + 1], entries[j]] = [entries[j], entries[j + 1]];
+		}
+	}
+
+	return entries;
 }

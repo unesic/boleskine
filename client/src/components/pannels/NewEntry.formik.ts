@@ -19,7 +19,9 @@ const validationSchema = Yup.object({
 	type: Yup.object({
 		value: Yup.string(),
 		label: Yup.string(),
-	}).required("Please select entry type"),
+	})
+		.required("Please select entry type")
+		.nullable(),
 	amount: Yup.number().when("type", {
 		is: (type: EntryType) => type?.value === "inc" || type?.value === "exp",
 		then: Yup.number()

@@ -3,12 +3,18 @@
  */
 import { memo } from "react";
 import { useFormik } from "formik";
+import moment from "moment";
 
 /**
  * Redux
  */
-import { useDispatch } from "react-redux";
-import { addEntryToActiveMonthDays } from "store/tracking.slice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	addEntryToActiveMonthDays,
+	selectActiveDate,
+	selectActiveMonthId,
+} from "store/tracking.slice";
+import { addNotification } from "store/app.slice";
 
 /**
  * Components and utilities
@@ -34,19 +40,37 @@ interface NewEntryProps {
 
 export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 	const dispatch = useDispatch();
+	const activeMonthId = useSelector(selectActiveMonthId);
+	const activeDate = useSelector(selectActiveDate);
+
 	const formik = useFormik({
 		initialValues: initialValues,
 		validationSchema: validationSchema,
-		onSubmit: async (values) => {
+		onSubmit: async (values, { resetForm }) => {
 			await createEntry({
-				variables: { ...values, type: values.type!.value },
+				variables: {
+					...values,
+					amount: values.amount.toString(),
+					monthId: activeMonthId,
+					type: values.type!.value,
+					timestamp: moment(activeDate.day).toISOString(),
+				},
 			});
+			resetForm();
 		},
 	});
 
 	const [createEntry] = useMutation(CREATE_ENTRY, {
 		onCompleted({ createEntry }) {
 			dispatch(addEntryToActiveMonthDays(createEntry));
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "Added new entry!",
+					text: `Entry '${createEntry.description}' added!`,
+					type: "normal",
+				})
+			);
 		},
 		onError(err) {
 			console.log(err);

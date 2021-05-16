@@ -1,4 +1,4 @@
-const { Types } = require("mongoose");
+const { AuthenticationError } = require("apollo-server-errors");
 const Entry = require("../../models/Entry.model");
 const Month = require("../../models/Month.model");
 const checkAuth = require("../../util/check-auth");
@@ -28,7 +28,7 @@ module.exports = {
 				const entries = await Entry.find({ userId: user.id });
 				return entries;
 			} catch (err) {
-				console.log(err);
+				throw new Error(err);
 			}
 		},
 	},
@@ -56,6 +56,7 @@ module.exports = {
 				 * 	• set its `id` to `newEntry.monthId`
 				 * 	• save `newEntry`
 				 * 	• add `newEntry.id` to `month.entries`
+				 * 	• save `newMonth`
 				 */
 				const month = await Month.findById(monthId);
 
@@ -116,16 +117,16 @@ module.exports = {
 			try {
 				const entry = await Entry.findById(id);
 
-				if (entry && entryuserId.toString() === reqUser.id) {
+				if (entry && entry.userId.toString() === reqUser.id) {
 					const month = await Month.findById(entry.monthId);
 					month.entries = month.entries.filter((entryId) => entryId !== id);
 
-					await entry.delete();
+					await entry.deleteOne();
 					await month.save();
 
 					return "Entry data deleted!";
 				} else {
-					return AuthenticationError("Action not allowed!");
+					throw new AuthenticationError("Action not allowed!");
 				}
 			} catch (err) {
 				throw new Error(err);

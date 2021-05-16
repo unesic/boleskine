@@ -39,3 +39,8 @@ export type NotificationType = {
 };
 
 export type NotificationsType = NotificationType[];
+
+export type Mutable<T> = T &
+	{
+		-readonly [P in keyof T]: T[P];
+	};

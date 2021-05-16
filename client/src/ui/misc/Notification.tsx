@@ -8,12 +8,13 @@ import { CSSTransition } from "react-transition-group";
  * Redux
  */
 import { useDispatch } from "react-redux";
+import { removeNotification } from "store/app.slice";
 
 /**
- * Types
+ * Components & Types
  */
+import { Countdown } from "./Countdown";
 import type { NotificationType } from "lib/SharedTypes";
-import { removeNotification } from "store/app.slice";
 
 interface NotificationProps {
 	notification: NotificationType;
@@ -63,6 +64,7 @@ export const Notification: React.FC<NotificationProps> = ({
 			>
 				<header className="Notification__title">{notification.title}</header>
 				<p className="Notification__text">{notification.text}</p>
+				<Countdown />
 			</div>
 		</CSSTransition>
 	);

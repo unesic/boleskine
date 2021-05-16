@@ -1,7 +1,6 @@
 const { AuthenticationError } = require("apollo-server-errors");
 const { Types } = require("mongoose");
 const checkAuth = require("../../util/check-auth");
-const User = require("../../models/User.model");
 const Month = require("../../models/Month.model");
 const Entry = require("../../models/Entry.model");
 
@@ -25,7 +24,7 @@ module.exports = {
 						entries: entries,
 					};
 				} else {
-					return AuthenticationError("Action not allowed!");
+					throw new AuthenticationError("Action not allowed!");
 				}
 			} catch (err) {
 				throw new Error(err);
@@ -96,7 +95,7 @@ module.exports = {
 					await month.delete();
 					return "Month data deleted!";
 				} else {
-					return AuthenticationError("Action not allowed!");
+					throw new AuthenticationError("Action not allowed!");
 				}
 			} catch (err) {
 				throw new Error(err);
