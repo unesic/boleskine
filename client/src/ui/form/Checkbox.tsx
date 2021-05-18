@@ -1,6 +1,11 @@
+/**
+ * Base
+ */
 import { useEffect, useState } from "react";
 
-import "assets/dist/components/Form.Checkbox.css";
+/**
+ * Components
+ */
 import { Caption } from "./Caption";
 
 type Option = {

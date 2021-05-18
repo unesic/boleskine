@@ -1,7 +1,0 @@
-.Field:not(:last-of-type) {
-    margin-bottom: 0.5rem;
-  }
-  .Field__Caption {
-    --tw-text-opacity: 1;
-    color: rgba(165, 167, 184, var(--tw-text-opacity));
-  }

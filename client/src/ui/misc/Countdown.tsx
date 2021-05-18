@@ -1,5 +1,7 @@
+/**
+ * Base
+ */
 import { useEffect, useState } from "react";
-import "assets/dist/components/Countdown.css";
 
 interface CountdownProps {}
 

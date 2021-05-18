@@ -4,7 +4,6 @@
 import { memo, useEffect, useMemo, useState } from "react";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
 import moment from "moment";
-import "assets/dist/components/Calendar.css";
 
 /**
  * Redux
@@ -17,13 +16,9 @@ import {
 } from "store/tracking.slice";
 
 /**
- * Components
+ * Components & Icons
  */
 import { DraggableCard, Header } from "ui/card";
-
-/**
- * Icons
- */
 import {
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,

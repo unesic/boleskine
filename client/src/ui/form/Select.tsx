@@ -1,6 +1,11 @@
+/**
+ * Base
+ */
 import ReactSelect, { OptionsType } from "react-select";
 
-import "assets/dist/components/Form.Select.css";
+/**
+ * Components
+ */
 import { Error } from "./Error";
 
 type Option = {

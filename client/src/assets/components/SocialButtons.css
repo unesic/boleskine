@@ -13,19 +13,19 @@
 			}
 
 			&--github {
-				@apply bg-app-social-github;
+				@apply bg-[#24292e];
 			}
 
 			&--google {
-				@apply bg-app-social-google;
+				@apply bg-[#DB4437];
 			}
 
 			&--facebook {
-				@apply bg-app-social-facebook;
+				@apply bg-[#4267B2];
 			}
 
 			&--linkedin {
-				@apply bg-app-social-linkedin;
+				@apply bg-[#0072b1];
 			}
 		}
 	}

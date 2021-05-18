@@ -1,6 +1,7 @@
+/**
+ * Components
+ */
 import TextareaAutosize from "react-textarea-autosize";
-
-import "assets/dist/components/Form.Textarea.css";
 import { Error } from "./Error";
 
 interface TextareaProps {

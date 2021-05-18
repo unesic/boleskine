@@ -5,9 +5,8 @@ import { useSelector } from "react-redux";
 import { selectNotifications } from "store/app.slice";
 
 /**
- * CSS & components
+ * Components
  */
-import "assets/dist/components/Notifications.css";
 import { Notification } from "ui/misc/Notification";
 
 interface NotificationsProps {

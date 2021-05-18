@@ -3,16 +3,11 @@
  */
 import { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
-import "assets/dist/components/Entries.css";
 
 /**
- * Types
+ * Types & Components
  */
 import type { EntryType } from "lib/SharedTypes";
-
-/**
- * Components
- */
 import { Entry } from "./Entry";
 
 interface EntriesProps {

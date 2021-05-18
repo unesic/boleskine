@@ -1,5 +1,3 @@
-import "assets/dist/components/Spacer.css";
-
 interface SpacerProps {
 	direction: "horizontal" | "vertical";
 	className?: string;

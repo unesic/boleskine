@@ -2,7 +2,6 @@
  * Base
  */
 import { memo } from "react";
-import "assets/dist/components/Tracking.css";
 
 /**
  * Types

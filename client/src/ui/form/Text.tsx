@@ -1,4 +1,6 @@
-import "assets/dist/components/Form.Text.css";
+/**
+ * Components
+ */
 import { Error } from "./Error";
 
 interface TextProps {

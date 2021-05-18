@@ -1,8 +1,9 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
+	mode: "jit",
 	purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-	darkMode: false,
+	darkMode: "media",
 	theme: {
 		extend: {
 			spacing: {
@@ -53,12 +54,6 @@ module.exports = {
 					red: "#DB2A34",
 					green: "#2D8515",
 					blue: "#2276FF",
-				},
-				"app-social": {
-					github: "#24292e",
-					google: "#DB4437",
-					facebook: "#4267B2",
-					linkedin: "#0072b1",
 				},
 				"app-light": {
 					100: "#F4F4F5",
