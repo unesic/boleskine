@@ -7,6 +7,7 @@ interface TextProps {
 	id: string;
 	name: string;
 	type: "text" | "email" | "password" | "number";
+	step?: string;
 	value: any;
 	onChange: (e: React.ChangeEvent<any>) => void;
 	onBlur: (e: React.FocusEvent<any>) => void;

@@ -11,6 +11,7 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	addEntryToActiveMonthDays,
+	addEntryToMonths,
 	addMonthToMonths,
 	selectActiveDate,
 	selectActiveMonthId,
@@ -19,7 +20,14 @@ import {
 import { addNotification } from "store/app.slice";
 
 /**
- * Components and utilities
+ * Apollo
+ */
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { CREATE_ENTRY } from "lib/graphql/entry.queries";
+import { GET_MONTH } from "lib/graphql/month.queries";
+
+/**
+ * Components & utilities
  */
 import { DraggableCard, Header } from "ui/card";
 import { Text } from "ui/form/Text";
@@ -32,9 +40,6 @@ import {
 	selectOptions,
 	checkboxOptions,
 } from "./NewEntry.formik";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { CREATE_ENTRY } from "lib/graphql/entry.queries";
-import { GET_MONTH } from "lib/graphql/month.queries";
 
 interface NewEntryProps {
 	id: string;
@@ -70,6 +75,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 				getMonth({ variables: { id: createEntry.monthId } });
 			} else {
 				dispatch(addEntryToActiveMonthDays(createEntry));
+				dispatch(addEntryToMonths(createEntry));
 			}
 
 			dispatch(
@@ -132,6 +138,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 								id="amount"
 								name="amount"
 								type="number"
+								step="any"
 								value={formik.values.amount}
 								onChange={formik.handleChange}
 								onBlur={formik.handleBlur}

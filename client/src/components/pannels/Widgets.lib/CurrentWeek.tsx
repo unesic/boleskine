@@ -1,7 +1,10 @@
 /**
  * Base
  */
-import { memo } from "react";
+import { calculateWeekTotals } from "lib/currencyUtils";
+import { memo, useMemo } from "react";
+import { useSelector } from "react-redux";
+import { selectActiveDate, selectActiveMonthDays } from "store/tracking.slice";
 
 /**
  * Components
@@ -15,14 +18,24 @@ interface CurrentWeekProps {
 }
 
 export const CurrentWeek: React.FC<CurrentWeekProps> = memo(({ id, idx }) => {
-	const dates = [new Date().toISOString(), new Date().toISOString()];
+	const activeMonthDays = useSelector(selectActiveMonthDays);
+	const activeDate = useSelector(selectActiveDate);
+
+	const [startDate, endDate, totals] = useMemo(
+		() => calculateWeekTotals(activeMonthDays, activeDate.day),
+		[activeMonthDays, activeDate]
+	);
 
 	return (
 		<DraggableCard draggableId={id} index={idx}>
 			{(dragHandleProps) => (
 				<>
 					<Header title="Current week" yMove dragHandleY={dragHandleProps} />
-					<Totals date={dates} income={1337} expense={360} />
+					<Totals
+						date={[startDate, endDate]}
+						income={totals.inc}
+						expense={totals.exp}
+					/>
 				</>
 			)}
 		</DraggableCard>

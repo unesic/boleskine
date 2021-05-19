@@ -34,6 +34,10 @@ export const Slice = createSlice({
 		addMonthToMonths: (state, action) => {
 			state.months.push(action.payload);
 		},
+		addEntryToMonths: (state, action) => {
+			const month = state.months.find((m) => m.id === action.payload.monthId);
+			month?.entries.push(action.payload);
+		},
 
 		// Active month reducers
 		setActiveDate: (state, action) => {
@@ -115,6 +119,7 @@ export const {
 	// Months reducers
 	setMonths,
 	addMonthToMonths,
+	addEntryToMonths,
 
 	// Active month reducers
 	setActiveDate,

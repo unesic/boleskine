@@ -1,11 +1,19 @@
 /**
  * Base
  */
-import { memo } from "react";
+import { memo, useMemo } from "react";
+import moment from "moment";
 
 /**
- * Components
+ * Redux
  */
+import { useSelector } from "react-redux";
+import { selectActiveDate, selectActiveMonthDays } from "store/tracking.slice";
+
+/**
+ * Utilities & Components
+ */
+import { calculateMonthTotals } from "lib/currencyUtils";
 import { DraggableCard, Header } from "ui/card";
 import { Totals } from "./Totals";
 
@@ -15,15 +23,22 @@ interface CurrentMonthProps {
 }
 
 export const CurrentMonth: React.FC<CurrentMonthProps> = memo(({ id, idx }) => {
+	const activeMonthDays = useSelector(selectActiveMonthDays);
+	const activeDate = useSelector(selectActiveDate);
+
+	const totals = useMemo(() => calculateMonthTotals(activeMonthDays), [
+		activeMonthDays,
+	]);
+
 	return (
 		<DraggableCard draggableId={id} index={idx}>
 			{(dragHandleProps) => (
 				<>
 					<Header title="Current month" yMove dragHandleY={dragHandleProps} />
 					<Totals
-						date={[new Date().toISOString()]}
-						income={69420}
-						expense={42069.96}
+						date={[moment(activeDate.month).toISOString()]}
+						income={totals.inc}
+						expense={totals.exp}
 					/>
 				</>
 			)}

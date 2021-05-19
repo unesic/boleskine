@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
 import moment from "moment";
 
@@ -11,6 +11,7 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	selectActiveDate,
+	selectMonths,
 	setActiveDate,
 	setActiveMonthDays,
 } from "store/tracking.slice";
@@ -25,6 +26,7 @@ import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/outline";
+import { foo } from "lib/entriesFormatter";
 
 interface CalendarProps {
 	id: string;
@@ -33,8 +35,10 @@ interface CalendarProps {
 
 export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 	const [calendarDate, setCalendarDate] = useState(new Date());
+
 	const dispatch = useDispatch();
 	const activeDate = useSelector(selectActiveDate);
+	const months = useSelector(selectMonths);
 
 	useEffect(() => {
 		dispatch(setActiveDate(calendarDate.toISOString()));
@@ -46,76 +50,44 @@ export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [calendarDate]);
 
-	const markedDates = useMemo(
-		() => [
-			{
-				date: "30-04-2021",
-				marks: ["inc", "exp", "not"],
-			},
-			{
-				date: "04-05-2021",
-				marks: ["inc", "exp", "not"],
-			},
-			{
-				date: "07-05-2021",
-				marks: ["inc", "exp", "not"],
-			},
-			{
-				date: "09-05-2021",
-				marks: ["not"],
-			},
-			{
-				date: "10-05-2021",
-				marks: ["inc", "not"],
-			},
-			{
-				date: "13-05-2021",
-				marks: ["not"],
-			},
-			{
-				date: "17-05-2021",
-				marks: ["exp", "not"],
-			},
-		],
-		[]
+	const markedDates = useMemo(() => foo(months), [months]);
+
+	const onChange = useCallback((value: Date | Date[]) => {
+		setCalendarDate(value as Date);
+	}, []);
+
+	const findMarked = useCallback(
+		(target: Date) => {
+			const targetDate = moment(target).format("DD-MM-YYYY");
+			return markedDates.find(({ date }) => date === targetDate);
+		},
+		[markedDates]
 	);
 
-	const onChange = (value: Date | Date[]) => {
-		setCalendarDate(value as Date);
-	};
+	const setTileClassName = useCallback(
+		({ date }: CalendarTileProperties): string | null => {
+			const marked = findMarked(date);
+			if (!marked) return null;
+			return "react-calendar__month-view__days__day--marked";
+		},
+		[findMarked]
+	);
 
-	const setTileClassName = (props: CalendarTileProperties): string | null => {
-		const marked = findMarked(props.date);
-		if (!marked) return null;
-		return "react-calendar__month-view__days__day--marked";
-	};
+	const setTileContent = useCallback(
+		({ date }: CalendarTileProperties): JSX.Element | null => {
+			const marked = findMarked(date);
+			if (!marked) return null;
 
-	const setTileDisabled = ({ date }: CalendarTileProperties): boolean => {
-		return false;
-		// const marked = findMarked(date);
-		// return !marked ? true : false;
-	};
-
-	const setTileContent = ({
-		date,
-	}: CalendarTileProperties): JSX.Element | null => {
-		const marked = findMarked(date);
-		if (!marked) return null;
-
-		return (
-			<span className="markers">
-				{marked.marks.map((mark) => (
-					<span className={`marker marker--${mark}`}>•</span>
-				))}
-			</span>
-		);
-	};
-
-	function findMarked(target: Date) {
-		return markedDates.find(
-			({ date }) => date === moment(target).format("DD-MM-YYYY")
-		);
-	}
+			return (
+				<span className="markers">
+					{marked.marks.map((mark) => (
+						<span className={`marker marker--${mark}`}>•</span>
+					))}
+				</span>
+			);
+		},
+		[findMarked]
+	);
 
 	return (
 		<DraggableCard draggableId={id} index={idx}>
@@ -123,10 +95,12 @@ export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 				<>
 					<Header title="Calendar" yMove dragHandleY={dragHandleProps} />
 					<ReactCalendar
-						value={calendarDate}
+						value={[
+							moment(calendarDate).startOf("isoWeek").toDate(),
+							moment(calendarDate).startOf("isoWeek").add(7, "days").toDate(),
+						]}
 						onChange={onChange}
 						tileClassName={setTileClassName}
-						tileDisabled={setTileDisabled}
 						tileContent={setTileContent}
 						nextLabel={<ChevronRightIcon />}
 						next2Label={<ChevronDoubleRightIcon />}

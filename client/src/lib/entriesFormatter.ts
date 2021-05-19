@@ -35,3 +35,43 @@ export function sortMonthEntries(month: MonthType): EntriesType {
 
 	return entries;
 }
+
+export function foo(months: MonthType[]) {
+	// Extract entries from all months
+	const entries = months.reduce(
+		(acc: EntriesType, curr) => acc.concat(curr.entries),
+		[]
+	);
+
+	// Get all unique dates
+	const dates: string[] = [
+		...new Set(
+			entries.map((entry) => moment(entry.timestamp).format("DD-MM-YYYY"))
+		),
+	];
+
+	//
+	const marks = dates.map((date) => {
+		const flags: { [key: string]: boolean } = {
+			inc: false,
+			exp: false,
+			not: false,
+		};
+		entries.forEach(({ timestamp, type }) => {
+			const tms = moment(timestamp).format("DD-MM-YYYY");
+			if (tms === date && !flags[type]) flags[type] = true;
+		});
+
+		const { inc, exp, not } = flags;
+		return {
+			date: date,
+			marks: [
+				inc ? "inc" : false,
+				exp ? "exp" : false,
+				not ? "not" : false,
+			].filter(Boolean),
+		};
+	});
+
+	return marks;
+}

@@ -7,7 +7,7 @@ import { memo } from "react";
  * Utilities
  */
 import { formatDate } from "lib/dateFormatter";
-import { currencyFormatter } from "lib/currencyFormatter";
+import { currencyFormatter } from "lib/currencyUtils";
 
 interface TotalsProps {
 	date: string[];

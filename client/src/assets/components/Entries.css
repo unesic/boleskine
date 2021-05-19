@@ -1,6 +1,6 @@
 @layer components {
 	.Entries {
-		@apply mt-2;
+		@apply mt-2 overflow-hidden;
 
 		&__Entry {
 			@apply bg-black bg-opacity-0;
@@ -24,7 +24,24 @@
 			}
 
 			&__Inner {
-				@apply flex justify-between items-center gap-2 p-2;
+				@apply flex justify-between items-center gap-2 p-2 transform translate-x-full;
+				@apply transition-transform duration-200 ease-out;
+
+				&--enter {
+					@apply translate-x-full;
+				}
+
+				&--enter-done {
+					@apply translate-x-0;
+				}
+
+				&--exit {
+					@apply translate-x-0;
+				}
+
+				&--exit-done {
+					@apply translate-x-full;
+				}
 
 				.Option {
 					@apply flex justify-center items-center rounded-full bg-app-dark-100 bg-opacity-10;
