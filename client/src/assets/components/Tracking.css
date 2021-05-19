@@ -11,11 +11,15 @@
 			}
 
 			&::-webkit-scrollbar-track {
-				@apply bg-transparent;
+				@apply bg-app-dark-300 bg-opacity-10;
 			}
 
 			&::-webkit-scrollbar-thumb {
 				@apply rounded-full bg-app-dark-500 bg-opacity-40;
+			}
+
+			&--has-scroll {
+				@apply pr-2;
 			}
 		}
 

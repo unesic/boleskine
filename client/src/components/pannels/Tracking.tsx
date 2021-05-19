@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 
 /**
  * Types
@@ -21,6 +21,17 @@ interface TrackingProps {
 }
 
 export const Tracking: React.FC<TrackingProps> = memo(({ id, idx, days }) => {
+	const [hasScrollbar, setHasScrollbar] = useState(false);
+	const wrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+	const trackRef = useRef() as React.MutableRefObject<HTMLDivElement>;
+
+	useEffect(() => {
+		setHasScrollbar(
+			trackRef.current.scrollHeight > wrapRef.current.scrollHeight
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [days]);
+
 	return (
 		<DraggableCard
 			draggableId={id}
@@ -30,8 +41,13 @@ export const Tracking: React.FC<TrackingProps> = memo(({ id, idx, days }) => {
 			{(dragHandleProps) => (
 				<>
 					<Header title="Tracking" xMove dragHandleX={dragHandleProps} />
-					<div className="Tracking">
-						<div className="Tracking__inner">
+					<div ref={wrapRef} className="Tracking">
+						<div
+							ref={trackRef}
+							className={`Tracking__inner ${
+								hasScrollbar ? "Tracking__inner--has-scroll" : ""
+							}`.trim()}
+						>
 							{days.map((day) => (
 								<Day key={day.id} {...day} />
 							))}

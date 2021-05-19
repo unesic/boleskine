@@ -31,6 +31,9 @@ export const Slice = createSlice({
 			});
 			state.months = months;
 		},
+		addMonthToMonths: (state, action) => {
+			state.months.push(action.payload);
+		},
 
 		// Active month reducers
 		setActiveDate: (state, action) => {
@@ -42,21 +45,18 @@ export const Slice = createSlice({
 				(month: MonthType) => month.date === date.format("YYYY-MM")
 			);
 			if (newActive) state.activeMonthId = newActive.id;
+			else state.activeMonthId = null;
 		},
 
 		// Active month days reducers
 		setActiveMonthDays: (state, action) => {
-			const newActive = state.months.find(
-				(month: MonthType) => month.date === action.payload
-			);
-			/**
-			 * TODO:
-			 * When non-existant month is selected, entry isn't added to the UI at first
-			 * after reload it appears and the following ones are added properly
-			 */
+			const newActive = state.months.find((m) => m.date === action.payload);
 			if (newActive) {
 				state.activeMonthDays = formatEntries(newActive.entries);
 				state.activeMonthId = newActive.id;
+			} else {
+				state.activeMonthDays = [];
+				state.activeMonthId = null;
 			}
 		},
 		updateActiveMonthDays: (state, action) => {
@@ -64,7 +64,7 @@ export const Slice = createSlice({
 		},
 		addEntryToActiveMonthDays: (state, action) => {
 			const date = moment(action.payload.timestamp).format("YYYY-MM-DD");
-			const day = state.activeMonthDays.find((d: DayType) => d.date === date);
+			const day = state.activeMonthDays.find((d) => d.date === date);
 
 			if (day) {
 				day.entries.push(action.payload);
@@ -114,6 +114,7 @@ export const selectActiveMonthId = (state: any) =>
 export const {
 	// Months reducers
 	setMonths,
+	addMonthToMonths,
 
 	// Active month reducers
 	setActiveDate,

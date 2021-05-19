@@ -38,8 +38,10 @@ interface HomeProps {}
 export const Home: React.FC<HomeProps> = memo(() => {
 	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
-	const activeMonthDays = useSelector(selectActiveMonthDays);
+
 	const dispatch = useDispatch();
+	const activeMonthDays = useSelector(selectActiveMonthDays);
+
 	const { loading, error, data } = useQuery(GET_USER_MONTHS);
 
 	useEffect(() => {

@@ -65,7 +65,7 @@ module.exports = gql`
 
 		createEntry(
 			monthId: ID
-			date: String
+			date: String!
 			timestamp: String!
 			description: String!
 			type: String!

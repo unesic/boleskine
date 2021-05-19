@@ -2574,7 +2574,11 @@ video {
 	width: 0.5rem;
 }
 .Tracking__inner::-webkit-scrollbar-track {
-	background-color: transparent;
+	--tw-bg-opacity: 1;
+	background-color: rgba(23, 25, 59, var(--tw-bg-opacity));
+}
+.Tracking__inner::-webkit-scrollbar-track {
+	--tw-bg-opacity: 0.1;
 }
 .Tracking__inner::-webkit-scrollbar-thumb {
 	border-radius: 9999px;
@@ -2585,6 +2589,9 @@ video {
 }
 .Tracking__inner::-webkit-scrollbar-thumb {
 	--tw-bg-opacity: 0.4;
+}
+.Tracking__inner--has-scroll {
+	padding-right: 0.5rem;
 }
 .Tracking__Day {
 	border-radius: 0.25rem;

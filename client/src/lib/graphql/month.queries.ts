@@ -5,7 +5,14 @@ const GET_MONTH = gql`
 		getMonth(id: $id) {
 			id
 			date
-			entries
+			entries {
+				id
+				monthId
+				timestamp
+				description
+				type
+				amount
+			}
 		}
 	}
 `;
@@ -17,6 +24,7 @@ const GET_USER_MONTHS = gql`
 			date
 			entries {
 				id
+				monthId
 				timestamp
 				description
 				type

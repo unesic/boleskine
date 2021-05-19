@@ -11,8 +11,10 @@ import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	addEntryToActiveMonthDays,
+	addMonthToMonths,
 	selectActiveDate,
 	selectActiveMonthId,
+	setActiveMonthDays,
 } from "store/tracking.slice";
 import { addNotification } from "store/app.slice";
 
@@ -30,8 +32,9 @@ import {
 	selectOptions,
 	checkboxOptions,
 } from "./NewEntry.formik";
-import { useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { CREATE_ENTRY } from "lib/graphql/entry.queries";
+import { GET_MONTH } from "lib/graphql/month.queries";
 
 interface NewEntryProps {
 	id: string;
@@ -54,6 +57,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 					monthId: activeMonthId,
 					type: values.type!.value,
 					timestamp: moment(activeDate.day).toISOString(),
+					date: activeDate.month,
 				},
 			});
 			resetForm();
@@ -62,7 +66,12 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 
 	const [createEntry] = useMutation(CREATE_ENTRY, {
 		onCompleted({ createEntry }) {
-			dispatch(addEntryToActiveMonthDays(createEntry));
+			if (!activeMonthId) {
+				getMonth({ variables: { id: createEntry.monthId } });
+			} else {
+				dispatch(addEntryToActiveMonthDays(createEntry));
+			}
+
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
@@ -71,6 +80,16 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 					type: "normal",
 				})
 			);
+		},
+		onError(err) {
+			console.log(err);
+		},
+	});
+
+	const [getMonth] = useLazyQuery(GET_MONTH, {
+		onCompleted({ getMonth }) {
+			dispatch(addMonthToMonths(getMonth));
+			dispatch(setActiveMonthDays(getMonth.date));
 		},
 		onError(err) {
 			console.log(err);

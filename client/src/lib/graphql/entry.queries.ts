@@ -1,9 +1,10 @@
 import gql from "graphql-tag";
 
 const GET_ENTRY = gql`
-	query getQuery($id: ID!) {
-		getQuery(id: $id) {
+	query getEntry($id: ID!) {
+		getEntry(id: $id) {
 			id
+			monthId
 			timestamp
 			description
 			amount
@@ -16,6 +17,7 @@ const GET_USER_ENTRIES = gql`
 	query getUserEntries {
 		getUserEntries {
 			id
+			monthId
 			timestamp
 			description
 			amount
@@ -26,7 +28,8 @@ const GET_USER_ENTRIES = gql`
 
 const CREATE_ENTRY = gql`
 	mutation createEntry(
-		$monthId: ID!
+		$monthId: ID
+		$date: String!
 		$timestamp: String!
 		$description: String!
 		$type: String!
@@ -34,12 +37,14 @@ const CREATE_ENTRY = gql`
 	) {
 		createEntry(
 			monthId: $monthId
+			date: $date
 			timestamp: $timestamp
 			description: $description
 			type: $type
 			amount: $amount
 		) {
 			id
+			monthId
 			timestamp
 			description
 			amount
@@ -62,6 +67,7 @@ const UPDATE_ENTRY = gql`
 			amount: $amount
 		) {
 			id
+			monthId
 			timestamp
 			description
 			amount

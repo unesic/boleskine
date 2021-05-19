@@ -9,7 +9,8 @@ export const Countdown: React.FC<CountdownProps> = () => {
 	const [timer, setTimer] = useState(5);
 
 	useEffect(() => {
-		setTimeout(() => setTimer((prev) => prev - 1), 1000);
+		const to = setTimeout(() => setTimer((prev) => prev - 1), 1000);
+		return () => clearTimeout(to);
 	}, [timer]);
 
 	return (
