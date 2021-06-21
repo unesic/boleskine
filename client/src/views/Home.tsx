@@ -32,6 +32,7 @@ import { Widgets } from "components/pannels/Widgets";
 import { NewEntry } from "components/pannels/NewEntry";
 import { Tracking } from "components/pannels/Tracking";
 import { Notifications } from "ui/misc/Notifications";
+import { EntryOptions } from "ui/EntryOptions";
 
 interface HomeProps {}
 
@@ -105,6 +106,7 @@ export const Home: React.FC<HomeProps> = memo(() => {
 				</DragDropContext>
 			</main>
 			<Notifications position="tr" />
+			<EntryOptions />
 		</div>
 	);
 });

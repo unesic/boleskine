@@ -21,6 +21,10 @@
 			&--has-scroll {
 				@apply pr-1;
 			}
+
+			&--scroll-disabled {
+				@apply overflow-y-hidden;
+			}
 		}
 
 		&__Day {

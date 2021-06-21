@@ -13,6 +13,8 @@ import type { TrackingType } from "lib/SharedTypes";
  */
 import { DraggableCard, Header } from "ui/card";
 import { Day } from "./Days.lib/Day";
+import { useSelector } from "react-redux";
+import { selectTargetEntryId } from "store/app.slice";
 
 interface TrackingProps {
 	id: string;
@@ -21,16 +23,24 @@ interface TrackingProps {
 }
 
 export const Tracking: React.FC<TrackingProps> = memo(({ id, idx, days }) => {
-	const [hasScrollbar, setHasScrollbar] = useState(false);
+	const [hasScroll, setHasScroll] = useState(false);
+	const [scrollDisabled, setScrollDisabled] = useState(false);
 	const wrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 	const trackRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
+	const targetEntryId = useSelector(selectTargetEntryId);
+
 	useEffect(() => {
-		setHasScrollbar(
-			trackRef.current.scrollHeight > wrapRef.current.scrollHeight
-		);
+		const { scrollHeight: trackH } = trackRef.current;
+		const { scrollHeight: wrapH } = wrapRef.current;
+		setHasScroll(trackH > wrapH);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [days]);
+
+	useEffect(() => {
+		const newScrollDisabled = !!targetEntryId;
+		setScrollDisabled(newScrollDisabled);
+	}, [targetEntryId]);
 
 	return (
 		<DraggableCard
@@ -45,7 +55,9 @@ export const Tracking: React.FC<TrackingProps> = memo(({ id, idx, days }) => {
 						<div
 							ref={trackRef}
 							className={`Tracking__inner ${
-								hasScrollbar ? "Tracking__inner--has-scroll" : ""
+								hasScroll ? "Tracking__inner--has-scroll" : ""
+							} ${
+								scrollDisabled ? "Tracking__inner--scroll-disabled" : ""
 							}`.trim()}
 						>
 							{days.map((day) => (

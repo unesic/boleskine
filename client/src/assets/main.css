@@ -5,6 +5,7 @@
 @import "components/Card.css";
 @import "components/Countdown.css";
 @import "components/Entries.css";
+@import "components/EntryOptions.css";
 @import "components/Form.Checkbox.css";
 @import "components/Form.Error.css";
 @import "components/Form.Field.css";
@@ -28,11 +29,15 @@ body,
 	@apply min-h-screen;
 }
 
+* {
+	@apply outline-none;
+	@apply focus:outline-none focus:shadow-solid-focus;
+}
+
 body {
 	@apply bg-gradient-to-br from-app-dark-200 to-app-dark-400;
 }
 
-* {
-	@apply outline-none;
-	@apply focus:outline-none focus:shadow-solid-focus;
+#root {
+	@apply relative overflow-hidden;
 }

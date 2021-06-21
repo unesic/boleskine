@@ -50,22 +50,24 @@ module.exports = {
 			colors: {
 				orange: colors.orange,
 				teal: colors.teal,
-				"app-accent": {
-					red: "#DB2A34",
-					green: "#2D8515",
-					blue: "#2276FF",
-				},
-				"app-light": {
-					100: "#F4F4F5",
-					200: "#C1C3CF",
-					300: "#A5A7B8",
-				},
-				"app-dark": {
-					100: "#474D84",
-					200: "#333867",
-					300: "#17193B",
-					400: "#040620",
-					500: "#00000B",
+				app: {
+					accent: {
+						red: "#DB2A34",
+						green: "#2D8515",
+						blue: "#2276FF",
+					},
+					light: {
+						100: "#F4F4F5",
+						200: "#C1C3CF",
+						300: "#A5A7B8",
+					},
+					dark: {
+						100: "#474D84",
+						200: "#333867",
+						300: "#17193B",
+						400: "#040620",
+						500: "#00000B",
+					},
 				},
 			},
 			boxShadow: (theme) => ({

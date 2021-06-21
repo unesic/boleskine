@@ -5,6 +5,12 @@ import { memo, useCallback, useEffect, useRef, useState } from "react";
 import { Draggable } from "react-beautiful-dnd";
 
 /**
+ * Redux
+ */
+import { useDispatch, useSelector } from "react-redux";
+import { selectTargetEntryId, setTargetEntryId } from "store/app.slice";
+
+/**
  * Utilities
  */
 import { currencyFormatter } from "lib/currencyUtils";
@@ -29,7 +35,17 @@ export const Entry: React.FC<EntryProps> = memo(
 	({ id, timestamp, description, type, amount, idx, draggingOver }) => {
 		const [hovering, setHovering] = useState(false);
 		const [visible, setVisible] = useState(false);
-		const ref = useRef() as React.RefObject<HTMLDivElement>;
+		const transitionRef = useRef<HTMLDivElement>(null);
+		const optionsRef = useRef<HTMLButtonElement>(null);
+
+		const dispatch = useDispatch();
+		const targetEntryId = useSelector(selectTargetEntryId);
+
+		const optionsToggle = useCallback(() => {
+			const newTargetEntryId = targetEntryId === id ? `-same-entry-${id}` : id;
+			dispatch(setTargetEntryId(newTargetEntryId));
+			// eslint-disable-next-line react-hooks/exhaustive-deps
+		}, [dispatch, targetEntryId]);
 
 		useEffect(() => {
 			setVisible(true);
@@ -49,7 +65,7 @@ export const Entry: React.FC<EntryProps> = memo(
 				in={visible}
 				timeout={300}
 				classNames="Entries__Entry__Inner-"
-				nodeRef={ref}
+				nodeRef={transitionRef}
 			>
 				<Draggable draggableId={id} index={idx}>
 					{({ innerRef, draggableProps, dragHandleProps }, { isDragging }) => (
@@ -59,8 +75,9 @@ export const Entry: React.FC<EntryProps> = memo(
 							onMouseEnter={() => draggingOver || setHovering(true)}
 							onMouseLeave={() => draggingOver || setHovering(false)}
 							className={classes(isDragging)}
+							id={id}
 						>
-							<div className="Entries__Entry__Inner" ref={ref}>
+							<div className="Entries__Entry__Inner" ref={transitionRef}>
 								<button
 									{...dragHandleProps}
 									className={`Option Option--${
@@ -80,7 +97,8 @@ export const Entry: React.FC<EntryProps> = memo(
 								) : null}
 
 								<button
-									onClick={() => {}}
+									ref={optionsRef}
+									onClick={optionsToggle}
 									className={`Option Option--${
 										hovering ? "visible" : "hidden"
 									}`}

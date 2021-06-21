@@ -73,9 +73,8 @@
 
 		/* Dropdown menu */
 		&__menu {
-			@apply rounded p-1 bg-app-dark-500 bg-opacity-40;
+			@apply rounded p-1 bg-app-dark-500 bg-opacity-40 backdrop-filter backdrop-blur-md;
 			@apply transition-all duration-200 ease-out;
-			backdrop-filter: blur(theme("spacing[3]"));
 		}
 
 		&__menu-list {
