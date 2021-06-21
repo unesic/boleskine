@@ -1,16 +1,21 @@
+/**
+ * Base
+ */
+import { memo } from "react";
 import { Droppable } from "react-beautiful-dnd";
 
-import "assets/dist/components/Entries.css";
-import { Entry, EntryType } from "./Entry";
-
-export type EntriesType = EntryType[];
+/**
+ * Types & Components
+ */
+import type { EntryType } from "lib/SharedTypes";
+import { Entry } from "./Entry";
 
 interface EntriesProps {
 	dayId: string;
 	entries: EntryType[];
 }
 
-export const Entries: React.FC<EntriesProps> = ({ dayId, entries }) => {
+export const Entries: React.FC<EntriesProps> = memo(({ dayId, entries }) => {
 	return (
 		<Droppable droppableId={dayId} type={`ENTRIES-${dayId}`}>
 			{({ innerRef, droppableProps, placeholder }, { isDraggingOver }) => (
@@ -28,4 +33,4 @@ export const Entries: React.FC<EntriesProps> = ({ dayId, entries }) => {
 			)}
 		</Droppable>
 	);
-};
+});

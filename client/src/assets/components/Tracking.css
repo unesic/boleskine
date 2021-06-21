@@ -4,27 +4,52 @@
 		@apply relative;
 
 		&__inner {
-			@apply absolute overflow-y-auto grid gap-2 w-full h-full;
+			@apply absolute overflow-y-auto overflow-x-hidden flex flex-col gap-2 w-full h-full;
 
 			&::-webkit-scrollbar {
 				@apply w-2;
 			}
 
 			&::-webkit-scrollbar-track {
-				@apply bg-transparent;
+				@apply bg-app-dark-300 bg-opacity-10;
 			}
 
 			&::-webkit-scrollbar-thumb {
-				@apply rounded-full bg-app-dark-quinternary bg-opacity-40;
+				@apply rounded-full bg-app-dark-500 bg-opacity-40;
+			}
+
+			&--has-scroll {
+				@apply pr-1;
+			}
+
+			&--scroll-disabled {
+				@apply overflow-y-hidden;
 			}
 		}
 
 		&__Day {
 			@apply rounded pt-2 bg-white bg-opacity-1 hover:bg-opacity-5;
-			@apply transition-colors duration-200 ease-out;
+			@apply transform translate-x-full;
+			@apply transition duration-200 ease-out;
+
+			&--enter {
+				@apply translate-x-full;
+			}
+
+			&--enter-done {
+				@apply translate-x-0;
+			}
+
+			&--exit {
+				@apply translate-x-0;
+			}
+
+			&--exit-done {
+				@apply translate-x-full;
+			}
 
 			&__Heading {
-				@apply px-2 text-xs text-app-light-tertiary text-opacity-30 font-body-medium uppercase;
+				@apply px-2 text-xs text-app-light-300 text-opacity-30 font-body-medium uppercase;
 			}
 		}
 	}

@@ -1,18 +1,36 @@
-# React TypeScript Boilerplate
+## Boleskine – Front-end
 
-This is a simple boilerplate to get started with React TS.
+### Important dependecies
+---
+- [react-redux](https://www.npmjs.com/package/react-redux)
+- [react-router](https://www.npmjs.com/package/react-router)
+- [@apollo-client](https://www.npmjs.com/package/@apollo/client)
+- [formik](https://www.npmjs.com/package/formik)
+- [yup](https://www.npmjs.com/package/yup)
+- [postcss](https://www.npmjs.com/package/postcss)
+- [tailwindcss](https://www.npmjs.com/package/tailwindcss)
 
-## Available Scripts
+### Available Scripts
+Everything from `create-react-app` framework plus the following.
 
-In the project directory, you can run all of the standard react scripts plus:
+---
+- `npm storybook` – Runs local storybook environment
+- `npm run postcss:watch` – Watches for file changes in `src/assets/` directories
+- `npm run postcss:build:dev` – Builds development version of CSS
+- `npm run postcss:build:prod` – Build production version of CSS
+- `npm run build:opt` – Optimized production build with a single `.js` and `.css` file
 
-### `npm run watch:css`
+### File structure
+`src` is the main entry containing:
 
-Runs tailwind CSS watcher inside `src/assets` directory.
-Styles are automatically re-compiled to `app.css` file.
-Refreshing isn't necessary as the style changes will reflect on file save.
-
-### `npm run build:opt`
-
-Builds the app for production to the `build` folder.
-Instead of spitting out multiple files, it produces a single JavaScript and CSS file.
+---
+- `assets/` – CSS Assets
+- `components/` – Main components used in the app
+- `lib/` – Contains private and public react router routes, utility and helper functions and:
+	- `data/` – Dummy data used in development
+	- `graphql/` – GraphQL queries and mutations
+	- `hooks/` – Custom react hooks
+- `store/` – Redux store setup and slices
+- `stories/` – Storybook stories
+- `ui/` – UI Components
+- `views/` – Application's 'pages'

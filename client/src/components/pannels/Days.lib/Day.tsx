@@ -1,27 +1,48 @@
-import { FC } from "react";
+/**
+ * Base
+ */
+import { memo, useEffect, useRef, useState } from "react";
 import moment from "moment";
 
-import { Entries, EntriesType } from "./Entries";
+/**
+ * Types
+ */
+import type { EntriesType } from "lib/SharedTypes";
 
-export type DayType = {
-	id: string;
-	date: Date;
-	entries: EntriesType;
-};
+/**
+ * Components
+ */
+import { Entries } from "./Entries";
+import { CSSTransition } from "react-transition-group";
 
 interface DayProps {
 	id: string;
-	date: Date;
+	date: string;
 	entries: EntriesType;
 }
 
-export const Day: FC<DayProps> = ({ id, date, entries }) => {
+export const Day: React.FC<DayProps> = memo(({ id, date, entries }) => {
+	const [visible, setVisible] = useState(false);
+	const ref = useRef() as React.RefObject<HTMLDivElement>;
+
+	useEffect(() => {
+		setVisible(true);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+
 	return (
-		<div className="Tracking__Day">
-			<div className="Tracking__Day__Heading">
-				{moment(date).format("ddd DD MMMM[,] YYYY")}
+		<CSSTransition
+			in={visible}
+			timeout={300}
+			classNames="Tracking__Day-"
+			nodeRef={ref}
+		>
+			<div className="Tracking__Day" ref={ref}>
+				<div className="Tracking__Day__Heading">
+					{moment(date).format("ddd DD MMMM[,] YYYY")}
+				</div>
+				<Entries entries={entries} dayId={id} />
 			</div>
-			<Entries entries={entries} dayId={id} />
-		</div>
+		</CSSTransition>
 	);
-};
+});

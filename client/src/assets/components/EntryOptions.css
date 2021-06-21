@@ -1,0 +1,33 @@
+@layer components {
+	.EntryOptions {
+		@apply absolute top-0 right-0 opacity-0 transform transition-all duration-200;
+		@apply rounded-lg max-w-xs bg-black bg-opacity-25 backdrop-filter backdrop-blur-md;
+
+		&--enter {
+			@apply translate-x-full opacity-0;
+		}
+
+		&--enter-done {
+			@apply translate-x-0 opacity-100;
+		}
+
+		&--exit {
+			@apply translate-x-0 opacity-100;
+		}
+
+		&--exit-done {
+			@apply translate-x-full opacity-0;
+		}
+
+		&__inner {
+			@apply flex flex-col gap-2 p-2;
+
+			.EntryOption {
+				@apply flex gap-2 items-center;
+				@apply rounded px-2 py-1 w-full bg-app-dark-200 bg-opacity-30 hover:bg-opacity-100;
+				@apply text-lg text-white;
+				@apply transition-colors duration-200;
+			}
+		}
+	}
+}

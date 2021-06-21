@@ -1,6 +1,6 @@
 @layer components {
 	.Spacer {
-		@apply bg-app-light-tertiary bg-opacity-40;
+		@apply bg-app-light-300 bg-opacity-40;
 
 		&--horizontal {
 			@apply h-px my-2;
@@ -16,11 +16,8 @@
 			&__text {
 				@apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2;
 				@apply flex justify-center items-center;
-				/* @apply border border-solid border-app-light-primary border-opacity-20; */
-				@apply shadow-gradient-focus;
-				@apply rounded-full w-8 h-8;
-				@apply text-xs text-app-light-primary text-opacity-80;
-				backdrop-filter: blur(theme("spacing[32]"));
+				@apply rounded-full w-8 h-8 backdrop-blur-2xl shadow-gradient-focus;
+				@apply text-xs text-app-light-100 text-opacity-80;
 			}
 		}
 	}

@@ -1,0 +1,131 @@
+@layer components {
+	.Notifications {
+		@apply fixed p-4;
+
+		&--tl {
+			@apply top-0 left-0;
+		}
+
+		&--tc {
+			@apply top-0 left-1/2 transform -translate-x-1/2;
+		}
+
+		&--tr {
+			@apply top-0 right-0;
+		}
+
+		&--bl {
+			@apply bottom-0 left-0;
+		}
+
+		&--bc {
+			@apply bottom-0 left-1/2 transform -translate-x-1/2;
+		}
+
+		&--br {
+			@apply bottom-0 right-0;
+		}
+	}
+
+	.Notification {
+		@apply mb-4 rounded-md p-2 w-80 text-white;
+		@apply transform transition-transform duration-200 ease-out;
+
+		&--normal {
+			@apply bg-app-accent-blue;
+		}
+
+		&--success {
+			@apply bg-app-accent-green;
+		}
+
+		&--error {
+			@apply bg-app-accent-red;
+		}
+
+		&--tl {
+			--tw-translate-x: calc(-100% - theme("spacing[4]"));
+
+			&--enter {
+				--tw-translate-x: calc(-100% - theme("spacing[4]"));
+			}
+
+			&--enter-done {
+				@apply translate-x-0;
+			}
+
+			&--exit {
+				@apply translate-x-0;
+			}
+
+			&--exit-done {
+				--tw-translate-x: calc(-100% - theme("spacing[4]"));
+			}
+		}
+		&--tr {
+			--tw-translate-x: calc(100% + theme("spacing[4]"));
+
+			&--enter {
+				--tw-translate-x: calc(100% + theme("spacing[4]"));
+			}
+
+			&--enter-done {
+				@apply translate-x-0;
+			}
+
+			&--exit {
+				@apply translate-x-0;
+			}
+
+			&--exit-done {
+				--tw-translate-x: calc(100% + theme("spacing[4]"));
+			}
+		}
+
+		&--bl {
+			--tw-translate-x: calc(-100% - theme("spacing[4]"));
+
+			&--enter {
+				--tw-translate-x: calc(-100% - theme("spacing[4]"));
+			}
+
+			&--enter-done {
+				@apply translate-x-0;
+			}
+
+			&--exit {
+				@apply translate-x-0;
+			}
+
+			&--exit-done {
+				--tw-translate-x: calc(-100% - theme("spacing[4]"));
+			}
+		}
+		&--br {
+			--tw-translate-x: calc(100% + theme("spacing[4]"));
+
+			&--enter {
+				--tw-translate-x: calc(100% + theme("spacing[4]"));
+			}
+
+			&--enter-done {
+				@apply translate-x-0;
+			}
+
+			&--exit {
+				@apply translate-x-0;
+			}
+
+			&--exit-done {
+				--tw-translate-x: calc(100% + theme("spacing[4]"));
+			}
+		}
+
+		&__title {
+			@apply text-lg font-body-medium;
+		}
+
+		&__text {
+		}
+	}
+}

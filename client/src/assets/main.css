@@ -1,6 +1,24 @@
 @import "base/Typography.css";
 @import "base/Button.css";
 
+@import "components/Calendar.css";
+@import "components/Card.css";
+@import "components/Countdown.css";
+@import "components/Entries.css";
+@import "components/EntryOptions.css";
+@import "components/Form.Checkbox.css";
+@import "components/Form.Error.css";
+@import "components/Form.Field.css";
+@import "components/Form.Select.css";
+@import "components/Form.Text.css";
+@import "components/Form.Textarea.css";
+@import "components/Notifications.css";
+@import "components/Sidebar.css";
+@import "components/SocialButtons.css";
+@import "components/Spacer.css";
+@import "components/Totals.css";
+@import "components/Tracking.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,11 +29,15 @@ body,
 	@apply min-h-screen;
 }
 
-body {
-	@apply bg-gradient-to-br from-app-dark-secondary to-app-dark-quaternary;
-}
-
 * {
 	@apply outline-none;
 	@apply focus:outline-none focus:shadow-solid-focus;
+}
+
+body {
+	@apply bg-gradient-to-br from-app-dark-200 to-app-dark-400;
+}
+
+#root {
+	@apply relative overflow-hidden;
 }

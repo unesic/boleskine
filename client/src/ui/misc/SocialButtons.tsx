@@ -1,6 +1,12 @@
+/**
+ * Base
+ */
 import { useMemo } from "react";
+
+/**
+ * Icons
+ */
 import { FaFacebook, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
-import "assets/dist/components/SocialButtons.css";
 
 interface SocialButtonsProps {
 	variant: "signup" | "login";

@@ -1,12 +1,28 @@
-import { useContext } from "react";
+/**
+ * Base
+ */
+import { useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
-import * as Yup from "yup";
-import jwtDecode from "jwt-decode";
 
-import { AuthContext } from "lib/AuthContext";
-import { USER_LOGIN } from "lib/graphql/user.queries";
-import { LogInTemplate } from "./LogIn.template";
+/**
+ * Redux
+ */
+import { useDispatch } from "react-redux";
+import { userLogin } from "store/auth.slice";
+
+/**
+ * Utilities
+ */
+import { USER_AUTH, USER_LOGIN } from "lib/graphql/user.queries";
+import { useQuery } from "lib/hooks/useQuery";
+
+/**
+ * Components
+ */
+import { initialValues, validationSchema } from "./LogIn.lib/LogIn.formik";
+import { parseData } from "./LogIn.lib/LogIn.parseData";
+import { LogInTemplate } from "./LogIn.lib/LogIn.template";
 
 interface LogInProps {
 	history: any;
@@ -14,52 +30,53 @@ interface LogInProps {
 }
 
 export const LogIn: React.FC<LogInProps> = ({ history, location }) => {
-	const context = useContext(AuthContext);
-
-	if (location.hash) {
-		console.log(jwtDecode(location.hash.split("=")[1]));
-	}
-
+	const dispatch = useDispatch();
+	const query = useQuery();
 	const formik = useFormik({
-		initialValues: {
-			email: "",
-			password: "",
-			remember: null,
-		},
-		validationSchema: Yup.object({
-			email: Yup.string()
-				.email()
-				.required("Please enter a valid email address"),
-			password: Yup.string().required("Please enter a password"),
-			remember: Yup.array()
-				.nullable()
-				.of(
-					Yup.object({
-						name: Yup.string(),
-						label: Yup.string(),
-					})
-				),
-		}),
+		initialValues: initialValues,
+		validationSchema: validationSchema,
 		onSubmit: async (values) => {
 			await loginUser({
-				variables: {
-					email: values.email,
-					password: values.password,
-					remember: Array.isArray(values.remember),
-				},
+				variables: { ...values, remember: Array.isArray(values.remember) },
 			});
 		},
 	});
 
+	useEffect(() => {
+		const provider = query.get("provider");
+		const accessToken = query.get("access_token");
+		if (provider && accessToken) {
+			const variables = parseData(provider, accessToken);
+			const authenticate = async () => {
+				await authUser({ variables: variables });
+			};
+			authenticate();
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [location.search]);
+
+	const handleUserAuth = (userData: any) => {
+		dispatch(userLogin(userData));
+
+		if (location.state && location.state?.from.pathname !== "logout") {
+			history.push(location.state?.from.pathname);
+		} else {
+			history.push("/");
+		}
+	};
+
 	const [loginUser] = useMutation(USER_LOGIN, {
 		onCompleted({ loginUser }) {
-			context.loginUser(loginUser);
+			handleUserAuth(loginUser);
+		},
+		onError(err) {
+			console.log(err?.graphQLErrors[0]?.extensions?.exception?.errors);
+		},
+	});
 
-			if (location.state && location.state?.from.pathname !== "logout") {
-				history.push(location.state?.from.pathname);
-			} else {
-				history.push("/");
-			}
+	const [authUser] = useMutation(USER_AUTH, {
+		onCompleted({ authUser }) {
+			handleUserAuth(authUser);
 		},
 		onError(err) {
 			console.log(err);

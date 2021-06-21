@@ -1,11 +1,25 @@
-import { useContext } from "react";
+/**
+ * Base
+ */
 import { useMutation } from "@apollo/client";
 import { useFormik } from "formik";
-import * as Yup from "yup";
 
-import { AuthContext } from "lib/AuthContext";
+/**
+ * Redux
+ */
+import { useDispatch } from "react-redux";
+import { userLogin } from "store/auth.slice";
+
+/**
+ * Utilities
+ */
 import { USER_SIGNUP } from "lib/graphql/user.queries";
-import { SignUpTemplate } from "./SignUp.template";
+
+/**
+ * Components
+ */
+import { initialValues, validationSchema } from "./SignUp.lib/SignUp.formik";
+import { SignUpTemplate } from "./SignUp.lib/SignUp.template";
 
 interface SignUpProps {
 	history: any;
@@ -13,31 +27,17 @@ interface SignUpProps {
 }
 
 export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
-	const context = useContext(AuthContext);
+	const dispatch = useDispatch();
 
 	const formik = useFormik({
-		initialValues: {
-			email: "",
-			password: "",
-			repassword: "",
-		},
-		validationSchema: Yup.object({
-			email: Yup.string()
-				.email()
-				.required("Please enter a valid email address!"),
-			password: Yup.string()
-				.required("Please enter a password")
-				.min(8, "Password too short, 8 characters minimum."),
-			repassword: Yup.string()
-				.required("Please re-type your password")
-				.oneOf([Yup.ref("password"), null], "Passwords must match"),
-		}),
+		initialValues: initialValues,
+		validationSchema: validationSchema,
 		onSubmit: async (values) => {
 			await createUser({
 				variables: {
 					email: values.email,
 					password: values.password,
-					repassword: values.repassword,
+					rePassword: values.rePassword,
 				},
 			});
 		},
@@ -45,7 +45,7 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 
 	const [createUser] = useMutation(USER_SIGNUP, {
 		onCompleted({ createUser }) {
-			context.loginUser(createUser);
+			dispatch(userLogin(createUser));
 
 			if (location.state && location.state?.from.pathname !== "logout") {
 				history.push(location.state?.from.pathname);
@@ -54,7 +54,7 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 			}
 		},
 		onError(err) {
-			console.log(err);
+			console.log(err?.graphQLErrors[0]?.extensions?.exception?.errors);
 		},
 	});
 

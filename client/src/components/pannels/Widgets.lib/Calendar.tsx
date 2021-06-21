@@ -1,94 +1,93 @@
-import { FC, useMemo, useState } from "react";
+/**
+ * Base
+ */
+import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
+import moment from "moment";
+
+/**
+ * Redux
+ */
+import { useDispatch, useSelector } from "react-redux";
+import {
+	selectActiveDate,
+	selectMonths,
+	setActiveDate,
+	setActiveMonthDays,
+} from "store/tracking.slice";
+
+/**
+ * Components & Icons
+ */
+import { DraggableCard, Header } from "ui/card";
 import {
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/outline";
-import moment from "moment";
-
-import "assets/dist/components/Calendar.css";
-import { DraggableCard, Header } from "ui/card";
+import { foo } from "lib/entriesFormatter";
 
 interface CalendarProps {
 	id: string;
 	idx: number;
 }
 
-export const Calendar: FC<CalendarProps> = ({ id, idx }) => {
-	const [date, setDate] = useState(new Date());
+export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
+	const [calendarDate, setCalendarDate] = useState(new Date());
 
-	const markedDates = useMemo(
-		() => [
-			{
-				date: "30-03-2021",
-				marks: ["inc", "exp", "not"],
-			},
-			{
-				date: "04-04-2021",
-				marks: ["inc", "exp", "not"],
-			},
-			{
-				date: "07-04-2021",
-				marks: ["inc", "exp", "not"],
-			},
-			{
-				date: "09-04-2021",
-				marks: ["not"],
-			},
-			{
-				date: "10-04-2021",
-				marks: ["inc", "not"],
-			},
-			{
-				date: "13-04-2021",
-				marks: ["not"],
-			},
-			{
-				date: "17-04-2021",
-				marks: ["exp", "not"],
-			},
-		],
-		[]
+	const dispatch = useDispatch();
+	const activeDate = useSelector(selectActiveDate);
+	const months = useSelector(selectMonths);
+
+	useEffect(() => {
+		dispatch(setActiveDate(calendarDate.toISOString()));
+
+		const newMonth = moment(calendarDate).format("YYYY-MM");
+		if (newMonth !== activeDate.month) {
+			dispatch(setActiveMonthDays(newMonth));
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [calendarDate]);
+
+	const markedDates = useMemo(() => foo(months), [months]);
+
+	const onChange = useCallback((value: Date | Date[]) => {
+		setCalendarDate(value as Date);
+	}, []);
+
+	const findMarked = useCallback(
+		(target: Date) => {
+			const targetDate = moment(target).format("DD-MM-YYYY");
+			return markedDates.find(({ date }) => date === targetDate);
+		},
+		[markedDates]
 	);
 
-	const onChange = (value: Date | Date[]) => {
-		setDate(value as Date);
-	};
+	const setTileClassName = useCallback(
+		({ date }: CalendarTileProperties): string | null => {
+			const marked = findMarked(date);
+			if (!marked) return null;
+			return "react-calendar__month-view__days__day--marked";
+		},
+		[findMarked]
+	);
 
-	const setTileClassName = (props: CalendarTileProperties): string | null => {
-		const marked = findMarked(props.date);
-		if (!marked) return null;
-		return "react-calendar__month-view__days__day--marked";
-	};
+	const setTileContent = useCallback(
+		({ date }: CalendarTileProperties): JSX.Element | null => {
+			const marked = findMarked(date);
+			if (!marked) return null;
 
-	const setTileDisabled = ({ date }: CalendarTileProperties): boolean => {
-		return false;
-		// const marked = findMarked(date);
-		// return !marked ? true : false;
-	};
-
-	const setTileContent = ({
-		date,
-	}: CalendarTileProperties): JSX.Element | null => {
-		const marked = findMarked(date);
-		if (!marked) return null;
-
-		return (
-			<span className="markers">
-				{marked.marks.map((mark) => (
-					<span className={`marker marker--${mark}`}>•</span>
-				))}
-			</span>
-		);
-	};
-
-	function findMarked(target: Date) {
-		return markedDates.find(
-			({ date }) => date === moment(target).format("DD-MM-YYYY")
-		);
-	}
+			return (
+				<span className="markers">
+					{marked.marks.map((mark) => (
+						<span className={`marker marker--${mark}`}>•</span>
+					))}
+				</span>
+			);
+		},
+		[findMarked]
+	);
 
 	return (
 		<DraggableCard draggableId={id} index={idx}>
@@ -96,10 +95,12 @@ export const Calendar: FC<CalendarProps> = ({ id, idx }) => {
 				<>
 					<Header title="Calendar" yMove dragHandleY={dragHandleProps} />
 					<ReactCalendar
-						value={date}
+						value={[
+							moment(calendarDate).startOf("isoWeek").toDate(),
+							moment(calendarDate).startOf("isoWeek").add(7, "days").toDate(),
+						]}
 						onChange={onChange}
 						tileClassName={setTileClassName}
-						tileDisabled={setTileDisabled}
 						tileContent={setTileContent}
 						nextLabel={<ChevronRightIcon />}
 						next2Label={<ChevronDoubleRightIcon />}
@@ -110,4 +111,4 @@ export const Calendar: FC<CalendarProps> = ({ id, idx }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});

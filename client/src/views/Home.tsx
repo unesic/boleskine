@@ -1,37 +1,78 @@
-import { useState } from "react";
+/**
+ * Base
+ */
+import { memo, useEffect, useState } from "react";
 import { DragDropContext, Droppable, DropResult } from "react-beautiful-dnd";
-import jwtDecode from "jwt-decode";
+import { useQuery } from "@apollo/client";
+import moment from "moment";
 
-import dummyDays from "./dummyDays";
+/**
+ * Redux
+ */
+import { useDispatch, useSelector } from "react-redux";
+import {
+	selectActiveMonthDays,
+	setMonths,
+	setActiveMonthDays,
+	updateActiveMonthDays,
+} from "store/tracking.slice";
 
+/**
+ * Utilities & types
+ */
+import { reorder, reorderDays } from "lib/reorder";
+import type { DayType } from "lib/SharedTypes";
+import { GET_USER_MONTHS } from "lib/graphql/month.queries";
+
+/**
+ * Components
+ */
 import { Sidebar } from "components/Sidebar";
 import { Widgets } from "components/pannels/Widgets";
-import { Tracking } from "components/pannels/Tracking";
 import { NewEntry } from "components/pannels/NewEntry";
-import { reorder, reorderDays } from "lib/reorder";
+import { Tracking } from "components/pannels/Tracking";
+import { Notifications } from "ui/misc/Notifications";
+import { EntryOptions } from "ui/EntryOptions";
 
-interface HomeProps {
-	location: any;
-}
+interface HomeProps {}
 
-export const Home: React.FC<HomeProps> = ({ location }) => {
+export const Home: React.FC<HomeProps> = memo(() => {
 	const [pannels, setPannels] = useState(["widgets", "tracking", "newEntry"]);
 	const [widgets, setWidgets] = useState(["calendar", "week", "month"]);
-	const [days, setDays] = useState(dummyDays);
 
-	// console.log(jwtDecode(location.hash.split("=")[1]));
+	const dispatch = useDispatch();
+	const activeMonthDays = useSelector(selectActiveMonthDays);
+
+	const { loading, error, data } = useQuery(GET_USER_MONTHS);
+
+	useEffect(() => {
+		if (!loading) {
+			const initialDate = moment().format("YYYY-MM");
+			dispatch(setMonths(data.getUserMonths));
+			dispatch(setActiveMonthDays(initialDate));
+		} else if (error) {
+			console.log(error);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [loading]);
 
 	const onDragEndHandler = (result: DropResult) => {
 		const { type } = result;
-		if (type === "WIDGETS") reorder(result, widgets, setWidgets);
-		else if (type === "PANNELS") reorder(result, pannels, setPannels);
-		else if (type.includes("ENTRIES")) reorderDays(result, days, setDays);
+		if (type.includes("ENTRIES")) {
+			reorderDays(result, activeMonthDays, (newDays: DayType[]) =>
+				dispatch(updateActiveMonthDays(newDays))
+			);
+		} else if (type === "WIDGETS") {
+			reorder(result, widgets, setWidgets);
+		} else if (type === "PANNELS") {
+			reorder(result, pannels, setPannels);
+		}
 	};
 
 	return (
 		<div className="grid grid-cols-12 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
 			<Sidebar />
-			<main className="col-span-10">
+			<main className="col-span-10 relative">
 				<DragDropContext onDragEnd={onDragEndHandler}>
 					<Droppable
 						droppableId="PANNELS"
@@ -48,7 +89,12 @@ export const Home: React.FC<HomeProps> = ({ location }) => {
 									id === "widgets" ? (
 										<Widgets key={id} id={id} idx={idx} order={widgets} />
 									) : id === "tracking" ? (
-										<Tracking key={id} id={id} idx={idx} days={days} />
+										<Tracking
+											key={id}
+											id={id}
+											idx={idx}
+											days={activeMonthDays}
+										/>
 									) : id === "newEntry" ? (
 										<NewEntry key={id} id={id} idx={idx} />
 									) : null
@@ -59,6 +105,8 @@ export const Home: React.FC<HomeProps> = ({ location }) => {
 					</Droppable>
 				</DragDropContext>
 			</main>
+			<Notifications position="tr" />
+			<EntryOptions />
 		</div>
 	);
-};
+});

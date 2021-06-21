@@ -1,7 +1,7 @@
 @layer components {
 	.react-calendar {
 		&__tile {
-			@apply bg-app-dark-primary bg-opacity-10;
+			@apply bg-app-dark-100 bg-opacity-10;
 
 			&--now {
 				@apply bg-opacity-50;
@@ -19,7 +19,7 @@
 
 			&,
 			abbr {
-				@apply text-app-light-primary text-opacity-80;
+				@apply text-app-light-100 text-opacity-80;
 			}
 		}
 
@@ -27,10 +27,10 @@
 			@apply flex items-center gap-2;
 
 			&__arrow {
-				@apply flex justify-center items-center rounded-full p-1 w-6 h-6 bg-app-dark-primary bg-opacity-10;
-				@apply text-app-light-primary text-opacity-80;
+				@apply flex justify-center items-center rounded-full p-1 w-6 h-6 bg-app-dark-100 bg-opacity-10;
+				@apply text-app-light-100 text-opacity-80;
 				@apply transition duration-200 ease-out;
-				@apply hover:bg-app-dark-quaternary hover:bg-opacity-40 hover:text-opacity-100 focus:outline-none focus:shadow-gradient-focus;
+				@apply hover:bg-app-dark-400 hover:bg-opacity-40 hover:text-opacity-100 focus:outline-none focus:shadow-gradient-focus;
 			}
 
 			&__prev2-button {
@@ -40,11 +40,11 @@
 			}
 
 			&__label {
-				@apply rounded-full bg-app-dark-primary bg-opacity-0 hover:bg-opacity-40;
+				@apply rounded-full bg-app-dark-100 bg-opacity-0 hover:bg-opacity-40;
 				@apply focus:outline-none focus:shadow-gradient-focus;
 
 				&__labelText {
-					@apply text-sm text-app-light-primary;
+					@apply text-sm text-app-light-100;
 				}
 			}
 
@@ -67,7 +67,7 @@
 					@apply flex justify-center items-center;
 
 					abbr {
-						@apply text-xs text-app-light-secondary no-underline;
+						@apply text-xs text-app-light-200 no-underline;
 					}
 				}
 			}
@@ -88,7 +88,7 @@
 					}
 
 					&--marked {
-						@apply relative bg-app-dark-quaternary bg-opacity-40;
+						@apply relative bg-app-dark-400 bg-opacity-40;
 
 						&.react-calendar__month-view__days__day--neighboringMonth {
 							@apply bg-opacity-40;
@@ -124,10 +124,10 @@
 					}
 
 					&--neighboringMonth {
-						@apply bg-app-dark-tertiary bg-opacity-10;
+						@apply bg-app-dark-300 bg-opacity-10;
 
 						abbr {
-							@apply text-app-light-tertiary text-opacity-50;
+							@apply text-app-light-300 text-opacity-50;
 						}
 					}
 

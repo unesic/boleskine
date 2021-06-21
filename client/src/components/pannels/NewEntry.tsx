@@ -1,94 +1,106 @@
+/**
+ * Base
+ */
+import { memo } from "react";
 import { useFormik } from "formik";
-import * as Yup from "yup";
+import moment from "moment";
 
+/**
+ * Redux
+ */
+import { useDispatch, useSelector } from "react-redux";
+import {
+	addEntryToActiveMonthDays,
+	addEntryToMonths,
+	addMonthToMonths,
+	selectActiveDate,
+	selectActiveMonthId,
+	setActiveMonthDays,
+} from "store/tracking.slice";
+import { addNotification } from "store/app.slice";
+
+/**
+ * Apollo
+ */
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { CREATE_ENTRY } from "lib/graphql/entry.queries";
+import { GET_MONTH } from "lib/graphql/month.queries";
+
+/**
+ * Components & utilities
+ */
 import { DraggableCard, Header } from "ui/card";
 import { Text } from "ui/form/Text";
 import { Select } from "ui/form/Select";
-import { Checkbox } from "ui/form/Checkbox";
 import { Button } from "ui/misc/Button";
-import { Textarea } from "ui/form/Textarea";
+import { Checkbox } from "ui/form/Checkbox";
+import {
+	initialValues,
+	validationSchema,
+	selectOptions,
+	checkboxOptions,
+} from "./NewEntry.formik";
 
 interface NewEntryProps {
 	id: string;
 	idx: number;
 }
 
-export const NewEntry: React.FC<NewEntryProps> = ({ id, idx }) => {
-	const type = Yup.object({
-		value: Yup.string(),
-		label: Yup.string(),
-	});
+export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
+	const dispatch = useDispatch();
+	const activeMonthId = useSelector(selectActiveMonthId);
+	const activeDate = useSelector(selectActiveDate);
 
 	const formik = useFormik({
-		initialValues: {
-			description: "",
-			amount: "",
-			type: null,
-			types: null,
-			checks: null,
-			long: "",
-		},
-		validationSchema: Yup.object({
-			description: Yup.string()
-				.max(10, "Must be 10 characters or less")
-				.required("Required"),
-			amount: Yup.number().positive("Must be a positive number"),
-			type: type.required("Select one").nullable(),
-			types: Yup.array()
-				.nullable()
-				.required("Required")
-				.min(2, "Pick at least 2")
-				.of(type),
-			checks: Yup.array()
-				.nullable()
-				.of(
-					Yup.object({
-						name: Yup.string(),
-						label: Yup.string(),
-					})
-				),
-			long: Yup.string(),
-		}),
-		onSubmit: (values) => {
-			console.log(values);
+		initialValues: initialValues,
+		validationSchema: validationSchema,
+		onSubmit: async (values, { resetForm }) => {
+			await createEntry({
+				variables: {
+					...values,
+					amount: values.amount.toString(),
+					monthId: activeMonthId,
+					type: values.type!.value,
+					timestamp: moment(activeDate.day).toISOString(),
+					date: activeDate.month,
+				},
+			});
+			resetForm();
 		},
 	});
 
-	const options = [
-		{ value: "1", label: "Option 1" },
-		{ value: "2", label: "Option 2" },
-		{ value: "3", label: "Option 3" },
-		{ value: "4", label: "Option 4" },
-		{ value: "5", label: "Option 5" },
-		{ value: "6", label: "Option 6" },
-		{ value: "7", label: "Option 7" },
-		{ value: "8", label: "Option 8" },
-		{ value: "9", label: "Option 9" },
-		{ value: "10", label: "Option 10" },
-		{ value: "11", label: "Option 11" },
-		{ value: "12", label: "Option 12" },
-		{ value: "13", label: "Option 13" },
-		{ value: "14", label: "Option 14" },
-	];
+	const [createEntry] = useMutation(CREATE_ENTRY, {
+		onCompleted({ createEntry }) {
+			if (!activeMonthId) {
+				getMonth({ variables: { id: createEntry.monthId } });
+			} else {
+				dispatch(addEntryToActiveMonthDays(createEntry));
+				dispatch(addEntryToMonths(createEntry));
+			}
 
-	const checkboxes = [
-		{
-			name: "opt1",
-			label: "Check 1",
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "Added new entry!",
+					text: `Entry '${createEntry.description}' added!`,
+					type: "normal",
+				})
+			);
 		},
-		{
-			name: "opt2",
-			label: "Check 2",
+		onError(err) {
+			console.log(err);
 		},
-		{
-			name: "opt3",
-			label: "Check 3",
+	});
+
+	const [getMonth] = useLazyQuery(GET_MONTH, {
+		onCompleted({ getMonth }) {
+			dispatch(addMonthToMonths(getMonth));
+			dispatch(setActiveMonthDays(getMonth.date));
 		},
-		{
-			name: "opt4",
-			label: "Check 4",
+		onError(err) {
+			console.log(err);
 		},
-	];
+	});
 
 	return (
 		<DraggableCard
@@ -111,48 +123,32 @@ export const NewEntry: React.FC<NewEntryProps> = ({ id, idx }) => {
 							touched={formik.touched.description}
 							label="Description"
 						/>
-						<Text
-							id="amount"
-							name="amount"
-							type="number"
-							value={formik.values.amount}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							errors={formik.errors.amount}
-							touched={formik.touched.amount}
-							label="Amount"
-						/>
-						<Textarea
-							id="long"
-							name="long"
-							value={formik.values.long}
-							onChange={formik.handleChange}
-							onBlur={formik.handleBlur}
-							errors={formik.errors.long}
-							touched={formik.touched.long}
-							label="Long text"
-						/>
 						<Select
-							options={options}
+							options={selectOptions}
 							value={formik.values.type}
 							onChange={(value) => formik.setFieldValue("type", value)}
 							onBlur={() => formik.setFieldTouched("type", true)}
 							errors={formik.errors.type}
 							touched={formik.touched.type}
-							placeholder="Select type..."
+							placeholder="Type"
 						/>
-						<Select
-							options={options}
-							value={formik.values.types}
-							onChange={(value) => formik.setFieldValue("types", value)}
-							onBlur={() => formik.setFieldTouched("types", true)}
-							errors={formik.errors.types}
-							touched={formik.touched.types}
-							placeholder="Select type..."
-							isMulti
-						/>
+						{formik.values.type?.value === "inc" ||
+						formik.values.type?.value === "exp" ? (
+							<Text
+								id="amount"
+								name="amount"
+								type="number"
+								step="any"
+								value={formik.values.amount}
+								onChange={formik.handleChange}
+								onBlur={formik.handleBlur}
+								errors={formik.errors.amount}
+								touched={formik.touched.amount}
+								label="Amount"
+							/>
+						) : null}
 						<Checkbox
-							options={checkboxes}
+							options={checkboxOptions}
 							value={formik.values.checks}
 							onChange={(value) => formik.setFieldValue("checks", value)}
 						/>
@@ -162,4 +158,4 @@ export const NewEntry: React.FC<NewEntryProps> = ({ id, idx }) => {
 			)}
 		</DraggableCard>
 	);
-};
+});

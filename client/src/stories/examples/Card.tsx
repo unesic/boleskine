@@ -6,7 +6,7 @@ export const CardExample: React.VFC = () => {
 		<div className="flex gap-4">
 			<Card>
 				<Header title="Card title 1" />
-				<p className="text-app-light-primary">
+				<p className="text-app-light-100">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, vel
 					assumenda id eos debitis impedit voluptate fugit corporis cupiditate
 					in libero. Earum quis ipsum similique tenetur, iste blanditiis
@@ -15,7 +15,7 @@ export const CardExample: React.VFC = () => {
 			</Card>
 			<Card>
 				<Header title="Card title 2" />
-				<p className="text-app-light-primary">
+				<p className="text-app-light-100">
 					Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui, vel
 					assumenda id eos debitis impedit voluptate fugit corporis cupiditate
 					in libero. Earum quis ipsum similique tenetur, iste blanditiis
@@ -53,7 +53,7 @@ export const DraggableCardExample: React.VFC<DraggableCardExampleProps> = ({
 										dragHandleX={dir === "horizontal" ? dragHandle : undefined}
 										dragHandleY={dir === "vertical" ? dragHandle : undefined}
 									/>
-									<p className="text-app-light-primary">
+									<p className="text-app-light-100">
 										Lorem ipsum dolor sit amet consectetur adipisicing elit.
 										Qui, vel assumenda id eos debitis impedit voluptate fugit
 										corporis cupiditate in libero. Earum quis ipsum similique
@@ -72,7 +72,7 @@ export const DraggableCardExample: React.VFC<DraggableCardExampleProps> = ({
 										dragHandleX={dir === "horizontal" ? dragHandle : undefined}
 										dragHandleY={dir === "vertical" ? dragHandle : undefined}
 									/>
-									<p className="text-app-light-primary">
+									<p className="text-app-light-100">
 										Lorem ipsum dolor sit amet consectetur adipisicing elit.
 										Qui, vel assumenda id eos debitis impedit voluptate fugit
 										corporis cupiditate in libero. Earum quis ipsum similique

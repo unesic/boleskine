@@ -1,5 +1,3 @@
-import "assets/dist/components/Card.css";
-
 interface CardProps {
 	isDragging?: boolean;
 }
