@@ -17,9 +17,9 @@ import {
 	HiOutlineUser,
 	HiOutlineChartSquareBar,
 	HiOutlineLogout,
-	HiOutlineCog,
+	// HiOutlineCog,
 	HiOutlineClipboardCheck,
-	HiOutlineClipboardList,
+	// HiOutlineClipboardList,
 } from "react-icons/hi";
 
 interface SidebarProps {}
@@ -54,9 +54,9 @@ export const Sidebar: React.FC<SidebarProps> = memo(() => {
 					<Link to="/" className="Sidebar__Menu__Submenu__item">
 						<HiOutlineClipboardCheck size={20} /> Tracking
 					</Link>
-					<Link to="/planning" className="Sidebar__Menu__Submenu__item">
+					{/* <Link to="/planning" className="Sidebar__Menu__Submenu__item">
 						<HiOutlineClipboardList size={20} /> Planning
-					</Link>
+					</Link> */}
 					<Link to="/analytics" className="Sidebar__Menu__Submenu__item">
 						<HiOutlineChartSquareBar size={20} /> Analytics
 					</Link>
@@ -64,12 +64,12 @@ export const Sidebar: React.FC<SidebarProps> = memo(() => {
 
 				<div className="Sidebar__Menu__title">SETTINGS</div>
 				<div className="Sidebar__Menu__Submenu">
-					<Link to="/settings-and-privacy" className="Sidebar__Menu__Submenu__item">
-						<HiOutlineLogout size={20} /> Settings &amp; Privacy
+					<Link to="/settings" className="Sidebar__Menu__Submenu__item">
+						<HiOutlineLogout size={20} /> Settings
 					</Link>
-					<Link to="/help-and-support" className="Sidebar__Menu__Submenu__item">
+					{/* <Link to="/help-and-support" className="Sidebar__Menu__Submenu__item">
 						<HiOutlineCog size={20} /> Help &amp; Support
-					</Link>
+					</Link> */}
 					<Link
 						to="/logout"
 						onClick={() => dispatch(userLogout())}
@@ -80,7 +80,7 @@ export const Sidebar: React.FC<SidebarProps> = memo(() => {
 				</div>
 			</div>
 
-			<div className="Sidebar__Extra">
+			{/* <div className="Sidebar__Extra">
 				<Link to="/privacy-policy" className="Sidebar__Extra__link">
 					Privacy Policy
 				</Link>
@@ -90,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = memo(() => {
 				<Link to="/cookies" className="Sidebar__Extra__link">
 					Cookies
 				</Link>
-			</div>
+			</div> */}
 		</aside>
 	);
 });

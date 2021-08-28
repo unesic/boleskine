@@ -1,0 +1,23 @@
+@layer components {
+	.AnalyticsChart {
+		@apply my-4;
+
+		.CustomTooltip {
+			&__label {
+				@apply mb-2 text-lg font-body-medium text-app-light-100;
+			}
+
+			&__value {
+				@apply mt-1 text-app-light-100;
+
+				&--inc {
+					@apply text-app-accent-green;
+				}
+
+				&--exp {
+					@apply text-app-accent-red;
+				}
+			}
+		}
+	}
+}

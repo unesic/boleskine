@@ -26,7 +26,7 @@ import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/outline";
-import { foo } from "lib/entriesFormatter";
+import { getMarkedDates } from "lib/entriesFormatter";
 
 interface CalendarProps {
 	id: string;
@@ -50,7 +50,7 @@ export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [calendarDate]);
 
-	const markedDates = useMemo(() => foo(months), [months]);
+	const markedDates = useMemo(() => getMarkedDates(months), [months]);
 
 	const onChange = useCallback((value: Date | Date[]) => {
 		setCalendarDate(value as Date);
@@ -93,7 +93,13 @@ export const Calendar: React.FC<CalendarProps> = memo(({ id, idx }) => {
 		<DraggableCard draggableId={id} index={idx}>
 			{(dragHandleProps) => (
 				<>
-					<Header title="Calendar" yMove dragHandleY={dragHandleProps} />
+					<Header
+						title="Calendar"
+						// yMove
+						// dragHandleY={dragHandleProps}
+						noClose
+						noSettings
+					/>
 					<ReactCalendar
 						value={[
 							moment(calendarDate).startOf("isoWeek").toDate(),

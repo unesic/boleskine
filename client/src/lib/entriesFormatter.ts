@@ -1,7 +1,7 @@
 import moment from "moment";
 import type { DayType, EntriesType, EntryType, MonthType } from "./SharedTypes";
 
-export function formatEntries(entries: EntriesType): DayType[] {
+export function formatActiveMonthEntries(entries: EntriesType): DayType[] {
 	const days: any = {};
 	entries.forEach((entry: EntryType) => {
 		const date = moment(entry.timestamp).format("YYYY-MM-DD");
@@ -36,7 +36,7 @@ export function sortMonthEntries(month: MonthType): EntriesType {
 	return entries;
 }
 
-export function foo(months: MonthType[]) {
+export function getMarkedDates(months: MonthType[]) {
 	// Extract entries from all months
 	const entries = months.reduce(
 		(acc: EntriesType, curr) => acc.concat(curr.entries),

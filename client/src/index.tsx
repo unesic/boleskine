@@ -27,6 +27,10 @@ import { Store } from "store";
  */
 import { App } from "App";
 
+const httpLink = createHttpLink({
+	uri: `${process.env.REACT_APP_SERVER_URL}/graphql`,
+});
+
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("auth-token");
 	return {
@@ -39,11 +43,7 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: authLink.concat(
-		createHttpLink({
-			uri: `${process.env.REACT_APP_SERVER_URL}/graphql`,
-		})
-	),
+	link: authLink.concat(httpLink),
 });
 
 ReactDOM.render(

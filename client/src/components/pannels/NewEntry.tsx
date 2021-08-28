@@ -110,7 +110,13 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 		>
 			{(dragHandleProps) => (
 				<>
-					<Header title="Add new entry" xMove dragHandleX={dragHandleProps} />
+					<Header
+						title="Add new entry"
+						// xMove
+						// dragHandleX={dragHandleProps}
+						noClose
+						noSettings
+					/>
 					<form onSubmit={formik.handleSubmit}>
 						<Text
 							id="description"
@@ -147,11 +153,11 @@ export const NewEntry: React.FC<NewEntryProps> = memo(({ id, idx }) => {
 								label="Amount"
 							/>
 						) : null}
-						<Checkbox
+						{/* <Checkbox
 							options={checkboxOptions}
 							value={formik.values.checks}
 							onChange={(value) => formik.setFieldValue("checks", value)}
-						/>
+						/> */}
 						<Button type="submit">Add new entry</Button>
 					</form>
 				</>

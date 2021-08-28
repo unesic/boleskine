@@ -13,7 +13,7 @@ import { selectTargetEntryId, setTargetEntryId } from "store/app.slice";
 /**
  * Utilities
  */
-import { currencyFormatter } from "lib/currencyUtils";
+import { currencyFormatter } from "lib/currency.utils";
 
 /**
  * Icons

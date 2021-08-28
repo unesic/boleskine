@@ -1,9 +1,22 @@
 import moment from "moment";
 
-export const formatDate = (date: string[]): string => {
-	return date.length === 1
-		? moment(date[0]).format("MMMM[,] YYYY")
-		: `${moment(date[0]).format("DD MMM")} - ${moment(date[1])
-				.subtract(1, "days")
-				.format("DD MMM[,] YYYY")}`;
-};
+export function formatMonth(date: string): string {
+	return moment(date[0]).format("MMMM[,] YYYY");
+}
+
+export function formatWeek(date: string[], includeYear = true): string {
+	const startDate = moment(date[0]).format("DD MMM");
+	const endDate = moment(date[1]).format(
+		includeYear ? "DD MMM[,] YYYY" : "DD MMM"
+	);
+
+	return `${startDate} - ${endDate}`;
+}
+
+export function getWeekStart(date: string): string {
+	return moment(date).startOf("isoWeek").toISOString();
+}
+
+export function getWeekEnd(date: string): string {
+	return moment(date).startOf("isoWeek").add(6, "days").toISOString();
+}

@@ -1,9 +1,10 @@
 interface CardProps {
 	isDragging?: boolean;
+	className?: string;
 }
 
-export const Card: React.FC<CardProps> = ({ isDragging = false, children }) => {
+export const Card: React.FC<CardProps> = ({ isDragging = false, className = "", children }) => {
 	return (
-		<div className={`Card ${isDragging ? "drag" : ""}`.trim()}>{children}</div>
+		<div className={`Card ${className} ${isDragging ? "drag" : ""}`.trim()}>{children}</div>
 	);
 };

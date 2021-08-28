@@ -50,7 +50,13 @@ export const Tracking: React.FC<TrackingProps> = memo(({ id, idx, days }) => {
 		>
 			{(dragHandleProps) => (
 				<>
-					<Header title="Tracking" xMove dragHandleX={dragHandleProps} />
+					<Header
+						title="Tracking"
+						// xMove
+						// dragHandleX={dragHandleProps}
+						noClose
+						noSettings
+					/>
 					<div ref={wrapRef} className="Tracking">
 						<div
 							ref={trackRef}

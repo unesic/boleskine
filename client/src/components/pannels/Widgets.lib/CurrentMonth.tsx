@@ -13,7 +13,7 @@ import { selectActiveDate, selectActiveMonthDays } from "store/tracking.slice";
 /**
  * Utilities & Components
  */
-import { calculateMonthTotals } from "lib/currencyUtils";
+import { calculateActiveMonthTotals } from "lib/currency.utils";
 import { DraggableCard, Header } from "ui/card";
 import { Totals } from "./Totals";
 
@@ -26,7 +26,7 @@ export const CurrentMonth: React.FC<CurrentMonthProps> = memo(({ id, idx }) => {
 	const activeMonthDays = useSelector(selectActiveMonthDays);
 	const activeDate = useSelector(selectActiveDate);
 
-	const totals = useMemo(() => calculateMonthTotals(activeMonthDays), [
+	const totals = useMemo(() => calculateActiveMonthTotals(activeMonthDays), [
 		activeMonthDays,
 	]);
 
@@ -34,7 +34,13 @@ export const CurrentMonth: React.FC<CurrentMonthProps> = memo(({ id, idx }) => {
 		<DraggableCard draggableId={id} index={idx}>
 			{(dragHandleProps) => (
 				<>
-					<Header title="Current month" yMove dragHandleY={dragHandleProps} />
+					<Header
+						title="Current month"
+						// yMove
+						// dragHandleY={dragHandleProps}
+						noClose
+						noSettings
+					/>
 					<Totals
 						date={[moment(activeDate.month).toISOString()]}
 						income={totals.inc}

@@ -6,8 +6,8 @@ import { memo } from "react";
 /**
  * Utilities
  */
-import { formatDate } from "lib/dateFormatter";
-import { currencyFormatter } from "lib/currencyUtils";
+import { formatMonth, formatWeek } from "lib/dateFormatter";
+import { currencyFormatter } from "lib/currency.utils";
 
 interface TotalsProps {
 	date: string[];
@@ -19,7 +19,9 @@ export const Totals: React.FC<TotalsProps> = memo(
 	({ date, income, expense }) => {
 		return (
 			<div className="Totals">
-				<p className="Totals__title">{formatDate(date)}</p>
+				<p className="Totals__title">
+					{Array.isArray(date) ? formatWeek(date) : formatMonth(date)}
+				</p>
 				<div className="Totals__Inner">
 					<div className="Total">
 						<p className="Total__title Total__title--inc">TOTAL INCOME</p>

@@ -8,7 +8,7 @@ import ReactSelect, { OptionsType } from "react-select";
  */
 import { Error } from "./Error";
 
-type Option = {
+export type Option = {
 	value: string;
 	label: string;
 };

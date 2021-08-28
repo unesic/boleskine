@@ -1,5 +1,13 @@
 import moment from "moment";
+import { getWeekEnd, getWeekStart } from "./dateFormatter";
 import { DayType, EntryType } from "./SharedTypes";
+
+// new Intl.DateTimeFormat("en-US", {
+// 	weekday: "short",
+// 	year: "numeric",
+// 	month: "short",
+// 	day: "numeric",
+// }).format(new Date())
 
 export const currencyFormatter = new Intl.NumberFormat("en-US", {
 	style: "currency",
@@ -8,7 +16,15 @@ export const currencyFormatter = new Intl.NumberFormat("en-US", {
 	maximumFractionDigits: 2,
 });
 
-export function calculateMonthTotals(days: DayType[]) {
+export const compactCurrency = new Intl.NumberFormat("en-US", {
+	style: "currency",
+	currency: "USD",
+	notation: "compact",
+	minimumFractionDigits: 1,
+	maximumFractionDigits: 2,
+});
+
+export function calculateActiveMonthTotals(days: DayType[]) {
 	const totals = days
 		.reduce((acc: EntryType[], curr) => acc.concat(curr.entries), [])
 		.reduce(
@@ -31,8 +47,8 @@ export function calculateWeekTotals(
 	days: DayType[],
 	date: string
 ): [string, string, { inc: number; exp: number }] {
-	const startDate = moment(date).startOf("isoWeek").subtract(1, "day");
-	const endDate = moment(date).startOf("isoWeek").add(7, "days");
+	const startDate = getWeekStart(date);
+	const endDate = getWeekEnd(date);
 
 	const totals = days
 		.reduce((acc: EntryType[], curr) => acc.concat(curr.entries), [])
@@ -55,5 +71,5 @@ export function calculateWeekTotals(
 			{ inc: 0, exp: 0 }
 		);
 
-	return [startDate.toISOString(), endDate.toISOString(), totals];
+	return [startDate, endDate, totals];
 }
