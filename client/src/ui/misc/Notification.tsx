@@ -14,7 +14,7 @@ import { removeNotification } from "store/app.slice";
  * Components & Types
  */
 import { Countdown } from "./Countdown";
-import type { NotificationType } from "lib/SharedTypes";
+import type { NotificationType } from "lib/types/shared.types";
 
 interface NotificationProps {
 	notification: NotificationType;

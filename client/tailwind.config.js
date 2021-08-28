@@ -9,6 +9,10 @@ module.exports = {
 			spacing: {
 				13: "3.25rem",
 			},
+			container: {
+				center: true,
+				padding: "1rem",
+			},
 			maxHeight: {
 				"fit-content": "fit-content",
 				"min-content": "min-content",

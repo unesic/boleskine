@@ -1,5 +1,10 @@
 import moment from "moment";
-import type { DayType, EntriesType, EntryType, MonthType } from "./SharedTypes";
+import type {
+	DayType,
+	EntriesType,
+	EntryType,
+	MonthType,
+} from "./types/shared.types";
 
 export function formatActiveMonthEntries(entries: EntriesType): DayType[] {
 	const days: any = {};

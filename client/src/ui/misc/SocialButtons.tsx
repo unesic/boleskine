@@ -9,11 +9,11 @@ import { useMemo } from "react";
 import { FaFacebook, FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
 
 interface SocialButtonsProps {
-	variant: "signup" | "login";
+	variant: "signup" | "signin";
 }
 
 export const SocialButtons: React.FC<SocialButtonsProps> = ({ variant }) => {
-	const text = useMemo(() => (variant === "signup" ? "Sign up" : "Log in"), [
+	const text = useMemo(() => (variant === "signup" ? "Sign up" : "Sign in"), [
 		variant,
 	]);
 	return (

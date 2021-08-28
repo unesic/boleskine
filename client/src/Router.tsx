@@ -2,53 +2,45 @@
  * Base
  */
 import { BrowserRouter, Redirect, Switch } from "react-router-dom";
-import { PrivateRoute } from "lib/PrivateRoute";
-import { PublicRoute } from "lib/PublicRoute";
+import { PrivateRoute } from "lib/routes/PrivateRoute";
+import { PublicRoute } from "lib/routes/PublicRoute";
 
 /**
  * Views
  */
-import { Home } from "views/Home";
-import { LogIn } from "views/LogIn";
 import { SignUp } from "views/SignUp";
-import { Profile } from "views/Profile";
-import { Analytics } from "views/Analytics";
+import { SignIn } from "views/SignIn";
+import { Home } from "views/Home";
 
 /**
- * Components
+ * UI Components
  */
-import { Sidebar } from "components/Sidebar";
 import { Notifications } from "ui/misc/Notifications";
-import { EntryOptions } from "ui/EntryOptions";
+import { EntryOptions } from "ui/misc/EntryOptions";
+import { Topbar } from "ui/misc/Topbar";
 
 interface RouterProps {}
 
 export const Router: React.FC<RouterProps> = () => {
 	return (
 		<BrowserRouter>
-			<div className="grid grid-cols-12 py-8 2xl:px-0 px-4 2xl:container 2xl:mx-auto">
-				<Sidebar />
+			<Topbar />
 
-				<main className="col-span-10 relative">
-					<Switch>
-						<PublicRoute exact path="/signup" component={SignUp} />
-						<PublicRoute exact path="/login" component={LogIn} />
+			<main className="max-w-5xl mx-auto mt-8 pb-8">
+				<Switch>
+					<PublicRoute exact path="/sign-up" component={SignUp} />
+					<PublicRoute exact path="/sign-in" component={SignIn} />
+					<PrivateRoute exact path="/" component={Home} />
+					<PrivateRoute
+						exact
+						path="/sign-ou"
+						render={() => <Redirect to="/" />}
+					/>
+				</Switch>
+			</main>
 
-						<PrivateRoute exact path="/" component={Home} />
-						<PrivateRoute exact path="/analytics" component={Analytics} />
-
-						<PrivateRoute path="/u/:id" component={Profile} />
-						<PrivateRoute
-							exact
-							path="/logout"
-							render={() => <Redirect to="/" />}
-						/>
-					</Switch>
-				</main>
-
-				<Notifications position="tr" />
-				<EntryOptions />
-			</div>
+			<Notifications position="tr" />
+			<EntryOptions />
 		</BrowserRouter>
 	);
 };

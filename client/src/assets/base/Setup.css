@@ -1,0 +1,27 @@
+@layer base {
+	* {
+		@apply outline-none focus:outline-none focus:shadow-solid-focus;
+	}
+
+	body {
+		@apply bg-gradient-to-br from-app-dark-200 to-app-dark-400 bg-fixed min-h-screen;
+
+		&.entry-options-open {
+			@apply overflow-y-hidden;
+		}
+
+		&.FancyScroll {
+			&::-webkit-scrollbar-track {
+				@apply bg-app-dark-400 bg-opacity-100;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				@apply bg-app-dark-200 bg-opacity-80;
+			}
+		}
+
+		#root {
+			@apply relative overflow-x-hidden;
+		}
+	}
+}

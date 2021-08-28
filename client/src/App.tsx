@@ -10,7 +10,7 @@ import moment from "moment";
  */
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveMonthDays, setMonths } from "store/tracking.slice";
-import { selectUser } from "store/auth.slice";
+import { selectUser, setLanguage } from "store/auth.slice";
 
 /**
  * Apollo
@@ -23,6 +23,14 @@ interface AppProps {}
 export const App: React.FC<AppProps> = memo(() => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
+
+	useEffect(() => {
+		document.body.classList.add("FancyScroll");
+
+		const navLang = navigator.language;
+		const language = navLang === "sr" ? "sr-Latn-RS" : navLang;
+		dispatch(setLanguage(language));
+	}, []);
 
 	useEffect(() => {
 		if (!user) return;

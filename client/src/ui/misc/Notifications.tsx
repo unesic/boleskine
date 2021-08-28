@@ -17,7 +17,11 @@ export const Notifications: React.FC<NotificationsProps> = ({ position }) => {
 	const notifications = useSelector(selectNotifications);
 
 	return (
-		<div className={`Notifications Notifications--${position}`}>
+		<div
+			className={`Notifications Notifications--${position} ${
+				!notifications.length ? "Notifications--empty" : ""
+			}`}
+		>
 			{notifications.map((notification) => (
 				<Notification
 					key={notification.id}

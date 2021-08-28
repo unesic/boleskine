@@ -1,10 +1,6 @@
 @layer components {
 	.Card {
-		@apply rounded-lg p-2 h-full bg-black bg-opacity-25 shadow-card;
-
-		&.drag {
-			@apply backdrop-filter backdrop-blur-md;
-		}
+		@apply rounded-lg p-2 bg-black bg-opacity-25 shadow-card;
 
 		&__Header {
 			@apply flex justify-between items-center mb-4;
@@ -12,23 +8,6 @@
 
 		&__Title {
 			@apply text-xs text-app-light-200 text-opacity-80;
-		}
-
-		&__Options {
-			@apply flex items-center gap-2;
-		}
-
-		&__Button {
-			@apply flex justify-center items-center;
-			@apply rounded-full p-1 w-6 h-6 bg-app-dark-100 bg-opacity-10;
-			@apply text-app-light-200 text-opacity-80;
-			@apply outline-none transition-all duration-200 ease-out;
-
-			&:hover,
-			&:focus {
-				@apply bg-app-dark-400 bg-opacity-40 text-opacity-100;
-				@apply outline-none shadow-gradient-focus;
-			}
 		}
 	}
 }

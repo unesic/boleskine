@@ -11,7 +11,7 @@ import {
 	formatActiveMonthEntries,
 	sortMonthEntries,
 } from "lib/entriesFormatter";
-import type { DayType, MonthType } from "lib/SharedTypes";
+import type { DayType, MonthType } from "lib/types/shared.types";
 
 export const Slice = createSlice({
 	name: "tracking",

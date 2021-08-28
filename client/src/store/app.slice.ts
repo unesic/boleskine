@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { NotificationsType } from "lib/SharedTypes";
+import { NotificationsType } from "lib/types/shared.types";
 
 export const Slice = createSlice({
 	name: "app",
