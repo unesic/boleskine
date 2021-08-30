@@ -3,9 +3,6 @@
  */
 import { memo, useCallback, useEffect, useMemo, useState } from "react";
 import ReactCalendar, { CalendarTileProperties } from "react-calendar";
-import moment from "moment";
-import "moment/locale/sr";
-import "moment/locale/en-in";
 
 /**
  * Redux
@@ -17,6 +14,14 @@ import {
 	setActiveDate,
 	setActiveMonthDays,
 } from "store/tracking.slice";
+import { selectLanguage } from "store/auth.slice";
+
+/**
+ * Utilities
+ */
+import { useMoment } from "lib/hooks/useMoment";
+import { useTranslation } from "lib/hooks/useTranslation";
+import { getMarkedDates } from "lib/entriesFormatter";
 
 /**
  * Components & Icons
@@ -28,13 +33,14 @@ import {
 	ChevronLeftIcon,
 	ChevronRightIcon,
 } from "@heroicons/react/outline";
-import { getMarkedDates } from "lib/entriesFormatter";
-import { selectLanguage } from "store/auth.slice";
 
 interface CalendarProps {}
 
 export const Calendar: React.FC<CalendarProps> = memo(() => {
 	const [calendarDate, setCalendarDate] = useState(new Date());
+
+	const moment = useMoment();
+	const _t = useTranslation("app");
 
 	const dispatch = useDispatch();
 	const activeDate = useSelector(selectActiveDate);
@@ -62,7 +68,7 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 			const targetDate = moment(target).format("DD-MM-YYYY");
 			return markedDates.find(({ date }) => date === targetDate);
 		},
-		[markedDates]
+		[markedDates, moment]
 	);
 
 	const setTileClassName = useCallback(
@@ -93,9 +99,7 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 	return (
 		<Card>
 			<Header
-				title={moment(calendarDate)
-					.locale(language)
-					.format("[Current:] dddd, LL")}
+				title={moment(calendarDate).format(`[${_t.calendar_title}] dddd, LL`)}
 			/>
 			<ReactCalendar
 				locale={language}

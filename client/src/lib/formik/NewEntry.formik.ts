@@ -38,12 +38,6 @@ const validationSchema = Yup.object({
 		),
 });
 
-const selectOptions = [
-	{ value: "inc", label: "Income" },
-	{ value: "exp", label: "Expense" },
-	{ value: "not", label: "Note" },
-];
-
 const checkboxOptions = [{ name: "save", label: "Save as preset" }];
 
-export { initialValues, validationSchema, selectOptions, checkboxOptions };
+export { initialValues, validationSchema, checkboxOptions };

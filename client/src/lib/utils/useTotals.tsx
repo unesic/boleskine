@@ -1,8 +1,8 @@
-import moment from "moment";
-import { getWeekEnd, getWeekStart } from "lib/utils/date.utils";
+import { useMoment } from "lib/hooks/useMoment";
+import { useGetWeekEnd, useGetWeekStart } from "lib/utils/useFormat";
 import { DayType, EntryType } from "lib/types/shared.types";
 
-export function calculateMonthTotals(days: DayType[]) {
+export const useCalculateMonthTotals = (days: DayType[]) => {
 	const totals = days
 		.reduce((acc: EntryType[], curr) => acc.concat(curr.entries), [])
 		.reduce(
@@ -19,14 +19,15 @@ export function calculateMonthTotals(days: DayType[]) {
 		);
 
 	return totals;
-}
+};
 
-export function calculateWeekTotals(
+export const useCalculateWeekTotals = (
 	days: DayType[],
 	date: string
-): [string, string, { inc: number; exp: number }] {
-	const startDate = getWeekStart(date);
-	const endDate = getWeekEnd(date);
+): [string, string, { inc: number; exp: number }] => {
+	const moment = useMoment();
+	const startDate = useGetWeekStart()(date);
+	const endDate = useGetWeekEnd()(date);
 
 	const totals = days
 		.reduce((acc: EntryType[], curr) => acc.concat(curr.entries), [])
@@ -50,4 +51,4 @@ export function calculateWeekTotals(
 		);
 
 	return [startDate, endDate, totals];
-}
+};

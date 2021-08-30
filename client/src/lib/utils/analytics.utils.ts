@@ -1,5 +1,4 @@
 import moment from "moment";
-import { formatWeek, getWeekEnd, getWeekStart } from "./date.utils";
 import { EntriesType, EntryType, MonthType } from "../types/shared.types";
 import {
 	AnalysisTypeEntries,
@@ -9,33 +8,6 @@ import {
 	SplitData,
 	TotalType,
 } from "lib/types/analytics.types";
-
-export function formatLabel(
-	label: string,
-	weekFormat: "range" | "number" = "number",
-	includeYear = false,
-	tooltip = false
-) {
-	const els = label.split("-");
-	const len = els.length;
-	if (len === 2) {
-		return `${els[1]}, ${els[0]}`;
-	} else if (len === 3) {
-		return tooltip
-			? moment(label, "YYYY-[Q]Q-MM").format("MMMM, YYYY")
-			: moment(label, "YYYY-[Q]Q-MM").format("MMM");
-	} else if (len === 4) {
-		if (weekFormat === "range") {
-			const week = moment().week(parseInt(els[3])).toISOString();
-			const startDate = getWeekStart(week);
-			const endDate = getWeekEnd(week);
-			return formatWeek([startDate, endDate], includeYear);
-		} else {
-			return `Week ${els[3]}`;
-		}
-	}
-	return label;
-}
 
 export function splitDataYears(months: MonthType[]): SplitData {
 	return months.reduce(

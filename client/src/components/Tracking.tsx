@@ -11,10 +11,11 @@ import { selectTargetEntryId } from "store/app.slice";
 import { selectActiveMonthDays } from "store/tracking.slice";
 
 /**
- * Components
+ * Components & Utilities
  */
 import { Card, Header } from "ui/card";
 import { Day } from "components/Day";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 interface TrackingProps {}
 
@@ -24,6 +25,7 @@ export const Tracking: React.FC<TrackingProps> = memo(() => {
 	const wrapRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 	const trackRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
+	const _t = useTranslation("app");
 	const activeMonthDays = useSelector(selectActiveMonthDays);
 	const targetEntryId = useSelector(selectTargetEntryId);
 
@@ -41,7 +43,7 @@ export const Tracking: React.FC<TrackingProps> = memo(() => {
 
 	return (
 		<Card className="h-full">
-			<Header title="Tracking" />
+			<Header title={_t.tracking.card_title} />
 			<div ref={wrapRef} className="Tracking">
 				<div
 					ref={trackRef}

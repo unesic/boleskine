@@ -1,8 +1,7 @@
 /**
  * Base
  */
-import { useEffect, useState } from "react";
-import moment from "moment";
+import { useEffect, useState, useMemo } from "react";
 
 /**
  * Redux
@@ -22,12 +21,16 @@ import { AnalyticsGraph } from "components/AnalyticsGraph";
  */
 import { getMasterData, splitDataYears } from "lib/utils/analytics.utils";
 import { MasterDataType, Period } from "lib/types/analytics.types";
-import { useMemo } from "react";
+import { useTranslation } from "lib/hooks/useTranslation";
+import { useMoment } from "lib/hooks/useMoment";
 
 interface AnalyticsProps {}
 
 export const Analytics: React.FC<AnalyticsProps> = () => {
+	const _t = useTranslation("app");
+	const moment = useMoment();
 	const months = useSelector(selectMonths);
+
 	const [masterData, setMasterData] = useState<MasterDataType | null>(null);
 	const [activeYear, setActiveYear] = useState<Option>({
 		value: moment().year().toString(),
@@ -35,8 +38,15 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 	});
 	const [activeTab, setActiveTab] = useState<Option>({
 		value: "wow",
-		label: "Week over Week",
+		label: _t.analytics.display.options.wow,
 	});
+
+	useEffect(() => {
+		setActiveTab({
+			value: "wow",
+			label: _t.analytics.display.options.wow,
+		});
+	}, [_t]);
 
 	useEffect(() => {
 		if (!months.length) return;
@@ -50,18 +60,18 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 		() => [
 			{
 				value: "wow",
-				label: "Week over Week",
+				label: _t.analytics.display.options.wow,
 			},
 			{
 				value: "mom",
-				label: "Month over Month",
+				label: _t.analytics.display.options.mom,
 			},
 			{
 				value: "qoq",
-				label: "Quarter over Quarter",
+				label: _t.analytics.display.options.qoq,
 			},
 		],
-		[]
+		[_t]
 	);
 
 	return masterData !== null ? (
@@ -72,7 +82,7 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 						style={{ flex: "0 0 auto" }}
 						className="text-xl text-app-light-100 text-center"
 					>
-						Display
+						{_t.analytics.display.copy}
 					</div>
 					<div style={{ flex: "0 0 20%" }}>
 						<Select
@@ -82,14 +92,13 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 							onBlur={() => {}}
 							errors={undefined}
 							touched={false}
-							placeholder="Select one..."
 						/>
 					</div>
 					<div
 						style={{ flex: "0 0 auto" }}
 						className="text-xl text-app-light-100 text-center"
 					>
-						progression for
+						{_t.analytics.display.prog}
 					</div>
 					<div style={{ flex: "0 0 20%" }}>
 						<Select
@@ -102,7 +111,6 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 							onBlur={() => {}}
 							errors={undefined}
 							touched={false}
-							placeholder="Select one..."
 						/>
 					</div>
 				</div>

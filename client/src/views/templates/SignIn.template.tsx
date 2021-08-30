@@ -15,6 +15,11 @@ import { Button } from "ui/misc/Button";
 import { Spacer } from "ui/misc/Spacer";
 import { SocialButtons } from "ui/misc/SocialButtons";
 
+/**
+ * Utilities
+ */
+import { useTranslation } from "lib/hooks/useTranslation";
+
 interface Values {
 	email: string;
 	password: string;
@@ -36,17 +41,19 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 		setFieldValue,
 	},
 }) => {
+	const _t = useTranslation("sign_in");
+
 	return (
 		<div className="container mx-auto min-h-screen flex justify-center items-center">
 			<div className="min-w-min">
 				<Card>
-					<Header title="Log in" />
+					<Header title={_t.card_title} />
 					<div className="flex gap-8 px-2">
-						<SocialButtons variant="signin" />
-						<Spacer direction="vertical" withText="OR" />
+						<SocialButtons variant="sign_in" />
+						<Spacer direction="vertical" withText={_t.spacer} />
 						<div className="w-80">
 							<Caption className="mb-4 text-lg text-center">
-								Log in with Email and Password
+								{_t.form.title}
 							</Caption>
 							<form onSubmit={handleSubmit}>
 								<Text
@@ -58,7 +65,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 									onBlur={handleBlur}
 									errors={errors.email}
 									touched={touched.email}
-									label="Email"
+									label={_t.form.email}
 								/>
 								<Text
 									id="password"
@@ -69,27 +76,27 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = ({
 									onBlur={handleBlur}
 									errors={errors.password}
 									touched={touched.password}
-									label="Password"
+									label={_t.form.pass}
 								/>
 								<Checkbox
 									options={[
 										{
 											name: "remember",
-											label: "Remember me",
+											label: _t.form.save.label,
 										},
 									]}
 									value={values.remember}
 									onChange={(value) => setFieldValue("remember", value)}
-									caption="Save login information?"
+									caption={_t.form.save.caption}
 								/>
-								<Button type="submit">Log in</Button>
+								<Button type="submit">{_t.form.btn}</Button>
 							</form>
 						</div>
 					</div>
 					<Caption className="mt-4 pb-2 text-center">
-						Don't have an account?{" "}
-						<Link to="/signup" className="text-app-accent-blue">
-							Sign up
+						{_t.no_acc.copy}{" "}
+						<Link to="/sign-up" className="text-app-accent-blue">
+							{_t.no_acc.link}
 						</Link>
 					</Caption>
 				</Card>

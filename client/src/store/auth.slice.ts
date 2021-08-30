@@ -25,7 +25,7 @@ export const Slice = createSlice({
 	name: "auth",
 	initialState: {
 		user: user,
-		language: "",
+		language: "en",
 	},
 	reducers: {
 		userSignIn: (state, action) => {

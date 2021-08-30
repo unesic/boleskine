@@ -15,8 +15,8 @@ import { CustomTooltip } from "components/CustomTooltip";
 /**
  * Utils & Types
  */
+import { useFormatLabel } from "lib/utils/useFormatLabel";
 import { compactCurrency } from "lib/utils/format.utils";
-import { formatLabel } from "lib/utils/analytics.utils";
 import { TotalType } from "lib/types/analytics.types";
 
 interface AnalyticsGraphProps {
@@ -24,6 +24,8 @@ interface AnalyticsGraphProps {
 }
 
 export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = ({ data }) => {
+	const formatLabel = useFormatLabel();
+
 	if (!data) return null;
 
 	return (
@@ -57,7 +59,7 @@ export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = ({ data }) => {
 						tickLine={false}
 						tick={{ fill: "#f4f4f5", fontSize: "0.75rem" }}
 						tickMargin={10}
-						tickFormatter={(str) => formatLabel(str, "number", false, false)}
+						tickFormatter={(str) => formatLabel(str, "number", false)}
 					/>
 
 					<Tooltip content={<CustomTooltip />} />

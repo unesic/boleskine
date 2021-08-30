@@ -47,7 +47,7 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 		onCompleted({ createUser }) {
 			dispatch(userSignIn(createUser));
 
-			if (location.state && location.state?.from.pathname !== "logout") {
+			if (location.state && location.state?.from.pathname !== "sign-out") {
 				history.push(location.state?.from.pathname);
 			} else {
 				history.push("/");

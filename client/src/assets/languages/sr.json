@@ -1,0 +1,86 @@
+{
+	"header": {},
+	"sign_in": {
+		"card_title": "Prijava",
+		"socials": {
+			"gh": "Prijavi se putem GitHub",
+			"go": "Prijavi se putem Google",
+			"fb": "Prijavi se putem Facebook",
+			"li": "Prijavi se putem LinkedIn"
+		},
+		"spacer": "ILI",
+		"form": {
+			"title": "Prijavi se putem email-a i lozinke",
+			"email": "Email",
+			"pass": "Lozinka",
+			"save": {
+				"caption": "Ostani prijavljen?",
+				"label": "Sačuvaj podatke"
+			},
+			"btn": "Prijavi se"
+		},
+		"no_acc": {
+			"copy": "Nemaš nalog?",
+			"link": "Registruj se"
+		}
+	},
+	"sign_up": {
+		"card_title": "Registracija",
+		"socials": {
+			"gh": "Registruj se putem GitHub",
+			"go": "Registruj se putem Google",
+			"fb": "Registruj se putem Facebook",
+			"li": "Registruj se putem LinkedIn"
+		},
+		"spacer": "ILI",
+		"form": {
+			"title": "Registruj se putme email-a i lozinke",
+			"email": "Email",
+			"pass": "Lozinka",
+			"repass": "Potvrdi lozinku",
+			"btn": "Registruj se"
+		},
+		"has_acc": {
+			"copy": "Već imaš nalog?",
+			"link": "Prijavi se"
+		}
+	},
+	"app": {
+		"calendar_title": "Izabran:",
+		"total_inc": "UKUPNI PRIHODI",
+		"total_exp": "UKUPNI TROŠKOVI",
+		"new_entry": {
+			"title": "Dodaj novu stavku",
+			"desc": "Opis",
+			"type": {
+				"placeholder": "Tip",
+				"inc": "Prihod",
+				"exp": "Trošak",
+				"not": "Beleška"
+			},
+			"amount": "Iznos",
+			"btn": "Dodaj stavku"
+		},
+		"tracking": {
+			"card_title": "Praćenje",
+			"edit_entry": "Uredi stavku",
+			"remove_entry": "Ukloni stavku"
+		},
+		"analytics": {
+			"display": {
+				"copy": "Prikaži",
+				"options": {
+					"wow": "Nedeljnu",
+					"mom": "Mesečnu",
+					"qoq": "Kvartalnu"
+				},
+				"prog": "progresiju za"
+			},
+			"week": "Ned",
+			"label": {
+				"inc": "Prihodi:",
+				"exp": "Troškovi:"
+			}
+		}
+	}
+}

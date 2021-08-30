@@ -59,7 +59,9 @@ export const Entry: React.FC<EntryProps> = memo(
 				<div
 					onMouseEnter={() => setHovering(true)}
 					onMouseLeave={() => setHovering(false)}
-					className={`Entries__Entry ${hovering ? "hover" : ""}`}
+					className={`Entries__Entry ${
+						hovering || targetEntryId === id ? "hover" : ""
+					}`}
 					id={id}
 				>
 					<div className="Entries__Entry__Inner" ref={transitionRef}>
@@ -75,7 +77,9 @@ export const Entry: React.FC<EntryProps> = memo(
 						<button
 							ref={optionsRef}
 							onClick={optionsToggle}
-							className={`Option Option--${hovering ? "visible" : "hidden"}`}
+							className={`Option Option--${
+								hovering || targetEntryId === id ? "visible" : "hidden"
+							}`}
 						>
 							<DotsVerticalIcon />
 						</button>

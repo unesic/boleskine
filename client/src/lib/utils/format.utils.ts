@@ -1,11 +1,3 @@
-export const dateFormatter = new Intl.DateTimeFormat(["sr-Latn-RS"], {
-	weekday: "short",
-	year: "numeric",
-	month: "short",
-	day: "numeric",
-	localeMatcher: "best fit",
-});
-
 export const currencyFormatter = new Intl.NumberFormat("en-US", {
 	style: "currency",
 	currency: "USD",

@@ -13,6 +13,7 @@ import { Caption } from "ui/form/Caption";
 import { Button } from "ui/misc/Button";
 import { Spacer } from "ui/misc/Spacer";
 import { SocialButtons } from "ui/misc/SocialButtons";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 interface Values {
 	email: string;
@@ -27,17 +28,19 @@ interface SignUpTemplateProps {
 export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
 	formik: { values, errors, touched, handleSubmit, handleChange, handleBlur },
 }) => {
+	const _t = useTranslation("sign_up");
+
 	return (
 		<div className="container mx-auto min-h-screen flex justify-center items-center">
 			<div className="min-w-min">
 				<Card>
-					<Header title="Sign up" />
+					<Header title={_t.card_title} />
 					<div className="flex gap-8 px-2">
-						<SocialButtons variant="signup" />
-						<Spacer direction="vertical" withText="OR" />
+						<SocialButtons variant="sign_up" />
+						<Spacer direction="vertical" withText={_t.spacer} />
 						<div className="w-80">
 							<Caption className="mb-4 text-lg text-center">
-								Sign up with Email and Password
+								{_t.form.title}
 							</Caption>
 							<form onSubmit={handleSubmit}>
 								<Text
@@ -49,7 +52,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
 									onBlur={handleBlur}
 									errors={errors.email}
 									touched={touched.email}
-									label="Email"
+									label={_t.form.email}
 								/>
 								<Text
 									id="password"
@@ -60,7 +63,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
 									onBlur={handleBlur}
 									errors={errors.password}
 									touched={touched.password}
-									label="Password"
+									label={_t.form.pass}
 								/>
 								<Text
 									id="rePassword"
@@ -71,16 +74,16 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = ({
 									onBlur={handleBlur}
 									errors={errors.rePassword}
 									touched={touched.rePassword}
-									label="Re-type Password"
+									label={_t.form.repass}
 								/>
-								<Button type="submit">Sign up</Button>
+								<Button type="submit">{_t.form.btn}</Button>
 							</form>
 						</div>
 					</div>
 					<Caption className="mt-4 pb-2 text-center">
-						Already have an account?{" "}
-						<Link to="/login" className="text-app-accent-blue">
-							Log in
+						{_t.has_acc.copy}{" "}
+						<Link to="/sign-in" className="text-app-accent-blue">
+							{_t.has_acc.link}
 						</Link>
 					</Caption>
 				</Card>

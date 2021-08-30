@@ -1,21 +1,9 @@
 @layer components {
 	.EntryOptions {
-		@apply absolute top-0 right-0 opacity-0 transform translate-x-full transition-all duration-200;
-		@apply rounded-lg max-w-xs bg-black bg-opacity-25 backdrop-filter backdrop-blur-md;
-
-		&--hidden {
-			@apply hidden;
-		}
-
-		&--enter {
-			@apply translate-x-full opacity-0;
-		}
+		@apply absolute top-0 right-0 transform translate-x-full opacity-0 transition-all duration-200;
+		@apply rounded-lg w-max bg-black bg-opacity-25 backdrop-filter backdrop-blur-md;
 
 		&--enter-done {
-			@apply translate-x-0 opacity-100;
-		}
-
-		&--exit {
 			@apply translate-x-0 opacity-100;
 		}
 
@@ -24,11 +12,11 @@
 		}
 
 		&__inner {
-			@apply flex flex-col gap-2 p-2;
+			@apply flex flex-col gap-2 p-2 w-max;
 
 			.EntryOption {
 				@apply flex gap-2 items-center;
-				@apply rounded px-2 py-1 w-full bg-app-dark-200 bg-opacity-30 hover:bg-opacity-100;
+				@apply rounded px-2 py-1 w-[12rem] bg-app-dark-200 bg-opacity-30 hover:bg-opacity-100;
 				@apply text-lg text-white;
 				@apply transition-colors duration-200;
 			}

@@ -14,16 +14,19 @@ import { clearTargetEntryId, selectTargetEntryId } from "store/app.slice";
  * Utilities & Icons
  */
 import { useVisible } from "lib/hooks/useVisible";
+import { useTranslation } from "lib/hooks/useTranslation";
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
 
 interface EntryOptionsProps {}
 
 type PositionType = {
-	x: number;
-	y: number;
+	top: number | undefined;
+	left: number | undefined;
+	right: number | undefined;
 };
 
 export const EntryOptions: React.FC<EntryOptionsProps> = () => {
+	const _t = useTranslation("app");
 	const dispatch = useDispatch();
 	const targetEntryId = useSelector(selectTargetEntryId);
 
@@ -59,10 +62,18 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		}
 
 		const entry = document.getElementById(targetEntryId);
-		if (!entry) return;
+		const entryOption = entry?.querySelector(".Option");
 
-		const { width, top, left } = entry.getBoundingClientRect();
-		setPosition({ x: width + left, y: top });
+		if (!entryOption) return;
+
+		const { x, y, right } = entryOption.getBoundingClientRect();
+		const isNarrow = x > window.innerWidth * 0.9;
+
+		setPosition({
+			top: y,
+			left: !isNarrow ? right : undefined,
+			right: isNarrow ? window.innerWidth - x : undefined,
+		});
 		setVisible(true);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [targetEntryId]);
@@ -70,21 +81,26 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 	return (
 		<CSSTransition
 			in={visible}
-			timeout={300}
+			timeout={200}
 			classNames="EntryOptions-"
 			nodeRef={ref}
+			unmountOnExit
 		>
 			<div
 				ref={ref}
-				className={`EntryOptions ${!visible ? "EntryOptions--hidden" : ""}`}
-				style={{ top: position?.y, left: position?.x }}
+				className="EntryOptions"
+				style={{
+					top: position?.top,
+					left: position?.left,
+					right: position?.right,
+				}}
 			>
 				<div className="EntryOptions__inner">
 					<button className="EntryOption">
-						<AiOutlineEdit /> Edit Entry
+						<AiOutlineEdit /> {_t.tracking.edit_entry}
 					</button>
 					<button className="EntryOption">
-						<AiOutlineDelete /> Remove Entry
+						<AiOutlineDelete /> {_t.tracking.remove_entry}
 					</button>
 				</div>
 			</div>

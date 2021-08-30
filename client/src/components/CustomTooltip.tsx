@@ -1,7 +1,7 @@
 /**
  * Utils & Types
  */
-import { formatLabel } from "lib/utils/analytics.utils";
+import { useFormatLabel } from "lib/utils/useFormatLabel";
 import { currencyFormatter } from "lib/utils/format.utils";
 import { TooltipProps } from "recharts";
 import {
@@ -13,6 +13,7 @@ import {
  * Components
  */
 import { Card } from "ui/card";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 type CustomTooltipProps = TooltipProps<ValueType, NameType>;
 
@@ -21,25 +22,28 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
 	payload,
 	label,
 }) => {
+	const _t = useTranslation("app");
+	const formatLabel = useFormatLabel();
+
 	const inc = payload?.[0]?.value as string;
 	const exp = payload?.[1]?.value as string;
 
 	if (!inc && !exp) return null;
 
 	return active ? (
-		<Card>
+		<Card className="bg-opacity-50">
 			<div className="CustomTooltip">
 				<p className="CustomTooltip__label">
-					{formatLabel(label, "range", true, true)}
+					{formatLabel(label, "range", true)}
 				</p>
 				<p className="CustomTooltip__value">
-					Income:{" "}
+					{_t.analytics.label.inc}{" "}
 					<span className="CustomTooltip__value--inc">
 						{currencyFormatter.format(parseInt(inc))}
 					</span>
 				</p>
 				<p className="CustomTooltip__value">
-					Expense:{" "}
+					{_t.analytics.label.exp}{" "}
 					<span className="CustomTooltip__value--exp">
 						{currencyFormatter.format(parseInt(exp))}
 					</span>

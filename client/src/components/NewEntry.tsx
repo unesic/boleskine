@@ -3,7 +3,6 @@
  */
 import { memo } from "react";
 import { useFormik } from "formik";
-import moment from "moment";
 
 /**
  * Redux
@@ -27,24 +26,39 @@ import { CREATE_ENTRY } from "lib/graphql/entry.queries";
 import { GET_MONTH } from "lib/graphql/month.queries";
 
 /**
+ * Utilities
+ */
+import { useTranslation } from "lib/hooks/useTranslation";
+import { useMoment } from "lib/hooks/useMoment";
+
+/**
  * Components & utilities
  */
 import { Card, Header } from "ui/card";
 import { Text } from "ui/form/Text";
 import { Select } from "ui/form/Select";
 import { Button } from "ui/misc/Button";
-import {
-	initialValues,
-	validationSchema,
-	selectOptions,
-} from "lib/formik/NewEntry.formik";
+import { initialValues, validationSchema } from "lib/formik/NewEntry.formik";
+import { useMemo } from "react";
 
 interface NewEntryProps {}
 
 export const NewEntry: React.FC<NewEntryProps> = memo(() => {
+	const _t = useTranslation("app");
+	const moment = useMoment();
+
 	const dispatch = useDispatch();
 	const activeMonthId = useSelector(selectActiveMonthId);
 	const activeDate = useSelector(selectActiveDate);
+
+	const selectOptions = useMemo(
+		() => [
+			{ value: "inc", label: _t.new_entry.type.inc },
+			{ value: "exp", label: _t.new_entry.type.exp },
+			{ value: "not", label: _t.new_entry.type.not },
+		],
+		[_t]
+	);
 
 	const formik = useFormik({
 		initialValues: initialValues,
@@ -99,7 +113,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 
 	return (
 		<Card>
-			<Header title="Add new entry" />
+			<Header title={_t.new_entry.title} />
 			<form onSubmit={formik.handleSubmit}>
 				<Text
 					id="description"
@@ -110,7 +124,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 					onBlur={formik.handleBlur}
 					errors={formik.errors.description}
 					touched={formik.touched.description}
-					label="Description"
+					label={_t.new_entry.desc}
 				/>
 				<Select
 					options={selectOptions}
@@ -119,7 +133,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 					onBlur={() => formik.setFieldTouched("type", true)}
 					errors={formik.errors.type}
 					touched={formik.touched.type}
-					placeholder="Type"
+					placeholder={_t.new_entry.type.placeholder}
 				/>
 				{formik.values.type?.value === "inc" ||
 				formik.values.type?.value === "exp" ? (
@@ -133,10 +147,10 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 						onBlur={formik.handleBlur}
 						errors={formik.errors.amount}
 						touched={formik.touched.amount}
-						label="Amount"
+						label={_t.new_entry.amount}
 					/>
 				) : null}
-				<Button type="submit">Add new entry</Button>
+				<Button type="submit">{_t.new_entry.btn}</Button>
 			</form>
 		</Card>
 	);

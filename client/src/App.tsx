@@ -3,7 +3,7 @@
  */
 import { memo, useEffect } from "react";
 import { Router } from "Router";
-import moment from "moment";
+// import moment from "moment";
 
 /**
  * Redux
@@ -17,10 +17,12 @@ import { selectUser, setLanguage } from "store/auth.slice";
  */
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER_MONTHS } from "lib/graphql/month.queries";
+import { useMoment } from "lib/hooks/useMoment";
 
 interface AppProps {}
 
 export const App: React.FC<AppProps> = memo(() => {
+	const moment = useMoment();
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 
@@ -30,6 +32,7 @@ export const App: React.FC<AppProps> = memo(() => {
 		const navLang = navigator.language;
 		const language = navLang === "sr" ? "sr-Latn-RS" : navLang;
 		dispatch(setLanguage(language));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {

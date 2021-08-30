@@ -1,27 +1,36 @@
 /**
  * Base
  */
-import { calculateWeekTotals } from "lib/utils/calculate.utils";
-import { formatWeek } from "lib/utils/date.utils";
-import { memo, useMemo } from "react";
+import { memo } from "react";
+
+/**
+ * Redux
+ */
 import { useSelector } from "react-redux";
 import { selectActiveDate, selectActiveMonthDays } from "store/tracking.slice";
+
+/**
+ * Utilities
+ */
+import { useFormatWeek } from "lib/utils/useFormat";
+import { useCalculateWeekTotals } from "lib/utils/useTotals";
 
 /**
  * Components
  */
 import { Card, Header } from "ui/card";
-import { Totals } from "./Totals";
+import { Totals } from "components/Totals";
 
 interface CurrentWeekProps {}
 
 export const CurrentWeek: React.FC<CurrentWeekProps> = memo(() => {
-	const activeMonthDays = useSelector(selectActiveMonthDays);
 	const activeDate = useSelector(selectActiveDate);
+	const activeMonthDays = useSelector(selectActiveMonthDays);
 
-	const [startDate, endDate, totals] = useMemo(
-		() => calculateWeekTotals(activeMonthDays, activeDate.day),
-		[activeMonthDays, activeDate]
+	const formatWeek = useFormatWeek();
+	const [startDate, endDate, totals] = useCalculateWeekTotals(
+		activeMonthDays,
+		activeDate.day
 	);
 
 	return (
