@@ -5,6 +5,7 @@ import { selectUser } from "store/auth.slice";
 import { Topbar } from "ui/misc/Topbar";
 import { Notifications } from "ui/misc/Notifications";
 import { EntryOptions } from "ui/misc/EntryOptions";
+import { ConfirmationPoup } from "ui/misc/ConfirmationPoup";
 
 interface PrivateRouteProps {
 	[key: string]: any;
@@ -37,6 +38,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 
 			<Notifications position="tr" />
 			<EntryOptions />
+			<ConfirmationPoup />
 		</>
 	);
 };

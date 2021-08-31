@@ -30,7 +30,9 @@ export const App: React.FC<AppProps> = memo(() => {
 		document.body.classList.add("FancyScroll");
 
 		const navLang = navigator.language;
-		const language = navLang === "sr" ? "sr-Latn-RS" : navLang;
+		const is_sr = navLang === "sr";
+		const is_en = navLang.includes("en");
+		const language = is_sr ? "sr-Latn-RS" : is_en ? "en" : "en";
 		dispatch(setLanguage(language));
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);

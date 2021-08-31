@@ -81,6 +81,12 @@
 				"inc": "Income:",
 				"exp": "Expense:"
 			}
+		},
+		"misc": {
+			"popup": {
+				"confirm": "Confirm",
+				"cancel": "Cancel"
+			}
 		}
 	}
 }

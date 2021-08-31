@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 
+// TODO: Remove
 const GET_ENTRY = gql`
 	query getEntry($id: ID!) {
 		getEntry(id: $id) {
@@ -13,6 +14,7 @@ const GET_ENTRY = gql`
 	}
 `;
 
+// TODO: Remove
 const GET_USER_ENTRIES = gql`
 	query getUserEntries {
 		getUserEntries {

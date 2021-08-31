@@ -81,6 +81,12 @@
 				"inc": "Prihodi:",
 				"exp": "Troškovi:"
 			}
+		},
+		"misc": {
+			"popup": {
+				"confirm": "Potvrdi",
+				"cancel": "Odustani"
+			}
 		}
 	}
 }

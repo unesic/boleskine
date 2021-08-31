@@ -87,6 +87,12 @@ export type AppT = {
 			exp: string;
 		};
 	};
+	misc: {
+		popup: {
+			confirm: string;
+			cancel: string;
+		};
+	};
 };
 
 export type LanguageT = {

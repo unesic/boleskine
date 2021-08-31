@@ -60,7 +60,6 @@ module.exports = gql`
 		): User
 
 		createMonth(date: String!): Month
-		# updateMonth(entries: [ID]): Month
 		deleteMonth(id: ID!): String
 
 		createEntry(
