@@ -12,5 +12,5 @@ const Template: Story<ComponentProps<typeof SB>> = (args) => <SB {...args} />;
 
 export const SocialButtons = Template.bind({});
 SocialButtons.args = {
-	variant: "signup",
+	variant: "sign_up",
 };

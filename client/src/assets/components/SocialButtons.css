@@ -3,7 +3,7 @@
 		@apply flex flex-col gap-4 items-center self-center;
 
 		&__button {
-			@apply flex justify-center items-center gap-2 w-64;
+			@apply flex justify-center items-center gap-2 min-w-max w-full;
 			@apply rounded px-6 py-4 bg-app-dark-200;
 			@apply font-body-medium text-app-light-100;
 			@apply transition-all duration-200 ease-out;

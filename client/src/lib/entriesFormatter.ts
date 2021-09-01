@@ -1,7 +1,12 @@
 import moment from "moment";
-import type { DayType, EntriesType, EntryType, MonthType } from "./SharedTypes";
+import type {
+	DayType,
+	EntriesType,
+	EntryType,
+	MonthType,
+} from "./types/shared.types";
 
-export function formatEntries(entries: EntriesType): DayType[] {
+export function formatActiveMonthEntries(entries: EntriesType): DayType[] {
 	const days: any = {};
 	entries.forEach((entry: EntryType) => {
 		const date = moment(entry.timestamp).format("YYYY-MM-DD");
@@ -36,7 +41,7 @@ export function sortMonthEntries(month: MonthType): EntriesType {
 	return entries;
 }
 
-export function foo(months: MonthType[]) {
+export function getMarkedDates(months: MonthType[]) {
 	// Extract entries from all months
 	const entries = months.reduce(
 		(acc: EntriesType, curr) => acc.concat(curr.entries),
@@ -50,7 +55,6 @@ export function foo(months: MonthType[]) {
 		),
 	];
 
-	//
 	const marks = dates.map((date) => {
 		const flags: { [key: string]: boolean } = {
 			inc: false,
@@ -62,16 +66,40 @@ export function foo(months: MonthType[]) {
 			if (tms === date && !flags[type]) flags[type] = true;
 		});
 
-		const { inc, exp, not } = flags;
 		return {
 			date: date,
 			marks: [
-				inc ? "inc" : false,
-				exp ? "exp" : false,
-				not ? "not" : false,
-			].filter(Boolean),
+				flags.inc ? "inc" : false,
+				flags.exp ? "exp" : false,
+				flags.not ? "not" : false,
+			].filter(Boolean) as string[],
 		};
 	});
 
 	return marks;
+}
+
+export function getMonthMarks(
+	marked: {
+		date: string;
+		marks: string[];
+	}[]
+): [{ [key: string]: number }, string[]] {
+	const marks = marked
+		.map((m) => m.marks.map((mark) => mark))
+		.reduce((acc, curr) => acc.concat(curr));
+
+	const marksCounts: { [key: string]: number } = {
+		inc: marks.filter((e) => e === "inc").length,
+		exp: marks.filter((e) => e === "exp").length,
+		not: marks.filter((e) => e === "not").length,
+	};
+
+	const sortedMarks = [...new Set(marks)].sort((a, b) => {
+		if (marksCounts[a] > marksCounts[b]) return -1;
+		else if (marksCounts[a] < marksCounts[b]) return 1;
+		return 0;
+	});
+
+	return [marksCounts, sortedMarks];
 }

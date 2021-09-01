@@ -1,0 +1,92 @@
+{
+	"header": {},
+	"sign_in": {
+		"card_title": "Sign in",
+		"socials": {
+			"gh": "Sign in with GitHub",
+			"go": "Sign in with Google",
+			"fb": "Sign in with Facebook",
+			"li": "Sign in with LinkedIn"
+		},
+		"spacer": "OR",
+		"form": {
+			"title": "Sign in with email and password",
+			"email": "Email",
+			"pass": "Password",
+			"save": {
+				"caption": "Stay signed in?",
+				"label": "Remember me"
+			},
+			"btn": "Sign in"
+		},
+		"no_acc": {
+			"copy": "Don't have an account?",
+			"link": "Sign up"
+		}
+	},
+	"sign_up": {
+		"card_title": "Sign up",
+		"socials": {
+			"gh": "Sign up with GitHub",
+			"go": "Sign up with Google",
+			"fb": "Sign up with Facebook",
+			"li": "Sign up with LinkedIn"
+		},
+		"spacer": "OR",
+		"form": {
+			"title": "Sign up with email and password",
+			"email": "Email",
+			"pass": "Password",
+			"repass": "Re-type Password",
+			"btn": "Sign up"
+		},
+		"has_acc": {
+			"copy": "Already have an account?",
+			"link": "Sign in"
+		}
+	},
+	"app": {
+		"calendar_title": "Current:",
+		"total_inc": "TOTAL INCOME",
+		"total_exp": "TOTAL EXPENSE",
+		"new_entry": {
+			"title": "Add new entry",
+			"desc": "Description",
+			"type": {
+				"placeholder": "Type",
+				"inc": "Income",
+				"exp": "Expense",
+				"not": "Note"
+			},
+			"amount": "Amount",
+			"btn": "Add entry"
+		},
+		"tracking": {
+			"card_title": "Tracking",
+			"edit_entry": "Edit entry",
+			"remove_entry": "Remove entry"
+		},
+		"analytics": {
+			"display": {
+				"copy": "Display",
+				"options": {
+					"wow": "Weekly",
+					"mom": "Monthly",
+					"qoq": "Quarterly"
+				},
+				"prog": "progression for"
+			},
+			"week": "Week",
+			"label": {
+				"inc": "Income:",
+				"exp": "Expense:"
+			}
+		},
+		"misc": {
+			"popup": {
+				"confirm": "Confirm",
+				"cancel": "Cancel"
+			}
+		}
+	}
+}

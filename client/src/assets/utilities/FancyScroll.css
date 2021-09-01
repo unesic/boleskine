@@ -1,0 +1,15 @@
+@layer utilities {
+	.FancyScroll {
+		&::-webkit-scrollbar {
+			@apply w-2;
+		}
+
+		&::-webkit-scrollbar-track {
+			@apply bg-app-dark-300 bg-opacity-10;
+		}
+
+		&::-webkit-scrollbar-thumb {
+			@apply rounded-full bg-app-dark-500 bg-opacity-40;
+		}
+	}
+}

@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 export const useVisible = (
 	initialIsVisible: boolean,
-	additional: any = true
+	additional: any = () => true
 ): [
 	ref: React.RefObject<HTMLDivElement>,
 	isVisible: boolean,
@@ -22,6 +22,7 @@ export const useVisible = (
 		return () => {
 			document.removeEventListener("click", handleClickOutside, true);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return [ref, isVisible, setIsVisible];

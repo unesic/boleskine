@@ -8,7 +8,7 @@ import { useFormik } from "formik";
  * Redux
  */
 import { useDispatch } from "react-redux";
-import { userLogin } from "store/auth.slice";
+import { userSignIn } from "store/auth.slice";
 
 /**
  * Utilities
@@ -18,8 +18,8 @@ import { USER_SIGNUP } from "lib/graphql/user.queries";
 /**
  * Components
  */
-import { initialValues, validationSchema } from "./SignUp.lib/SignUp.formik";
-import { SignUpTemplate } from "./SignUp.lib/SignUp.template";
+import { initialValues, validationSchema } from "lib/formik/SignUp.formik";
+import { SignUpTemplate } from "views/templates/SignUp.template";
 
 interface SignUpProps {
 	history: any;
@@ -45,9 +45,9 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 
 	const [createUser] = useMutation(USER_SIGNUP, {
 		onCompleted({ createUser }) {
-			dispatch(userLogin(createUser));
+			dispatch(userSignIn(createUser));
 
-			if (location.state && location.state?.from.pathname !== "logout") {
+			if (location.state && location.state?.from.pathname !== "sign-out") {
 				history.push(location.state?.from.pathname);
 			} else {
 				history.push("/");

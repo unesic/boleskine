@@ -7,8 +7,11 @@ import moment from "moment";
 /**
  * Utilities & types
  */
-import { formatEntries, sortMonthEntries } from "lib/entriesFormatter";
-import type { DayType, MonthType } from "lib/SharedTypes";
+import {
+	formatActiveMonthEntries,
+	sortMonthEntries,
+} from "lib/entriesFormatter";
+import type { DayType, MonthType } from "lib/types/shared.types";
 
 export const Slice = createSlice({
 	name: "tracking",
@@ -56,7 +59,7 @@ export const Slice = createSlice({
 		setActiveMonthDays: (state, action) => {
 			const newActive = state.months.find((m) => m.date === action.payload);
 			if (newActive) {
-				state.activeMonthDays = formatEntries(newActive.entries);
+				state.activeMonthDays = formatActiveMonthEntries(newActive.entries);
 				state.activeMonthId = newActive.id;
 			} else {
 				state.activeMonthDays = [];

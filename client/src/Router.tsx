@@ -1,12 +1,16 @@
-import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+/**
+ * Base
+ */
+import { BrowserRouter, Redirect, Switch } from "react-router-dom";
+import { PrivateRoute } from "lib/routes/PrivateRoute";
+import { PublicRoute } from "lib/routes/PublicRoute";
 
-import { PrivateRoute } from "lib/PrivateRoute";
-import { PublicRoute } from "lib/PublicRoute";
-
-import { Home } from "views/Home";
-import { LogIn } from "views/LogIn";
+/**
+ * Views
+ */
 import { SignUp } from "views/SignUp";
-import { Profile } from "views/Profile";
+import { SignIn } from "views/SignIn";
+import { Home } from "views/Home";
 
 interface RouterProps {}
 
@@ -14,11 +18,14 @@ export const Router: React.FC<RouterProps> = () => {
 	return (
 		<BrowserRouter>
 			<Switch>
+				<PublicRoute exact path="/sign-up" component={SignUp} />
+				<PublicRoute exact path="/sign-in" component={SignIn} />
 				<PrivateRoute exact path="/" component={Home} />
-				<PublicRoute exact path="/signup" component={SignUp} />
-				<PublicRoute exact path="/login" component={LogIn} />
-				<PrivateRoute path="/u/:id" component={Profile} />
-				<Route exact path="/logout" render={() => <Redirect to="/" />} />
+				<PrivateRoute
+					exact
+					path="/sign-out"
+					render={() => <Redirect to="/" />}
+				/>
 			</Switch>
 		</BrowserRouter>
 	);

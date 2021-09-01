@@ -1,0 +1,55 @@
+@layer components {
+	.Topbar {
+		@apply lg:max-w-5xl container;
+
+		&__Inner {
+			@apply flex justify-end items-center gap-4 mt-4;
+			@apply rounded-lg p-4 bg-black bg-opacity-40 shadow-card;
+		}
+
+		&__User {
+			@apply relative;
+
+			.User {
+				&__Avatar {
+					@apply outline-none focus:outline-none;
+					@apply flex items-center justify-center gap-1;
+					@apply text-xs text-app-light-200 text-opacity-80;
+					@apply hover:text-opacity-100 transition-colors duration-200;
+
+					&__image {
+						@apply w-8 h-8 object-cover object-center rounded-full bg-app-dark-400;
+					}
+				}
+
+				&__Menu {
+					@apply absolute z-50 top-full right-0 rounded-lg p-2 w-64;
+					@apply bg-black bg-opacity-25 shadow-card backdrop-filter backdrop-blur-md;
+					@apply transform translate-x-[200%] opacity-0 transition-all duration-200;
+
+					&--enter-done {
+						@apply translate-x-0 opacity-100;
+					}
+
+					&--exit {
+						@apply translate-x-[200%] opacity-0;
+					}
+
+					&__item {
+						@apply block py-1 px-2;
+						@apply text-sm text-app-light-100 text-opacity-80;
+						@apply hover:text-opacity-100 transition-colors duration-200;
+
+						&--big {
+							@apply text-base;
+						}
+
+						&--small {
+							@apply text-xs;
+						}
+					}
+				}
+			}
+		}
+	}
+}
