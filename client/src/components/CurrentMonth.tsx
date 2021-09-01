@@ -32,7 +32,7 @@ export const CurrentMonth: React.FC<CurrentMonthProps> = memo(() => {
 
 	return (
 		<Card>
-			<Header title={formatMonth(activeDate.month)} />
+			<Header title={formatMonth(activeDate)} />
 			<Totals income={totals.inc} expense={totals.exp} />
 		</Card>
 	);

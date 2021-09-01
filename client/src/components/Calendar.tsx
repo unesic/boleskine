@@ -27,6 +27,7 @@ import { getMarkedDates } from "lib/entriesFormatter";
  * Components & Icons
  */
 import { Card, Header } from "ui/card";
+import { CalendarMarkers } from "ui/misc/CalendarMarkers";
 import {
 	ChevronDoubleLeftIcon,
 	ChevronDoubleRightIcon,
@@ -59,39 +60,44 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 
 	const markedDates = useMemo(() => getMarkedDates(months), [months]);
 
-	const onChange = useCallback((value: Date | Date[]) => {
-		setCalendarDate(value as Date);
-	}, []);
+	const onChange = useCallback(
+		(value: Date | Date[]) => {
+			setCalendarDate(value as Date);
+		},
+		[setCalendarDate]
+	);
 
 	const findMarked = useCallback(
-		(target: Date) => {
-			const targetDate = moment(target).format("DD-MM-YYYY");
-			return markedDates.find(({ date }) => date === targetDate);
+		(target: Date, view: string) => {
+			const supportedViews = ["month", "year"];
+			if (supportedViews.indexOf(view) === -1) return [];
+
+			const format = view === "month" ? "DD-MM-YYYY" : "MM-YYYY";
+			const targetDate = moment(target).format(format);
+
+			return markedDates.filter(({ date }) => {
+				const entryDate = moment(date, "DD-MM-YYYY").format(format);
+				return entryDate === targetDate;
+			});
 		},
 		[markedDates, moment]
 	);
 
 	const setTileClassName = useCallback(
-		({ date }: CalendarTileProperties): string | null => {
-			const marked = findMarked(date);
-			if (!marked) return null;
+		({ date, view }: CalendarTileProperties): string | null => {
+			const marked = findMarked(date, view);
+			if (!marked.length) return null;
 			return "react-calendar__month-view__days__day--marked";
 		},
 		[findMarked]
 	);
 
 	const setTileContent = useCallback(
-		({ date }: CalendarTileProperties): JSX.Element | null => {
-			const marked = findMarked(date);
-			if (!marked) return null;
+		({ date, view }: CalendarTileProperties): JSX.Element | null => {
+			const marked = findMarked(date, view);
+			if (!marked.length) return null;
 
-			return (
-				<span className="markers">
-					{marked.marks.map((mark) => (
-						<span className={`marker marker--${mark}`}>•</span>
-					))}
-				</span>
-			);
+			return <CalendarMarkers view={view} marked={marked} />;
 		},
 		[findMarked]
 	);
@@ -103,10 +109,11 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 			/>
 			<ReactCalendar
 				locale={language}
-				value={[
-					moment(calendarDate).startOf("isoWeek").toDate(),
-					moment(calendarDate).startOf("isoWeek").add(7, "days").toDate(),
-				]}
+				value={calendarDate}
+				// value={[
+				// 	moment(calendarDate).startOf("isoWeek").toDate(),
+				// 	moment(calendarDate).endOf("isoWeek").toDate(),
+				// ]}
 				onChange={onChange}
 				tileClassName={setTileClassName}
 				tileContent={setTileContent}

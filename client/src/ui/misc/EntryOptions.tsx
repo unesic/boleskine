@@ -82,11 +82,11 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		if (!entryOption) return;
 
 		const { x, y, right } = entryOption.getBoundingClientRect();
-		const isNarrow = x > window.innerWidth * 0.9;
+		const isNarrow = x / window.innerWidth > 0.825;
 
 		setPosition({
 			top: y,
-			left: !isNarrow ? right : undefined,
+			left: !isNarrow ? right + 8 : undefined,
 			right: isNarrow ? window.innerWidth - x : undefined,
 		});
 		setVisible(true);
