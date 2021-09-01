@@ -3,7 +3,6 @@
  */
 import { memo, useEffect } from "react";
 import { Router } from "Router";
-// import moment from "moment";
 
 /**
  * Redux

@@ -71,20 +71,6 @@ module.exports = {
 			const res = await newMonth.save();
 			return res;
 		},
-		// updateMonth: async (_, { id, entries }, context) => {
-		// 	checkAuth(context);
-
-		// 	const res = await Months.findByIdAndUpdate(
-		// 		id,
-		// 		{ entries },
-		// 		{ new: true }
-		// 	);
-
-		// 	return {
-		// 		...res._doc,
-		// 		id: res._id,
-		// 	};
-		// },
 		deleteMonth: async (_, { id }, context) => {
 			const user = checkAuth(context);
 
