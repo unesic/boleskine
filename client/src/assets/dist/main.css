@@ -2664,6 +2664,9 @@ video {
 	display: block;
 }
 .Topbar__User .User__Menu__item {
+	cursor: pointer;
+}
+.Topbar__User .User__Menu__item {
 	padding-top: 0.25rem;
 	padding-bottom: 0.25rem;
 }
@@ -2700,6 +2703,18 @@ video {
 .Topbar__User .User__Menu__item--small {
 	font-size: 0.75rem;
 	line-height: 1rem;
+}
+.Topbar__User .User__Menu__item svg {
+	margin-right: 0.25rem;
+}
+.Topbar__User .User__Menu__item svg {
+	display: inline-block;
+}
+.Topbar__User .User__Menu__item svg {
+	height: 1.125rem;
+}
+.Topbar__User .User__Menu__item svg {
+	vertical-align: text-bottom;
 }
 .SocialButtons {
 	display: flex;
@@ -2931,6 +2946,20 @@ video {
 		height: calc(100% - 2.5rem);
 		position: relative;
 	}
+.Tracking__no-entries {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+.Tracking__no-entries {
+	text-align: center;
+}
+.Tracking__no-entries {
+	--tw-text-opacity: 1;
+	color: rgba(193, 195, 207, var(--tw-text-opacity));
+}
+.Tracking__no-entries {
+	--tw-text-opacity: 0.6;
+}
 .Tracking__inner {
 	position: absolute;
 }

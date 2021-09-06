@@ -1,11 +1,21 @@
+/**
+ * Base
+ */
 import { Redirect, Route, useLocation } from "react-router-dom";
 
+/**
+ * Redux
+ */
 import { useSelector } from "react-redux";
 import { selectUser } from "store/auth.slice";
+
+/**
+ * Components
+ */
 import { Topbar } from "ui/misc/Topbar";
 import { Notifications } from "ui/misc/Notifications";
 import { EntryOptions } from "ui/misc/EntryOptions";
-import { ConfirmationPoup } from "ui/misc/ConfirmationPoup";
+import { ConfirmationPoup } from "ui/misc/ConfirmationPopup";
 
 interface PrivateRouteProps {
 	[key: string]: any;

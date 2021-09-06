@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useContext } from "react";
 import { CSSTransition } from "react-transition-group";
 
 /**
@@ -9,6 +9,7 @@ import { CSSTransition } from "react-transition-group";
  */
 import { useDispatch, useSelector } from "react-redux";
 import {
+	addNotification,
 	clearTargetEntryId,
 	selectPopup,
 	selectTargetEntryId,
@@ -22,11 +23,29 @@ import { useMutation } from "@apollo/client";
 import { DELETE_ENTRY, UPDATE_ENTRY } from "lib/graphql/entry.queries";
 
 /**
- * Utilities & Icons
+ * Utilities
  */
+import { PopupContext } from "lib/utils/PopupContext";
 import { useVisible } from "lib/hooks/useVisible";
 import { useTranslation } from "lib/hooks/useTranslation";
+import { EntryInitialValues, useEntryForm } from "lib/hooks/useEntryForm";
+
+/**
+ * Icons
+ */
 import { AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
+import {
+	updateEntryInMonths,
+	updateEntryInActiveDays,
+	removeEntryFromMonths,
+	removeEntryFromActiveDays,
+} from "store/track.slice";
+import { useGetEntryData } from "lib/utils/useGetEntryData";
+
+enum ENTRY_ACTIONS {
+	UPDATE = "UPDATE",
+	DELETE = "DELETE",
+}
 
 interface EntryOptionsProps {}
 
@@ -37,20 +56,23 @@ type PositionType = {
 };
 
 export const EntryOptions: React.FC<EntryOptionsProps> = () => {
-	const _t = useTranslation("app");
+	const [position, setPosition] = useState<PositionType | null>(null);
+	const { setPopupContent } = useContext(PopupContext);
+
 	const dispatch = useDispatch();
 	const targetEntryId = useSelector(selectTargetEntryId);
 	const popup = useSelector(selectPopup);
 
-	const [position, setPosition] = useState<PositionType | null>(null);
-	const [ref, visible, setVisible] = useVisible(false, (target: any) => {
+	const _t = useTranslation("app");
+	const entryData = useGetEntryData(targetEntryId);
+	const [ref, visible, setVisible] = useVisible(false, (t: any) => {
 		const btnCheck = ".Entries__Entry button.Option";
 		const iconCheck = ".Entries__Entry button.Option *";
 		const popupCheck = ".ConfirmationPopup, .ConfirmationPopup *";
 		return !(
-			target.matches(btnCheck) ||
-			target.matches(iconCheck) ||
-			target.matches(popupCheck)
+			t.matches(btnCheck) ||
+			t.matches(iconCheck) ||
+			t.matches(popupCheck)
 		);
 	});
 
@@ -61,7 +83,7 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		}
 		setTimeout(() => {
 			document.body.classList.remove("entry-options-open");
-			dispatch(clearTargetEntryId(null));
+			dispatch(clearTargetEntryId());
 		}, 500);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [visible]);
@@ -94,42 +116,119 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 	}, [targetEntryId]);
 
 	useEffect(() => {
-		if (typeof popup.execute === "undefined") return;
+		const { execute, action } = popup;
 
-		if (popup.execute) {
-			// action confirmed, execute it
-		} else {
-			// action cancelled, abort
+		if (typeof execute === "undefined" || !targetEntryId) return;
+		if (!execute) setVisible(false);
+
+		if (action === ENTRY_ACTIONS.UPDATE && entryData !== values) {
+			submitUpdate();
+		} else if (action === ENTRY_ACTIONS.DELETE) {
+			deleteEntry({ variables: { id: targetEntryId } });
 		}
-	}, [popup]);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [popup, targetEntryId]);
+
+	const onEntryUpdate = async (values: EntryInitialValues) => {
+		const { description, amount, type } = values;
+		await updateEntry({
+			variables: {
+				id: targetEntryId,
+				type: type!.value,
+				amount: amount.toString(),
+				description: description,
+			},
+		});
+	};
+
+	const [EditForm, submitUpdate, values, errors, touched] = useEntryForm(
+		onEntryUpdate,
+		false,
+		entryData
+	);
+
+	useEffect(() => {
+		if (!touched && !Object.keys(errors).length) return;
+		setPopupContent(EditForm);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [values, errors, touched]);
 
 	const [updateEntry] = useMutation(UPDATE_ENTRY, {
-		onCompleted({ updateEntry }) {},
+		onCompleted({ updateEntry }) {
+			dispatch(updateEntryInMonths({ ...updateEntry }));
+			dispatch(updateEntryInActiveDays({ ...updateEntry }));
+			setVisible(false);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "Entry updated!",
+					text: `Entry '${updateEntry.description}' updated!`,
+					type: "success",
+				})
+			);
+		},
 		onError(err) {
-			console.log(err);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "There's been an error!",
+					text: `Error: '${err}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 
 	const [deleteEntry] = useMutation(DELETE_ENTRY, {
-		onCompleted({ deleteEntry }) {},
+		onCompleted({ deleteEntry }) {
+			dispatch(removeEntryFromActiveDays({ ...deleteEntry }));
+			dispatch(removeEntryFromMonths({ ...deleteEntry }));
+			setVisible(false);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "Entry deleted!",
+					text: `Entry '${deleteEntry.description}' deleted!`,
+					type: "success",
+				})
+			);
+		},
 		onError(err) {
-			console.log(err);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "There's been an error!",
+					text: `Error: '${err}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 
-	const onEdit = useCallback(() => {}, []);
-
-	const onRemove = useCallback(() => {
-		const test = <div>TEST</div>;
+	const onEdit = useCallback(() => {
+		setPopupContent(EditForm);
 		dispatch(
 			setPopup({
 				visible: true,
-				// text: "Are you sure you want to delete this entry?",
-				text: test,
-				confirm: "Yes, delete it.",
-				cancel: "I changed my mind.",
+				confirm: "Update",
+				cancel: "Discard",
+				action: ENTRY_ACTIONS.UPDATE,
 			})
 		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [EditForm]);
+
+	const onRemove = useCallback(() => {
+		setPopupContent("Are you sure you want to delete this entry?");
+		dispatch(
+			setPopup({
+				visible: true,
+				confirm: "Yes, delete it.",
+				cancel: "I changed my mind.",
+				action: ENTRY_ACTIONS.DELETE,
+			})
+		);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (

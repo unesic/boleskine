@@ -9,7 +9,6 @@ const initialValues = {
 	description: "",
 	amount: "",
 	type: null as EntryType | null,
-	checks: null,
 };
 
 const validationSchema = Yup.object({
@@ -28,14 +27,6 @@ const validationSchema = Yup.object({
 			.positive("Amount must be a positive number")
 			.required("Please enter an amount"),
 	}),
-	checks: Yup.array()
-		.nullable()
-		.of(
-			Yup.object({
-				name: Yup.string(),
-				label: Yup.string(),
-			})
-		),
 });
 
 const checkboxOptions = [{ name: "save", label: "Save as preset" }];

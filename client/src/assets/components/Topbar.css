@@ -36,7 +36,7 @@
 					}
 
 					&__item {
-						@apply block py-1 px-2;
+						@apply block py-1 px-2 cursor-pointer;
 						@apply text-sm text-app-light-100 text-opacity-80;
 						@apply hover:text-opacity-100 transition-colors duration-200;
 
@@ -46,6 +46,10 @@
 
 						&--small {
 							@apply text-xs;
+						}
+
+						svg {
+							@apply inline-block h-[1.125rem] mr-1 align-text-bottom;
 						}
 					}
 				}

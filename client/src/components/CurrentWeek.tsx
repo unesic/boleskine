@@ -7,7 +7,7 @@ import { memo } from "react";
  * Redux
  */
 import { useSelector } from "react-redux";
-import { selectActiveDate, selectActiveMonthDays } from "store/tracking.slice";
+import { selectActiveDate, selectActiveDays } from "store/track.slice";
 
 /**
  * Utilities
@@ -25,11 +25,11 @@ interface CurrentWeekProps {}
 
 export const CurrentWeek: React.FC<CurrentWeekProps> = memo(() => {
 	const activeDate = useSelector(selectActiveDate);
-	const activeMonthDays = useSelector(selectActiveMonthDays);
+	const activeDays = useSelector(selectActiveDays);
 
 	const formatWeek = useFormatWeek();
 	const [startDate, endDate, totals] = useCalculateWeekTotals(
-		activeMonthDays,
+		activeDays,
 		activeDate.day
 	);
 

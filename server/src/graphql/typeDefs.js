@@ -77,6 +77,6 @@ module.exports = gql`
 			type: String
 			amount: String
 		): Entry
-		deleteEntry(id: ID!): String
+		deleteEntry(id: ID!): Entry
 	}
 `;

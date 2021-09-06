@@ -1,4 +1,7 @@
-import { useMemo, useRef, useCallback, useEffect } from "react";
+/**
+ * Vase
+ */
+import { useMemo, useRef, useCallback, useEffect, useContext } from "react";
 
 /**
  * Redux
@@ -7,16 +10,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectPopup, closePopup, clearPopup } from "store/app.slice";
 
 /**
- * Components & Utils
+ * Utilities
+ */
+import { PopupContext } from "lib/utils/PopupContext";
+import { useTranslation } from "lib/hooks/useTranslation";
+
+/**
+ * Components
  */
 import { CSSTransition } from "react-transition-group";
-import { useTranslation } from "lib/hooks/useTranslation";
-import { Button } from "ui/misc/Button";
 import { Card, Header } from "ui/card";
+import { Button } from "ui/misc/Button";
 
 interface ConfirmationPoupProps {}
 
 export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
+	const { popupContent, setPopupContent } = useContext(PopupContext);
 	const popupRef = useRef() as React.RefObject<HTMLDivElement>;
 	const _t = useTranslation("app");
 
@@ -34,7 +43,8 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
 	const popupConfirm = useCallback(() => {
 		dispatch(closePopup(true));
 		setTimeout(() => {
-			dispatch(clearPopup);
+			dispatch(clearPopup());
+			setPopupContent(null);
 		}, 200);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [popup]);
@@ -42,7 +52,8 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
 	const popupCancel = useCallback(() => {
 		dispatch(closePopup(false));
 		setTimeout(() => {
-			dispatch(clearPopup);
+			dispatch(clearPopup());
+			setPopupContent(null);
 		}, 200);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [popup]);
@@ -79,7 +90,7 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
 							className="Confirmation__close"
 							onClick={popupCancel}
 						></button>
-						<div className="Confirmation__text">{popup.text}</div>
+						<div className="Confirmation__text">{popupContent}</div>
 						<div className="Confirmation__Options">
 							<Button
 								variant="primary"

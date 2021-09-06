@@ -1,5 +1,10 @@
 {
-	"header": {},
+	"header": {
+		"user_copy": "Signed in as",
+		"language": "Sprski",
+		"settings": "Settings",
+		"sign_out": "Sign out"
+	},
 	"sign_in": {
 		"card_title": "Sign in",
 		"socials": {

@@ -20,6 +20,7 @@ import { USER_SIGNUP } from "lib/graphql/user.queries";
  */
 import { initialValues, validationSchema } from "lib/formik/SignUp.formik";
 import { SignUpTemplate } from "views/templates/SignUp.template";
+import { addNotification } from "store/app.slice";
 
 interface SignUpProps {
 	history: any;
@@ -54,7 +55,14 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 			}
 		},
 		onError(err) {
-			console.log(err?.graphQLErrors[0]?.extensions?.exception?.errors);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "There's been an error!",
+					text: `Error: '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 

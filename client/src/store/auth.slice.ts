@@ -1,3 +1,6 @@
+/**
+ * Base
+ */
 import { createSlice } from "@reduxjs/toolkit";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 
@@ -7,6 +10,10 @@ interface UserType extends JwtPayload {
 	lastName?: string;
 	image?: string;
 	email?: string;
+}
+
+interface SignInType extends UserType {
+	token: string;
 }
 
 let user: UserType | null = null;
@@ -21,14 +28,24 @@ if (localStorage.getItem("auth-token")) {
 	}
 }
 
+interface IAuth {
+	user: UserType | null;
+	language: string;
+}
+
+interface IState {
+	auth: IAuth;
+}
+
 export const Slice = createSlice({
 	name: "auth",
 	initialState: {
 		user: user,
 		language: "en",
-	},
+	} as IAuth,
 	reducers: {
-		userSignIn: (state, action) => {
+		// User reducers
+		userSignIn: (state, action: { payload: SignInType }) => {
 			state.user = action.payload;
 			localStorage.setItem("auth-token", action.payload.token);
 		},
@@ -36,13 +53,17 @@ export const Slice = createSlice({
 			state.user = null;
 			localStorage.removeItem("auth-token");
 		},
-		setLanguage: (state, action) => {
+
+		// Language reducers
+		setLanguage: (state, action: { payload: string }) => {
 			state.language = action.payload;
 		},
 	},
 });
 
-export const selectUser = (state: any) => state.auth.user as UserType;
-export const selectLanguage = (state: any) => state.auth.language as string;
+export const selectUser = (state: IState) => state.auth.user;
+export const selectLanguage = (state: IState) => state.auth.language;
+
 export const { userSignIn, userSignOut, setLanguage } = Slice.actions;
+
 export default Slice.reducer;
