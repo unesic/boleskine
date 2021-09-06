@@ -8,7 +8,7 @@ import { Router } from "Router";
  * Redux
  */
 import { useDispatch, useSelector } from "react-redux";
-import { setActiveMonthDays, setMonths } from "store/tracking.slice";
+import { setActiveDays, setMonths } from "store/track.slice";
 import { selectUser, setLanguage } from "store/auth.slice";
 
 /**
@@ -17,6 +17,8 @@ import { selectUser, setLanguage } from "store/auth.slice";
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER_MONTHS } from "lib/graphql/month.queries";
 import { useMoment } from "lib/hooks/useMoment";
+import { PopupContextProvider } from "lib/utils/PopupContext";
+import { addNotification } from "store/app.slice";
 
 interface AppProps {}
 
@@ -46,12 +48,23 @@ export const App: React.FC<AppProps> = memo(() => {
 		onCompleted({ getUserMonths }) {
 			const initialDate = moment().format("YYYY-MM");
 			dispatch(setMonths(getUserMonths));
-			dispatch(setActiveMonthDays(initialDate));
+			dispatch(setActiveDays(initialDate));
 		},
 		onError(err) {
-			console.log(err);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "There's been an error!",
+					text: `Error: '${err}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 
-	return <Router />;
+	return (
+		<PopupContextProvider>
+			<Router />
+		</PopupContextProvider>
+	);
 });

@@ -2,15 +2,15 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 
 import appReducer from "./app.slice";
 import authReducer from "./auth.slice";
-import trackingReducer from "./tracking.slice";
+import trackReducer from "./track.slice";
 
 export const Store = configureStore({
 	middleware: getDefaultMiddleware({
-		serializableCheck: false,
+		serializableCheck: true,
 	}),
 	reducer: {
 		app: appReducer,
 		auth: authReducer,
-		tracking: trackingReducer,
+		track: trackReducer,
 	},
 });

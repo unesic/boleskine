@@ -3,18 +3,25 @@
  */
 import { memo, useCallback, useRef } from "react";
 import { CSSTransition } from "react-transition-group";
-import { useVisible } from "lib/hooks/useVisible";
 
 /**
  * Redux
  */
 import { useDispatch, useSelector } from "react-redux";
-import { userSignOut, selectUser } from "store/auth.slice";
+import { selectLanguage, selectUser, setLanguage } from "store/auth.slice";
+
+/**
+ * Utilities
+ */
+import { useVisible } from "lib/hooks/useVisible";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 /**
  * Components
  */
-import { BsCaretDownFill } from "react-icons/bs";
+import { BsCaretDownFill, BsFillGearFill } from "react-icons/bs";
+import { MdLanguage } from "react-icons/md";
+import { BiLogOut } from "react-icons/bi";
 import { MenuItem } from "ui/misc/MenuItem";
 import { Spacer } from "ui/misc/Spacer";
 
@@ -26,16 +33,19 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
+	const language = useSelector(selectLanguage);
 
-	const signOut = useCallback(() => {
-		dispatch(userSignOut());
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const _t = useTranslation("header");
 
 	const toggleMenu = useCallback(() => {
 		setIsVisible(!isVisible);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isVisible]);
+
+	const switchLanguage = useCallback(() => {
+		dispatch(setLanguage(language === "en" ? "sr-Latn-RS" : "en"));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [language]);
 
 	return (
 		<header className="Topbar">
@@ -64,7 +74,7 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 						>
 							<div className="User__Menu" ref={cssRef}>
 								<MenuItem big>
-									Signed in as{" "}
+									{_t.user_copy}{" "}
 									<strong>
 										{user.firstName} {user.lastName}
 									</strong>
@@ -72,9 +82,14 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 								<MenuItem small>{user.email}</MenuItem>
 
 								<Spacer direction="horizontal" />
-
-								<MenuItem link to="/sign-out" onClick={signOut}>
-									Sign out
+								<MenuItem onClick={switchLanguage}>
+									<MdLanguage /> {_t.language}
+								</MenuItem>
+								<MenuItem link to="/">
+									<BsFillGearFill /> {_t.settings}
+								</MenuItem>
+								<MenuItem link to="/sign-out">
+									<BiLogOut /> {_t.sign_out}
 								</MenuItem>
 							</div>
 						</CSSTransition>

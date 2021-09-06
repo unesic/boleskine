@@ -1,5 +1,11 @@
+/**
+ * Base
+ */
 import { Redirect, Route } from "react-router-dom";
 
+/**
+ * Redux
+ */
 import { useSelector } from "react-redux";
 import { selectUser } from "store/auth.slice";
 

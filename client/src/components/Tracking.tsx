@@ -8,7 +8,7 @@ import { memo, useEffect, useRef, useState } from "react";
  */
 import { useSelector } from "react-redux";
 import { selectTargetEntryId } from "store/app.slice";
-import { selectActiveMonthDays } from "store/tracking.slice";
+import { selectActiveDays } from "store/track.slice";
 
 /**
  * Components & Utilities
@@ -26,7 +26,7 @@ export const Tracking: React.FC<TrackingProps> = memo(() => {
 	const trackRef = useRef() as React.MutableRefObject<HTMLDivElement>;
 
 	const _t = useTranslation("app");
-	const activeMonthDays = useSelector(selectActiveMonthDays);
+	const activeDays = useSelector(selectActiveDays);
 	const targetEntryId = useSelector(selectTargetEntryId);
 
 	useEffect(() => {
@@ -34,7 +34,7 @@ export const Tracking: React.FC<TrackingProps> = memo(() => {
 		const { scrollHeight: wrapH } = wrapRef.current;
 		setHasScroll(trackH > wrapH);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [activeMonthDays]);
+	}, [activeDays]);
 
 	useEffect(() => {
 		const newScrollDisabled = !!targetEntryId;
@@ -51,9 +51,13 @@ export const Tracking: React.FC<TrackingProps> = memo(() => {
 						hasScroll ? "Tracking__inner--has-scroll" : ""
 					} ${scrollDisabled ? "Tracking__inner--scroll-disabled" : ""}`.trim()}
 				>
-					{activeMonthDays.map((day) => (
-						<Day key={day.id} {...day} />
-					))}
+					{activeDays.length ? (
+						activeDays.map((day) => <Day key={day.id} {...day} />)
+					) : (
+						<p className="Tracking__no-entries">
+							No entries added for this month yet.
+						</p>
+					)}
 				</div>
 			</div>
 		</Card>

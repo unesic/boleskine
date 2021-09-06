@@ -37,7 +37,7 @@ const UPDATE_ENTRY = gql`
 		updateEntry(
 			id: $id
 			description: $description
-			type: $typ
+			type: $type
 			amount: $amount
 		) {
 			id
@@ -52,7 +52,12 @@ const UPDATE_ENTRY = gql`
 
 const DELETE_ENTRY = gql`
 	mutation deleteEntry($id: ID!) {
-		deleteEntry(id: $id)
+		deleteEntry(id: $id) {
+			id
+			monthId
+			timestamp
+			description
+		}
 	}
 `;
 

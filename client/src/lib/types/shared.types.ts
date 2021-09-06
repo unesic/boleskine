@@ -4,6 +4,7 @@ export type EntryType = {
 	description: string;
 	type: string;
 	amount?: string | null;
+	monthId?: string;
 };
 
 export type EntriesType = EntryType[];

@@ -7,7 +7,7 @@ import { memo } from "react";
  * Redux
  */
 import { useSelector } from "react-redux";
-import { selectActiveDate, selectActiveMonthDays } from "store/tracking.slice";
+import { selectActiveDate, selectActiveDays } from "store/track.slice";
 
 /**
  * Utilities
@@ -25,10 +25,10 @@ interface CurrentMonthProps {}
 
 export const CurrentMonth: React.FC<CurrentMonthProps> = memo(() => {
 	const activeDate = useSelector(selectActiveDate);
-	const activeMonthDays = useSelector(selectActiveMonthDays);
+	const activeDays = useSelector(selectActiveDays);
 
 	const formatMonth = useFormatMonth();
-	const totals = useCalculateMonthTotals(activeMonthDays);
+	const totals = useCalculateMonthTotals(activeDays);
 
 	return (
 		<Card>

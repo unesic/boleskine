@@ -7,7 +7,7 @@ import { useEffect, useState, useMemo } from "react";
  * Redux
  */
 import { useSelector } from "react-redux";
-import { selectMonths } from "store/tracking.slice";
+import { selectMonths } from "store/track.slice";
 
 /**
  * Components

@@ -9,11 +9,11 @@ import ReactCalendar, { CalendarTileProperties } from "react-calendar";
  */
 import { useDispatch, useSelector } from "react-redux";
 import {
-	selectActiveDate,
 	selectMonths,
+	selectActiveDate,
 	setActiveDate,
-	setActiveMonthDays,
-} from "store/tracking.slice";
+	setActiveDays,
+} from "store/track.slice";
 import { selectLanguage } from "store/auth.slice";
 
 /**
@@ -50,10 +50,10 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 
 	useEffect(() => {
 		dispatch(setActiveDate(calendarDate.toISOString()));
-
 		const newMonth = moment(calendarDate).format("YYYY-MM");
+
 		if (newMonth !== activeDate.month) {
-			dispatch(setActiveMonthDays(newMonth));
+			dispatch(setActiveDays(newMonth));
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [calendarDate]);

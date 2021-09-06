@@ -23,6 +23,7 @@ import { useQuery } from "lib/hooks/useQuery";
  */
 import { initialValues, validationSchema } from "lib/formik/SignIn.formik";
 import { SignInTemplate } from "views/templates/SignIn.template";
+import { addNotification } from "store/app.slice";
 
 interface SignInProps {
 	history: any;
@@ -70,7 +71,14 @@ export const SignIn: React.FC<SignInProps> = ({ history, location }) => {
 			handleUserAuth(loginUser);
 		},
 		onError(err) {
-			console.log(err?.graphQLErrors[0]?.extensions?.exception?.errors);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "There's been an error!",
+					text: `Error: '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 
@@ -79,7 +87,14 @@ export const SignIn: React.FC<SignInProps> = ({ history, location }) => {
 			handleUserAuth(authUser);
 		},
 		onError(err) {
-			console.log(err);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "There's been an error!",
+					text: `Error: '${err}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 

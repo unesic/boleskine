@@ -1,7 +1,12 @@
 import en from "./en.json";
 import sr from "./sr.json";
 
-export type HeaderT = {};
+export type HeaderT = {
+	user_copy: string;
+	language: string;
+	settings: string;
+	sign_out: string;
+};
 
 export type SignInT = {
 	card_title: string;

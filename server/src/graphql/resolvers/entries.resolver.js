@@ -124,7 +124,7 @@ module.exports = {
 					await entry.deleteOne();
 					await month.save();
 
-					return "Entry data deleted!";
+					return entry;
 				} else {
 					throw new AuthenticationError("Action not allowed!");
 				}
