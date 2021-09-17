@@ -34,9 +34,11 @@ export const CurrentWeek: React.FC<CurrentWeekProps> = memo(() => {
 	);
 
 	return (
-		<Card>
-			<Header title={formatWeek([startDate, endDate])} />
-			<Totals income={totals.inc} expense={totals.exp} />
-		</Card>
+		<div className="Widget--CurrentWeek">
+			<Card>
+				<Header title={formatWeek([startDate, endDate])} />
+				<Totals income={totals.inc} expense={totals.exp} />
+			</Card>
+		</div>
 	);
 });

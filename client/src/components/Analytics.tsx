@@ -80,7 +80,7 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 				<div className="flex items-center justify-center gap-[0.5rem] mb-6">
 					<div
 						style={{ flex: "0 0 auto" }}
-						className="text-xl text-app-light-100 text-center"
+						className="text-xl text-app-dark-500 dark:text-app-light-100 text-center"
 					>
 						{_t.analytics.display.copy}
 					</div>
@@ -96,7 +96,7 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 					</div>
 					<div
 						style={{ flex: "0 0 auto" }}
-						className="text-xl text-app-light-100 text-center"
+						className="text-xl text-app-dark-500 dark:text-app-light-100 text-center"
 					>
 						{_t.analytics.display.prog}
 					</div>

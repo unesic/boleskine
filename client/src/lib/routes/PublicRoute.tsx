@@ -23,7 +23,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 		<Route
 			{...rest}
 			render={(props) =>
-				user ? (
+				user.id ? (
 					<Redirect
 						to={{
 							pathname: "/",

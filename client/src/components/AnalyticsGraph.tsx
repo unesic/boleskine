@@ -15,9 +15,11 @@ import { CustomTooltip } from "components/CustomTooltip";
 /**
  * Utils & Types
  */
-import { useFormatLabel } from "lib/utils/useFormatLabel";
-import { compactCurrency } from "lib/utils/format.utils";
 import { TotalType } from "lib/types/analytics.types";
+import { useFormatLabel } from "lib/utils/useFormatLabel";
+import { useCurrencyFormatter } from "lib/utils/useFormat";
+import { useSelector } from "react-redux";
+import { selectDarkMode } from "store/auth.slice";
 
 interface AnalyticsGraphProps {
 	data: TotalType[] | null;
@@ -25,6 +27,9 @@ interface AnalyticsGraphProps {
 
 export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = ({ data }) => {
 	const formatLabel = useFormatLabel();
+	const currencyFormatter = useCurrencyFormatter(true);
+
+	const darkMode = useSelector(selectDarkMode);
 
 	if (!data) return null;
 
@@ -50,14 +55,20 @@ export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = ({ data }) => {
 						dataKey="inc"
 						axisLine={false}
 						tickLine={false}
-						tick={{ fill: "#f4f4f5", fontSize: "0.875rem" }}
-						tickFormatter={(str) => compactCurrency.format(str)}
+						tick={{
+							fill: darkMode ? "#f4f4f5" : "#00000B",
+							fontSize: "0.875rem",
+						}}
+						tickFormatter={(str) => currencyFormatter.format(str)}
 					/>
 					<XAxis
 						dataKey="key"
 						axisLine={false}
 						tickLine={false}
-						tick={{ fill: "#f4f4f5", fontSize: "0.75rem" }}
+						tick={{
+							fill: darkMode ? "#f4f4f5" : "#00000B",
+							fontSize: "0.75rem",
+						}}
 						tickMargin={10}
 						tickFormatter={(str) => formatLabel(str, "number", false)}
 					/>

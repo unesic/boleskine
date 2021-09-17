@@ -1,7 +1,10 @@
 {
+	"language": "English",
 	"header": {
-		"user_copy": "Signed in as",
-		"language": "Sprski",
+		"user_copy": "Signed in as:",
+		"language": "Language:",
+		"currency": "Currency:",
+		"mode": "Mode:",
 		"settings": "Settings",
 		"sign_out": "Sign out"
 	},

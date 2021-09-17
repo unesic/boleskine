@@ -119,7 +119,10 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		const { execute, action } = popup;
 
 		if (typeof execute === "undefined" || !targetEntryId) return;
-		if (!execute) setVisible(false);
+		if (!execute) {
+			setVisible(false);
+			return;
+		}
 
 		if (action === ENTRY_ACTIONS.UPDATE && entryData !== values) {
 			submitUpdate();
@@ -210,6 +213,7 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		dispatch(
 			setPopup({
 				visible: true,
+				title: "Edit entry",
 				confirm: "Update",
 				cancel: "Discard",
 				action: ENTRY_ACTIONS.UPDATE,
@@ -223,6 +227,7 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		dispatch(
 			setPopup({
 				visible: true,
+				title: "Delete entry",
 				confirm: "Yes, delete it.",
 				cancel: "I changed my mind.",
 				action: ENTRY_ACTIONS.DELETE,

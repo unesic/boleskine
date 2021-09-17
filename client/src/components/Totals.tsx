@@ -6,7 +6,7 @@ import { memo } from "react";
 /**
  * Utilities
  */
-import { currencyFormatter } from "lib/utils/format.utils";
+import { useCurrencyFormatter } from "lib/utils/useFormat";
 import { useTranslation } from "lib/hooks/useTranslation";
 
 interface TotalsProps {
@@ -15,7 +15,9 @@ interface TotalsProps {
 }
 
 export const Totals: React.FC<TotalsProps> = memo(({ income, expense }) => {
+	const currencyFormatter = useCurrencyFormatter();
 	const _t = useTranslation("app");
+
 	return (
 		<div className="Totals">
 			<div className="Totals__Inner">

@@ -1,11 +1,14 @@
 @layer components {
 	.Field {
+		@apply block w-full;
+
 		&:not(:last-of-type) {
 			@apply mb-2;
 		}
 
 		&__Caption {
-			@apply text-app-light-300;
+			@apply text-app-dark-300;
+			@apply dark:text-app-light-300;
 		}
 	}
 }

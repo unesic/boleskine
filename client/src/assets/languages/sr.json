@@ -1,7 +1,10 @@
 {
+	"language": "Srpski",
 	"header": {
-		"user_copy": "Prijavljen kao",
-		"language": "English",
+		"user_copy": "Prijavljen kao:",
+		"language": "Jezik:",
+		"currency": "Valuta:",
+		"mode": "Mod:",
 		"settings": "Podešavanja",
 		"sign_out": "Odjavljivanje"
 	},

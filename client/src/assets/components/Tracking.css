@@ -1,14 +1,16 @@
 @layer components {
 	.Tracking {
-		height: calc(100% - theme("spacing[10]"));
-		@apply relative;
+		@apply relative md:h-[calc(100%-theme("spacing.10"))];
 
 		&__no-entries {
-			@apply my-8 text-center text-app-light-200 text-opacity-60;
+			@apply my-8 text-center;
+			@apply text-app-dark-400 text-opacity-60;
+			@apply dark:text-app-light-200 dark:text-opacity-60;
 		}
 
 		&__inner {
-			@apply absolute overflow-y-auto overflow-x-hidden flex flex-col gap-2 w-full h-full;
+			@apply overflow-y-auto overflow-x-hidden flex flex-col gap-2 w-full h-full;
+			@apply md:absolute md:max-h-full max-h-[calc(theme("height.screen")-theme("spacing.32"))];
 
 			&--has-scroll {
 				@apply pr-1;
@@ -20,9 +22,11 @@
 		}
 
 		&__Day {
-			@apply rounded pt-2 bg-white bg-opacity-1 hover:bg-opacity-5;
+			@apply rounded pt-2;
 			@apply transform translate-x-full;
 			@apply transition duration-200 ease-out;
+			@apply bg-app-light-200 bg-opacity-10 hover:bg-opacity-30;
+			@apply dark:bg-black dark:bg-opacity-5 dark:hover:bg-opacity-[7.5%];
 
 			&--enter {
 				@apply translate-x-full;
@@ -41,7 +45,9 @@
 			}
 
 			&__Heading {
-				@apply px-2 text-xs text-app-light-300 text-opacity-30 font-body-medium uppercase;
+				@apply px-2 text-xs font-body-medium uppercase;
+				@apply text-app-dark-500 text-opacity-50;
+				@apply dark:text-app-light-300 dark:text-opacity-30;
 			}
 		}
 	}

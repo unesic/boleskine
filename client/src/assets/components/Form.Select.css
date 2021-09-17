@@ -1,9 +1,5 @@
-@import "./Form.Field.css";
-
 @layer components {
 	.Field .Field--Select {
-		@apply border-green-900;
-
 		&--has-errors {
 			.Field--Select__control {
 				@apply shadow-solid-error;
@@ -12,14 +8,20 @@
 
 		/* Main element */
 		&__control {
-			@apply border-none rounded p-1 bg-app-dark-500 bg-opacity-40;
+			@apply border-none rounded p-1 cursor-pointer;
+			@apply bg-app-light-200 bg-opacity-40;
+			@apply dark:bg-app-dark-500 dark:bg-opacity-40;
 
 			&--menu-is-open {
 			}
 		}
 
 		&__value-container {
+			@apply rounded;
+
 			&--has-value {
+				@apply bg-white bg-opacity-60;
+				@apply dark:bg-app-dark-500 dark:bg-opacity-40;
 			}
 
 			&--is-multi {
@@ -27,7 +29,8 @@
 		}
 
 		&__single-value {
-			@apply text-app-light-100;
+			@apply text-app-dark-500;
+			@apply dark:text-app-light-100;
 		}
 
 		&__multi-value {
@@ -49,7 +52,9 @@
 
 		&__input {
 			input {
-				@apply focus:shadow-none text-app-light-200 !important;
+				@apply focus:shadow-none;
+				@apply text-app-dark-500 !important;
+				@apply dark:text-app-light-200 !important;
 			}
 		}
 
@@ -58,11 +63,14 @@
 		}
 
 		&__indicator {
-			@apply text-app-light-100 text-opacity-40 hover:text-opacity-100 transition duration-200 ease-out;
+			@apply transition duration-200 ease-out;
+			@apply text-app-dark-400 text-opacity-70 hover:text-app-dark-400 hover:text-opacity-100;
+			@apply dark:text-app-light-100 dark:text-opacity-40 dark:hover:text-app-light-100 dark:hover:text-opacity-100;
 		}
 
 		&__indicator-separator {
-			@apply bg-app-light-300 bg-opacity-40;
+			@apply bg-app-dark-400 bg-opacity-30;
+			@apply dark:bg-app-light-300 dark:bg-opacity-40;
 		}
 
 		&__dropdown-indicator {
@@ -73,8 +81,9 @@
 
 		/* Dropdown menu */
 		&__menu {
-			@apply rounded p-1 bg-app-dark-500 bg-opacity-40 backdrop-filter backdrop-blur-md;
-			@apply transition-all duration-200 ease-out;
+			@apply rounded p-1 backdrop-filter backdrop-blur-md transition-all duration-200 ease-out;
+			@apply bg-app-light-200 bg-opacity-80;
+			@apply dark:bg-app-dark-500 dark:bg-opacity-40;
 		}
 
 		&__menu-list {
@@ -97,30 +106,36 @@
 		}
 
 		&__option {
-			@apply rounded p-2 transition-all duration-200 ease-out focus:outline-none;
-			@apply text-sm text-left text-app-light-200 text-opacity-70 transition-colors duration-200 ease-out;
+			@apply rounded p-2 transition-all duration-200 ease-out focus:outline-none cursor-pointer;
+			@apply text-sm text-left transition-colors duration-200 ease-out;
+			@apply text-app-dark-500 text-opacity-70;
+			@apply dark:text-app-light-200 dark:text-opacity-70;
 
 			&:not(:last-of-type) {
 				@apply mb-1;
 			}
 
 			&--is-focused {
-				@apply bg-app-light-100 bg-opacity-5 text-opacity-100;
+				@apply bg-white bg-opacity-40 text-opacity-100;
+				@apply dark:bg-app-light-100 dark:bg-opacity-5 dark:text-opacity-100;
 			}
 
 			&:active,
 			&--is-selected {
-				@apply bg-app-dark-200 bg-opacity-50 text-opacity-100;
+				@apply bg-app-light-200 bg-opacity-50 text-opacity-100 hover:bg-white hover:bg-opacity-40;
+				@apply dark:bg-app-dark-200 dark:bg-opacity-50 dark:text-opacity-100 dark:hover:bg-app-light-100 hover:bg-opacity-5;
 			}
 		}
 
 		/* Misc */
 		&__no-options-message {
-			@apply text-app-light-200 text-opacity-60;
+			@apply text-app-light-400 text-opacity-60;
+			@apply dark:text-app-light-200 dark:text-opacity-60;
 		}
 
 		&__placeholder {
-			@apply text-app-light-300 text-opacity-70;
+			@apply text-app-light-500 text-opacity-70;
+			@apply dark:text-app-light-300 dark:text-opacity-70;
 		}
 	}
 }
