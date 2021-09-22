@@ -8,7 +8,9 @@
 		}
 
 		&--secondary {
-			@apply bg-app-dark-200 filter hover:brightness-75;
+			@apply filter hover:brightness-75;
+			@apply bg-app-light-500;
+			@apply dark:bg-app-dark-200;
 		}
 	}
 }

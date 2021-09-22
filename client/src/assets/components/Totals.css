@@ -1,9 +1,5 @@
 @layer components {
 	.Totals {
-		&__title {
-			@apply text-xs text-app-light-300 text-opacity-30 font-body-medium;
-		}
-
 		&__Inner {
 			@apply px-2 pb-2;
 
@@ -23,7 +19,9 @@
 				}
 
 				&__value {
-					@apply mt-2 pl-2 text-2xl text-app-light-100 font-body-medium;
+					@apply mt-2 pl-2 text-2xl font-body-medium;
+					@apply text-app-dark-400;
+					@apply dark:text-app-light-100;
 				}
 			}
 		}

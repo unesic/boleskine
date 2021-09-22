@@ -9,16 +9,20 @@ import { Router } from "Router";
  */
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveDays, setMonths } from "store/track.slice";
-import { selectUser, setLanguage } from "store/auth.slice";
+import { selectDarkMode, selectUser, setLanguage } from "store/auth.slice";
+import { addNotification } from "store/app.slice";
 
 /**
  * Apollo
  */
 import { useLazyQuery } from "@apollo/client";
 import { GET_USER_MONTHS } from "lib/graphql/month.queries";
+
+/**
+ * Utilities
+ */
 import { useMoment } from "lib/hooks/useMoment";
 import { PopupContextProvider } from "lib/utils/PopupContext";
-import { addNotification } from "store/app.slice";
 
 interface AppProps {}
 
@@ -26,6 +30,7 @@ export const App: React.FC<AppProps> = memo(() => {
 	const moment = useMoment();
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
+	const darkMode = useSelector(selectDarkMode);
 
 	useEffect(() => {
 		document.body.classList.add("FancyScroll");
@@ -39,10 +44,15 @@ export const App: React.FC<AppProps> = memo(() => {
 	}, []);
 
 	useEffect(() => {
-		if (!user) return;
+		if (!user.id) return;
 		getUserMonths();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user]);
+
+	useEffect(() => {
+		if (darkMode) document.body.classList.add("dark");
+		else document.body.classList.remove("dark");
+	}, [darkMode]);
 
 	const [getUserMonths] = useLazyQuery(GET_USER_MONTHS, {
 		onCompleted({ getUserMonths }) {

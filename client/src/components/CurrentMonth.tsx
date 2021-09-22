@@ -31,9 +31,11 @@ export const CurrentMonth: React.FC<CurrentMonthProps> = memo(() => {
 	const totals = useCalculateMonthTotals(activeDays);
 
 	return (
-		<Card>
-			<Header title={formatMonth(activeDate)} />
-			<Totals income={totals.inc} expense={totals.exp} />
-		</Card>
+		<div className="Widget--CurrentMonth">
+			<Card>
+				<Header title={formatMonth(activeDate)} />
+				<Totals income={totals.inc} expense={totals.exp} />
+			</Card>
+		</div>
 	);
 });

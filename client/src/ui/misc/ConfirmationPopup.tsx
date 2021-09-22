@@ -85,12 +85,12 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
 			<div ref={popupRef} className="ConfirmationPopup">
 				<div className="ConfirmationPopup__inner">
 					<Card>
-						<Header title="Confirm entry delete" />
+						<Header title={popup.title} />
 						<button
 							className="Confirmation__close"
 							onClick={popupCancel}
 						></button>
-						<div className="Confirmation__text">{popupContent}</div>
+						<div className="Confirmation__content">{popupContent}</div>
 						<div className="Confirmation__Options">
 							<Button
 								variant="primary"

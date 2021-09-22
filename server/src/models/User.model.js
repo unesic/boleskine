@@ -11,6 +11,9 @@ const usersSchema = new Schema(
 		firstName: String,
 		lastName: String,
 		image: String,
+		language: String,
+		currency: String,
+		darkMode: Boolean,
 	},
 	{
 		timestamps: true,

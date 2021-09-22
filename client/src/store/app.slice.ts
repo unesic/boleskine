@@ -10,6 +10,7 @@ import { NotificationsType, NotificationType } from "lib/types/shared.types";
 
 type PopupType = {
 	visible: boolean;
+	title: string;
 	confirm: string | null;
 	cancel: string | null;
 	execute?: boolean | undefined;
@@ -33,6 +34,7 @@ export const Slice = createSlice({
 		targetEntryId: null,
 		popup: {
 			visible: false,
+			title: "",
 			confirm: null,
 			cancel: null,
 			execute: undefined,
@@ -75,6 +77,7 @@ export const Slice = createSlice({
 		clearPopup: (state) => {
 			state.popup = {
 				visible: false,
+				title: "",
 				confirm: null,
 				cancel: null,
 				execute: undefined,

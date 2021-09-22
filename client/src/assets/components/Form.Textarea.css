@@ -1,8 +1,8 @@
-@import "./Form.Field.css";
-
 @layer components {
 	.Field--Textarea {
-		@apply relative flex rounded p-1 bg-app-dark-500 bg-opacity-40 transition-all duration-200 ease-out;
+		@apply relative flex rounded p-1 transition-all duration-200 ease-out;
+		@apply bg-app-light-200 bg-opacity-40;
+		@apply dark:bg-app-dark-500 dark:bg-opacity-40;
 
 		&:focus-within,
 		&--has-value {
@@ -25,7 +25,8 @@
 
 			&:focus,
 			&--has-value {
-				@apply bg-opacity-40;
+				@apply bg-opacity-60;
+				@apply dark:bg-opacity-40;
 
 				& ~ [class*="_label"] {
 					@apply top-1 left-1 text-xs;

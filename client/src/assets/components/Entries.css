@@ -3,23 +3,23 @@
 		@apply mt-2 overflow-hidden;
 
 		&__Entry {
-			@apply bg-black bg-opacity-0;
 			@apply transition-colors duration-200 ease-out;
+			@apply bg-black bg-opacity-0;
+			@apply dark:bg-black dark:bg-opacity-0;
+
+			&.hover {
+				@apply bg-opacity-5;
+				@apply dark:bg-opacity-20;
+			}
 
 			&:not(:last-of-type) {
-				@apply border-b border-solid border-black border-opacity-20;
+				@apply border-b border-solid;
+				@apply border-app-light-500 border-opacity-20;
+				@apply dark:border-black dark:border-opacity-20;
 			}
 
 			&:last-of-type {
 				@apply rounded-b;
-			}
-
-			&.hover {
-				@apply bg-opacity-20;
-			}
-
-			&.drag {
-				@apply border-none rounded bg-opacity-40 backdrop-filter backdrop-blur-md;
 			}
 
 			&__Inner {
@@ -42,15 +42,21 @@
 					@apply translate-x-full;
 				}
 
-				.Option {
-					@apply flex justify-center items-center rounded-full bg-app-dark-100 bg-opacity-10;
-					@apply text-app-light-200 text-opacity-70;
+				& > .Option {
+					@apply flex justify-center items-center rounded-full;
 					@apply transition-all duration-200 ease-out;
 					@apply outline-none focus:shadow-gradient-focus;
 
+					@apply bg-app-dark-500 bg-opacity-10;
+					@apply dark:bg-app-dark-100 dark:bg-opacity-10;
+					@apply text-app-dark-400 text-opacity-70;
+					@apply dark:text-app-light-200 dark:text-opacity-70;
+
 					&:hover,
 					&:focus {
-						@apply bg-app-dark-400 bg-opacity-40 text-opacity-100 outline-none;
+						@apply outline-none;
+						@apply bg-opacity-30 text-opacity-100;
+						@apply dark:bg-app-dark-400 dark:bg-opacity-40 dark:text-opacity-100;
 					}
 
 					&--visible {
@@ -64,7 +70,9 @@
 			}
 
 			&__Text {
-				@apply flex-1 text-app-light-200;
+				@apply flex-1;
+				@apply text-app-dark-500;
+				@apply dark:text-app-light-200;
 			}
 
 			&__Amount {

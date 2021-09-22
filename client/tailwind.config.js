@@ -3,7 +3,7 @@ const colors = require("tailwindcss/colors");
 module.exports = {
 	mode: "jit",
 	purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
-	darkMode: "media",
+	darkMode: "class",
 	theme: {
 		extend: {
 			spacing: {
@@ -62,8 +62,11 @@ module.exports = {
 					},
 					light: {
 						100: "#F4F4F5",
+						150: "#D4D4D8",
 						200: "#C1C3CF",
 						300: "#A5A7B8",
+						400: "#6C6F89",
+						500: "#3F4150",
 					},
 					dark: {
 						100: "#474D84",
@@ -78,8 +81,8 @@ module.exports = {
 				card:
 					"0 25px 20px -20px rgba(0, 0, 0, 0.1), 0 0 15px 0 rgba(0, 0, 0, 0.06)",
 				"gradient-focus": "0 0 4px 0 rgba(255, 255, 255, 0.25)",
-				"solid-focus": `0 0 0 1px ${theme(`colors.app["accent-blue"]`)}`,
-				"solid-error": `0 0 0 1px ${theme(`colors.app["accent-red"]`)}`,
+				"solid-focus": `0 0 0 1px ${theme(`colors.app.accent.blue`)}`,
+				"solid-error": `0 0 0 1px ${theme(`colors.app.accent.red`)}`,
 			}),
 			opacity: {
 				1: "1%",

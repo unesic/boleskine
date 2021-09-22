@@ -22,6 +22,7 @@ interface SelectProps {
 	touched: boolean | undefined;
 	placeholder?: string | null;
 	isMulti?: boolean;
+	isSearchable?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -33,6 +34,7 @@ export const Select: React.FC<SelectProps> = ({
 	touched,
 	placeholder = "Select...",
 	isMulti = false,
+	isSearchable = true,
 }) => {
 	return (
 		<div className="Field">
@@ -48,6 +50,7 @@ export const Select: React.FC<SelectProps> = ({
 					}`.trim()}
 					classNamePrefix="Field--Select"
 					isMulti={isMulti}
+					isSearchable={isSearchable}
 				/>
 			</fieldset>
 			{touched && errors ? <Error>{errors}</Error> : null}

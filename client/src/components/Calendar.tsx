@@ -21,6 +21,7 @@ import { selectLanguage } from "store/auth.slice";
  */
 import { useMoment } from "lib/hooks/useMoment";
 import { useTranslation } from "lib/hooks/useTranslation";
+import { useWindowResize } from "lib/hooks/useWindowResize";
 import { getMarkedDates } from "lib/entriesFormatter";
 
 /**
@@ -41,6 +42,7 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 	const [calendarDate, setCalendarDate] = useState(new Date());
 
 	const moment = useMoment();
+	const [screenW] = useWindowResize();
 	const _t = useTranslation("app");
 
 	const dispatch = useDispatch();
@@ -103,25 +105,24 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 	);
 
 	return (
-		<Card>
-			<Header
-				title={moment(calendarDate).format(`[${_t.calendar_title}] dddd, LL`)}
-			/>
-			<ReactCalendar
-				locale={language}
-				value={calendarDate}
-				// value={[
-				// 	moment(calendarDate).startOf("isoWeek").toDate(),
-				// 	moment(calendarDate).endOf("isoWeek").toDate(),
-				// ]}
-				onChange={onChange}
-				tileClassName={setTileClassName}
-				tileContent={setTileContent}
-				nextLabel={<ChevronRightIcon />}
-				next2Label={<ChevronDoubleRightIcon />}
-				prevLabel={<ChevronLeftIcon />}
-				prev2Label={<ChevronDoubleLeftIcon />}
-			/>
-		</Card>
+		<div className="Widget--Calendar">
+			<Card>
+				<Header
+					title={moment(calendarDate).format(`[${_t.calendar_title}] dddd, LL`)}
+				/>
+				<ReactCalendar
+					showDoubleView={screenW < 768}
+					locale={language}
+					value={calendarDate}
+					onChange={onChange}
+					tileClassName={setTileClassName}
+					tileContent={setTileContent}
+					nextLabel={<ChevronRightIcon />}
+					next2Label={<ChevronDoubleRightIcon />}
+					prevLabel={<ChevronLeftIcon />}
+					prev2Label={<ChevronDoubleLeftIcon />}
+				/>
+			</Card>
+		</div>
 	);
 });

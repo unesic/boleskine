@@ -25,6 +25,8 @@ import { initialValues, validationSchema } from "lib/formik/SignIn.formik";
 import { SignInTemplate } from "views/templates/SignIn.template";
 import { addNotification } from "store/app.slice";
 
+import jwtDecode, { JwtPayload } from "jwt-decode";
+
 interface SignInProps {
 	history: any;
 	location: any;
@@ -44,8 +46,21 @@ export const SignIn: React.FC<SignInProps> = ({ history, location }) => {
 	});
 
 	useEffect(() => {
+		if (localStorage.getItem("auth-token")) {
+			const decoded: JwtPayload = jwtDecode(
+				localStorage.getItem("auth-token")!
+			);
+
+			if (decoded.exp! * 1000 < Date.now()) {
+				localStorage.removeItem("auth-token");
+			} else {
+				authUser();
+			}
+		}
+
 		const provider = query.get("provider");
 		const accessToken = query.get("access_token");
+
 		if (provider && accessToken) {
 			const variables = parseLoginData(provider, accessToken);
 			const authenticate = async () => {

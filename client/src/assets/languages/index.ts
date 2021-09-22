@@ -4,6 +4,8 @@ import sr from "./sr.json";
 export type HeaderT = {
 	user_copy: string;
 	language: string;
+	currency: string;
+	mode: string;
 	settings: string;
 	sign_out: string;
 };
@@ -101,6 +103,7 @@ export type AppT = {
 };
 
 export type LanguageT = {
+	language: string;
 	header: HeaderT;
 	sign_in: SignInT;
 	sign_up: SignUpT;

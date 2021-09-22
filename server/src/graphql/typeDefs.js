@@ -10,6 +10,9 @@ module.exports = gql`
 		token: String!
 		createdAt: String
 		updatedAt: String
+		language: String
+		currency: String
+		darkMode: Boolean
 	}
 
 	type Entry {
@@ -51,9 +54,15 @@ module.exports = gql`
 			email: String
 			password: String
 			rePassword: String
+			firstName: String
+			lastName: String
+			image: String
+			language: String
+			currency: String
+			darkMode: Boolean
 		): User!
 		authUser(
-			email: String!
+			email: String
 			firstName: String
 			lastName: String
 			image: String

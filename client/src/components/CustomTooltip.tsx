@@ -1,13 +1,13 @@
 /**
  * Utils & Types
  */
-import { useFormatLabel } from "lib/utils/useFormatLabel";
-import { currencyFormatter } from "lib/utils/format.utils";
 import { TooltipProps } from "recharts";
 import {
 	NameType,
 	ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
+import { useFormatLabel } from "lib/utils/useFormatLabel";
+import { useCurrencyFormatter } from "lib/utils/useFormat";
 
 /**
  * Components
@@ -24,6 +24,7 @@ export const CustomTooltip: React.FC<CustomTooltipProps> = ({
 }) => {
 	const _t = useTranslation("app");
 	const formatLabel = useFormatLabel();
+	const currencyFormatter = useCurrencyFormatter();
 
 	const inc = payload?.[0]?.value as string;
 	const exp = payload?.[1]?.value as string;

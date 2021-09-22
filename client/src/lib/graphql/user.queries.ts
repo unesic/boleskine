@@ -8,6 +8,9 @@ const GET_USER = gql`
 			firstName
 			lastName
 			image
+			language
+			currency
+			darkMode
 		}
 	}
 `;
@@ -17,13 +20,26 @@ const USER_SIGNUP = gql`
 		$email: String!
 		$password: String!
 		$rePassword: String!
+		$language: String
+		$currency: String
+		$darkMode: String
 	) {
-		createUser(email: $email, password: $password, rePassword: $rePassword) {
+		createUser(
+			email: $email
+			password: $password
+			rePassword: $rePassword
+			language: $language
+			currency: $currency
+			darkMode: $darkMode
+		) {
 			id
 			email
 			firstName
 			lastName
 			image
+			language
+			currency
+			darkMode
 			token
 		}
 	}
@@ -37,6 +53,9 @@ const USER_LOGIN = gql`
 			firstName
 			lastName
 			image
+			language
+			currency
+			darkMode
 			token
 		}
 	}
@@ -45,16 +64,36 @@ const USER_LOGIN = gql`
 const USER_UPDATE = gql`
 	mutation updateUser(
 		$id: ID!
-		$email: String!
-		$password: String!
-		$rePassword: String!
+		$email: String
+		$password: String
+		$rePassword: String
+		$firstName: String
+		$lastName: String
+		$image: String
+		$language: String
+		$currency: String
+		$darkMode: Boolean
 	) {
-		updateUser(id: $id, password: $password, rePassword: $rePassword) {
+		updateUser(
+			id: $id
+			email: $email
+			password: $password
+			rePassword: $rePassword
+			firstName: $firstName
+			lastName: $lastName
+			image: $image
+			language: $language
+			currency: $currency
+			darkMode: $darkMode
+		) {
 			id
 			email
 			firstName
 			lastName
 			image
+			language
+			currency
+			darkMode
 			token
 		}
 	}
@@ -62,7 +101,7 @@ const USER_UPDATE = gql`
 
 const USER_AUTH = gql`
 	mutation authUser(
-		$email: String!
+		$email: String
 		$firstName: String
 		$lastName: String
 		$image: String
@@ -78,6 +117,9 @@ const USER_AUTH = gql`
 			firstName
 			lastName
 			image
+			language
+			currency
+			darkMode
 			token
 		}
 	}

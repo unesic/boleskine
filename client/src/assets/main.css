@@ -18,11 +18,14 @@
 @import "components/Form.Text.css";
 @import "components/Form.Textarea.css";
 @import "components/Notifications.css";
+@import "components/ModeControl.css";
 @import "components/Topbar.css";
 @import "components/SocialButtons.css";
 @import "components/Spacer.css";
 @import "components/Totals.css";
 @import "components/Tracking.css";
+
+@import "components/HomepageMain.css";
 
 @import "tailwindcss/utilities";
 @import "utilities/FancyScroll.css";

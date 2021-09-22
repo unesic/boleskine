@@ -6,5 +6,5 @@ import { selectLanguage } from "store/auth.slice";
 
 export const useMoment = () => {
 	const language = useSelector(selectLanguage);
-	return (...args: any) => moment(...args).locale(language);
+	return (...args: any) => moment(...args).locale(language ?? "en");
 };

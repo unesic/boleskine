@@ -7,8 +7,8 @@ import { CSSTransition } from "react-transition-group";
 /**
  * Redux
  */
-import { useDispatch, useSelector } from "react-redux";
-import { selectLanguage, selectUser, setLanguage } from "store/auth.slice";
+import { useSelector } from "react-redux";
+import { selectUser } from "store/auth.slice";
 
 /**
  * Utilities
@@ -19,11 +19,17 @@ import { useTranslation } from "lib/hooks/useTranslation";
 /**
  * Components
  */
-import { BsCaretDownFill, BsFillGearFill } from "react-icons/bs";
-import { MdLanguage } from "react-icons/md";
-import { BiLogOut } from "react-icons/bi";
-import { MenuItem } from "ui/misc/MenuItem";
 import { Spacer } from "ui/misc/Spacer";
+import { MenuItem, MenuItemLabel } from "ui/misc/MenuItem";
+import { ModeControl } from "ui/misc/ModeControl";
+import { LanguageControl } from "ui/misc/LanguageControl";
+import { CurrencyControl } from "ui/misc/CurrencyControl";
+
+/**
+ * Icons
+ */
+import { BsCaretDownFill, BsFillGearFill } from "react-icons/bs";
+import { BiLogOut } from "react-icons/bi";
 
 interface TopbarProps {}
 
@@ -31,9 +37,7 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 	const [menuRef, isVisible, setIsVisible] = useVisible(false);
 	const cssRef = useRef() as React.RefObject<HTMLDivElement>;
 
-	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
-	const language = useSelector(selectLanguage);
 
 	const _t = useTranslation("header");
 
@@ -42,15 +46,10 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [isVisible]);
 
-	const switchLanguage = useCallback(() => {
-		dispatch(setLanguage(language === "en" ? "sr-Latn-RS" : "en"));
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [language]);
-
 	return (
 		<header className="Topbar">
 			<div className="Topbar__Inner">
-				{user ? (
+				{user.id ? (
 					<div className="Topbar__User" ref={menuRef}>
 						<button className="User__Avatar" onClick={toggleMenu}>
 							<img
@@ -74,20 +73,24 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 						>
 							<div className="User__Menu" ref={cssRef}>
 								<MenuItem big>
-									{_t.user_copy}{" "}
-									<strong>
-										{user.firstName} {user.lastName}
-									</strong>
+									<MenuItemLabel>{_t.user_copy}</MenuItemLabel>
+									{user.firstName} {user.lastName}
 								</MenuItem>
+
 								<MenuItem small>{user.email}</MenuItem>
 
 								<Spacer direction="horizontal" />
-								<MenuItem onClick={switchLanguage}>
-									<MdLanguage /> {_t.language}
-								</MenuItem>
+
+								<ModeControl />
+								<LanguageControl />
+								<CurrencyControl />
+
+								<Spacer direction="horizontal" />
+
 								<MenuItem link to="/">
 									<BsFillGearFill /> {_t.settings}
 								</MenuItem>
+
 								<MenuItem link to="/sign-out">
 									<BiLogOut /> {_t.sign_out}
 								</MenuItem>

@@ -8,15 +8,16 @@ const {
 	validateUpdateInput,
 } = require("../../util/validators");
 const User = require("../../models/User.model");
+const checkAuth = require("../../util/check-auth");
 
 const generateToken = (user, remember) => {
 	return jwt.sign(
 		{
 			id: user._id,
+			email: user.email,
 			firstName: user.firstName,
 			lastName: user.lastName,
 			image: user.image,
-			email: user.email,
 		},
 		process.env.JWT_SECRET,
 		remember ? {} : { expiresIn: "7d" }
@@ -73,6 +74,12 @@ module.exports = {
 			const newUser = new User({
 				email,
 				password,
+				firstName: "",
+				lastName: "",
+				image: "",
+				language: "en",
+				currency: "EUR",
+				darkMode: false,
 			});
 			const res = await newUser.save();
 			const token = generateToken(res);
@@ -111,7 +118,21 @@ module.exports = {
 				token,
 			};
 		},
-		updateUser: async (_, { id, email, password, rePassword }) => {
+		updateUser: async (
+			_,
+			{
+				id,
+				email,
+				password,
+				rePassword,
+				firstName,
+				lastName,
+				image,
+				language,
+				currency,
+				darkMode,
+			}
+		) => {
 			const { valid, errors } = validateUpdateInput(
 				email,
 				password,
@@ -141,9 +162,14 @@ module.exports = {
 			const res = await User.findByIdAndUpdate(
 				id,
 				{
-					username: username || currUser.username,
 					email: email || currUser.email,
 					password: password || currUser.password,
+					firstName: firstName || currUser.firstName,
+					lastName: lastName || currUser.lastName,
+					image: image || currUser.image,
+					language: language || currUser.language,
+					currency: currency || currUser.currency,
+					darkMode: darkMode !== undefined ? darkMode : currUser.darkMode,
 				},
 				{ new: true }
 			);
@@ -156,22 +182,28 @@ module.exports = {
 				token,
 			};
 		},
-		authUser: async (_, { email, firstName, lastName, image }) => {
+		authUser: async (_, { email, firstName, lastName, image }, context) => {
+			if (context.req.headers.authorization) {
+				const req = checkAuth(context);
+				if (req) {
+					const currUser = await User.findOne({ email: req.email });
+					const token = generateToken(currUser);
+
+					return {
+						...currUser._doc,
+						id: currUser._id,
+						token: token,
+					};
+				}
+			}
+
 			const currUser = await User.findOne({ email });
 			let user;
 
 			if (currUser) {
-				if (!currUser.firstName || currUser.firstName === "") {
-					currUser.firstName = firstName;
-				}
-
-				if (!currUser.lastName || currUser.lastName === "") {
-					currUser.lastName = lastName;
-				}
-
-				if (!currUser.image || currUser.image === "") {
-					currUser.image = image;
-				}
+				if (!currUser.firstName) currUser.firstName = firstName;
+				if (!currUser.lastName) currUser.lastName = lastName;
+				if (!currUser.image) currUser.image = image;
 
 				user = await currUser.save();
 			} else if (!currUser) {
@@ -180,6 +212,12 @@ module.exports = {
 					firstName,
 					lastName,
 					image,
+					firstName: "",
+					lastName: "",
+					image: "",
+					language: "en",
+					currency: "EUR",
+					darkMode: true,
 				});
 				user = await newUser.save();
 			}

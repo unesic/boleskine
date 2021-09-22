@@ -17,7 +17,7 @@ interface EntriesProps {
 export const Entries: React.FC<EntriesProps> = memo(({ dayId, entries }) => {
 	return (
 		<div className="Entries">
-			{entries.map((entry, idx) => (
+			{entries.map((entry) => (
 				<Entry key={entry.id} {...entry} />
 			))}
 		</div>

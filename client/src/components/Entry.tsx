@@ -13,7 +13,7 @@ import { selectTargetEntryId, setTargetEntryId } from "store/app.slice";
 /**
  * Utilities
  */
-import { currencyFormatter } from "lib/utils/format.utils";
+import { useCurrencyFormatter } from "lib/utils/useFormat";
 
 /**
  * Icons
@@ -34,6 +34,7 @@ export const Entry: React.FC<EntryProps> = memo(
 		const [visible, setVisible] = useState(false);
 		const transitionRef = useRef<HTMLDivElement>(null);
 		const optionsRef = useRef<HTMLButtonElement>(null);
+		const currencyFormatter = useCurrencyFormatter();
 
 		const dispatch = useDispatch();
 		const targetEntryId = useSelector(selectTargetEntryId);

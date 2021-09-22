@@ -4,11 +4,15 @@
 
 		.CustomTooltip {
 			&__label {
-				@apply mb-2 text-lg font-body-medium text-app-light-100;
+				@apply mb-2 text-lg font-body-medium;
+				@apply text-app-dark-500;
+				@apply dark:text-app-light-100;
 			}
 
 			&__value {
-				@apply mt-1 text-app-light-100;
+				@apply mt-1;
+				@apply text-app-dark-500;
+				@apply dark:text-app-light-100;
 
 				&--inc {
 					@apply text-app-accent-green;

@@ -35,7 +35,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 				<Route
 					{...rest}
 					render={(props) =>
-						user ? (
+						user.id ? (
 							<Component {...props} />
 						) : (
 							<Redirect

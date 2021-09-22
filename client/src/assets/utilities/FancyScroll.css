@@ -5,11 +5,14 @@
 		}
 
 		&::-webkit-scrollbar-track {
-			@apply bg-app-dark-300 bg-opacity-10;
+			@apply bg-app-light-300 bg-opacity-10;
+			@apply dark:bg-app-dark-300 dark:bg-opacity-10;
 		}
 
 		&::-webkit-scrollbar-thumb {
-			@apply rounded-full bg-app-dark-500 bg-opacity-40;
+			@apply rounded-full;
+			@apply bg-app-light-500 bg-opacity-40;
+			@apply dark:bg-app-dark-500 dark:bg-opacity-40;
 		}
 	}
 }
