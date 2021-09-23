@@ -2,6 +2,19 @@
 	.AnalyticsChart {
 		@apply my-4;
 
+		&__Inner {
+			@apply flex items-center justify-center gap-[0.5rem] mb-6;
+
+			&__copy {
+				flex: 0 0 auto;
+				@apply text-xl text-app-dark-500 dark:text-app-light-100 text-center;
+			}
+
+			&__dropdown {
+				flex: 0 0 20%;
+			}
+		}
+
 		.CustomTooltip {
 			&__label {
 				@apply mb-2 text-lg font-body-medium;

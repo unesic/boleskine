@@ -53,9 +53,3 @@ export const MenuItem: React.FC<MenuItemProps> = ({
 		</Link>
 	);
 };
-
-interface LabelProps {}
-
-export const MenuItemLabel: React.FC<LabelProps> = ({ children }) => {
-	return <span className="label">{children}</span>;
-};

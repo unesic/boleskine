@@ -1,4 +1,11 @@
+/**
+ * Base
+ */
 import moment from "moment";
+
+/**
+ * Types
+ */
 import type {
 	DayType,
 	EntriesType,
@@ -84,7 +91,7 @@ export function getMonthMarks(
 		date: string;
 		marks: string[];
 	}[]
-): [{ [key: string]: number }, string[]] {
+): [string[], { [key: string]: number }] {
 	const marks = marked
 		.map((m) => m.marks.map((mark) => mark))
 		.reduce((acc, curr) => acc.concat(curr));
@@ -101,5 +108,5 @@ export function getMonthMarks(
 		return 0;
 	});
 
-	return [marksCounts, sortedMarks];
+	return [sortedMarks, marksCounts];
 }

@@ -102,12 +102,32 @@ export type AppT = {
 	};
 };
 
+type NotificationT = {
+	title: string;
+	text: string;
+};
+
+export type NotificationsT = {
+	error: NotificationT;
+	entry: {
+		created: NotificationT;
+		updated: NotificationT;
+		deleted: NotificationT;
+	};
+	controls: {
+		mode: NotificationT;
+		lang: NotificationT;
+		curr: NotificationT;
+	};
+};
+
 export type LanguageT = {
 	language: string;
 	header: HeaderT;
 	sign_in: SignInT;
 	sign_up: SignUpT;
 	app: AppT;
+	notifications: NotificationsT;
 };
 
 export const languages: { [language: string]: LanguageT } = {

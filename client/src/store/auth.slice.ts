@@ -20,6 +20,7 @@ interface SignInType extends UserType {
 
 let user: UserType = {
 	id: undefined,
+	darkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
 };
 
 interface IAuth {
@@ -44,6 +45,7 @@ export const Slice = createSlice({
 		userSignOut: (state) => {
 			state.user = {
 				id: undefined,
+				darkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
 			};
 			localStorage.removeItem("auth-token");
 		},

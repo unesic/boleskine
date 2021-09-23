@@ -4,7 +4,7 @@
 		"user_copy": "Prijavljen kao:",
 		"language": "Jezik:",
 		"currency": "Valuta:",
-		"mode": "Mod:",
+		"mode": "Tema:",
 		"settings": "Podešavanja",
 		"sign_out": "Odjavljivanje"
 	},
@@ -42,7 +42,7 @@
 		},
 		"spacer": "ILI",
 		"form": {
-			"title": "Registruj se putme email-a i lozinke",
+			"title": "Registruj se putem email-a i lozinke",
 			"email": "Email",
 			"pass": "Lozinka",
 			"repass": "Potvrdi lozinku",
@@ -54,7 +54,7 @@
 		}
 	},
 	"app": {
-		"calendar_title": "Izabran:",
+		"calendar_title": "Aktivan datum:",
 		"total_inc": "UKUPNI PRIHODI",
 		"total_exp": "UKUPNI TROŠKOVI",
 		"new_entry": {
@@ -94,6 +94,40 @@
 			"popup": {
 				"confirm": "Potvrdi",
 				"cancel": "Odustani"
+			}
+		}
+	},
+	"notifications": {
+		"error": {
+			"title": "Došlo je do greške!",
+			"text": "Greška:"
+		},
+		"entry": {
+			"created": {
+				"title": "Dodata stavka!",
+				"text": "Dodata stavka sa opisom:"
+			},
+			"updated": {
+				"title": "Ažurirana stavka!",
+				"text": "Ažurirana stavka sa opisom:"
+			},
+			"deleted": {
+				"title": "Obrisana stavka!",
+				"text": "Obrisana stavka sa opisom:"
+			}
+		},
+		"controls": {
+			"mode": {
+				"title": "Tema promenjena!",
+				"text": "Promenili ste način na koji će se aplikacija prikazivati."
+			},
+			"lang": {
+				"title": "Language changed!",
+				"text": "You're now using English as a display language."
+			},
+			"curr": {
+				"title": "Valuta promenjena!",
+				"text": "Nova izabrana valuta:"
 			}
 		}
 	}

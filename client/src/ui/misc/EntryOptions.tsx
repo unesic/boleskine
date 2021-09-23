@@ -25,10 +25,11 @@ import { DELETE_ENTRY, UPDATE_ENTRY } from "lib/graphql/entry.queries";
 /**
  * Utilities
  */
-import { PopupContext } from "lib/utils/PopupContext";
-import { useVisible } from "lib/hooks/useVisible";
-import { useTranslation } from "lib/hooks/useTranslation";
 import { EntryInitialValues, useEntryForm } from "lib/hooks/useEntryForm";
+import { useTranslation } from "lib/hooks/useTranslation";
+import { useVisible } from "lib/hooks/useVisible";
+import { useGetEntryData } from "lib/utils/useGetEntryData";
+import { PopupContext } from "lib/utils/PopupContext";
 
 /**
  * Icons
@@ -40,7 +41,6 @@ import {
 	removeEntryFromMonths,
 	removeEntryFromActiveDays,
 } from "store/track.slice";
-import { useGetEntryData } from "lib/utils/useGetEntryData";
 
 enum ENTRY_ACTIONS {
 	UPDATE = "UPDATE",
@@ -64,6 +64,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 	const popup = useSelector(selectPopup);
 
 	const _t = useTranslation("app");
+	const _tNot = useTranslation("notifications");
+
 	const entryData = useGetEntryData(targetEntryId);
 	const [ref, visible, setVisible] = useVisible(false, (t: any) => {
 		const btnCheck = ".Entries__Entry button.Option";
@@ -164,8 +166,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "Entry updated!",
-					text: `Entry '${updateEntry.description}' updated!`,
+					title: _tNot.entry.updated.title,
+					text: `${_tNot.entry.updated.text} '${updateEntry.description}'`,
 					type: "success",
 				})
 			);
@@ -174,8 +176,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
 					type: "error",
 				})
 			);
@@ -190,8 +192,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "Entry deleted!",
-					text: `Entry '${deleteEntry.description}' deleted!`,
+					title: _tNot.entry.deleted.title,
+					text: `${_tNot.entry.deleted.text} '${deleteEntry.description}'`,
 					type: "success",
 				})
 			);
@@ -200,8 +202,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
 					type: "error",
 				})
 			);

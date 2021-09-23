@@ -4,10 +4,17 @@
 import { useCallback, useMemo } from "react";
 
 /**
+ * Apollo
+ */
+import { useMutation } from "@apollo/client";
+import { USER_UPDATE } from "lib/graphql/user.queries";
+
+/**
  * Redux
  */
 import { useDispatch, useSelector } from "react-redux";
 import { selectLanguage, selectUser, setLanguage } from "store/auth.slice";
+import { addNotification } from "store/app.slice";
 
 /**
  * Utils
@@ -17,11 +24,10 @@ import { useTranslation } from "lib/hooks/useTranslation";
 /**
  * Components
  */
-import { MenuItem, MenuItemLabel } from "ui/misc/MenuItem";
-import { MdLanguage } from "react-icons/md";
+import { MenuItem } from "ui/misc/MenuItem";
+import { MenuItemLabel } from "ui/misc/MenuItemLabel";
 import { Option, Select } from "ui/form/Select";
-import { useMutation } from "@apollo/client";
-import { USER_UPDATE } from "lib/graphql/user.queries";
+import { MdLanguage } from "react-icons/md";
 
 interface LanguageControlProps {}
 
@@ -32,6 +38,7 @@ export const LanguageControl: React.FC<LanguageControlProps> = () => {
 
 	const _t = useTranslation("header");
 	const _tLang = useTranslation("language");
+	const _tNot = useTranslation("notifications");
 
 	const [updateUser] = useMutation(USER_UPDATE, {
 		onCompleted({ updateUser }) {
@@ -42,10 +49,22 @@ export const LanguageControl: React.FC<LanguageControlProps> = () => {
 		},
 	});
 
-	const onChange = useCallback((o: Option) => {
-		updateUser({ variables: { id: user!.id, language: o.value } });
-		dispatch(setLanguage(o.value));
-	}, []);
+	const onChange = useCallback(
+		(o: Option) => {
+			updateUser({ variables: { id: user!.id, language: o.value } });
+			dispatch(setLanguage(o.value));
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.controls.lang.title,
+					text: _tNot.controls.lang.text,
+					type: "normal",
+				})
+			);
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[_tNot, language]
+	);
 
 	const options = useMemo(
 		() => [

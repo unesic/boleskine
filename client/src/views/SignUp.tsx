@@ -14,6 +14,7 @@ import { userSignIn } from "store/auth.slice";
  * Utilities
  */
 import { USER_SIGNUP } from "lib/graphql/user.queries";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 /**
  * Components
@@ -28,6 +29,7 @@ interface SignUpProps {
 }
 
 export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
+	const _t = useTranslation("notifications");
 	const dispatch = useDispatch();
 
 	const formik = useFormik({
@@ -58,8 +60,8 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
+					title: _t.error.title,
+					text: `${_t.error.text} '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
 					type: "error",
 				})
 			);

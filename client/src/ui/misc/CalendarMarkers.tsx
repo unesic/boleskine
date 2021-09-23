@@ -1,5 +1,16 @@
+/**
+ * Base
+ */
 import { useMemo } from "react";
+
+/**
+ * Utilities
+ */
 import { getMonthMarks } from "lib/entriesFormatter";
+
+/**
+ * Components
+ */
 import { CalendarMarker } from "ui/misc/CalendarMarker";
 
 interface CalendarMarkersProps {
@@ -14,17 +25,13 @@ export const CalendarMarkers: React.FC<CalendarMarkersProps> = ({
 	view,
 	marked,
 }) => {
-	const [counts, markers] = useMemo(() => getMonthMarks(marked), [marked]);
+	const [markers] = useMemo(() => getMonthMarks(marked), [marked]);
 
 	return (
 		<span className="markers">
 			{view === "year"
 				? markers.map((marker, idx) => (
-						<CalendarMarker
-							key={idx}
-							type={marker}
-							text={counts[marker] > 1 ? counts[marker] : null}
-						/>
+						<CalendarMarker key={idx} type={marker} />
 				  ))
 				: marked.map((m) =>
 						m.marks.map((marker, idx) => (

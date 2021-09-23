@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 /**
  * Components
  */
-import { Caption } from "./Caption";
+import { Caption } from "ui/form/Caption";
 
 type Option = {
 	name: string;

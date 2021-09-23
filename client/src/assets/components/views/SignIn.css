@@ -1,0 +1,29 @@
+@layer components {
+	.SignIn {
+		@apply container mx-auto min-h-screen flex justify-center items-center;
+
+		&__inner {
+			@apply min-w-min;
+
+			.MainContent {
+				@apply flex gap-8 px-2;
+
+				&__Form {
+					@apply w-80;
+
+					&__caption {
+						@apply mb-4 text-lg text-center;
+					}
+				}
+			}
+
+			.NoAccount {
+				@apply mt-4 pb-2 text-center;
+
+				&__link {
+					@apply text-app-accent-blue;
+				}
+			}
+		}
+	}
+}

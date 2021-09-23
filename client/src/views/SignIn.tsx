@@ -14,8 +14,10 @@ import { userSignIn } from "store/auth.slice";
 /**
  * Utilities
  */
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import { USER_AUTH, USER_LOGIN } from "lib/graphql/user.queries";
 import { parseLoginData } from "lib/parseLoginData";
+import { useTranslation } from "lib/hooks/useTranslation";
 import { useQuery } from "lib/hooks/useQuery";
 
 /**
@@ -25,14 +27,14 @@ import { initialValues, validationSchema } from "lib/formik/SignIn.formik";
 import { SignInTemplate } from "views/templates/SignIn.template";
 import { addNotification } from "store/app.slice";
 
-import jwtDecode, { JwtPayload } from "jwt-decode";
-
 interface SignInProps {
 	history: any;
 	location: any;
 }
 
 export const SignIn: React.FC<SignInProps> = ({ history, location }) => {
+	const _t = useTranslation("notifications");
+
 	const dispatch = useDispatch();
 	const query = useQuery();
 	const formik = useFormik({
@@ -89,8 +91,8 @@ export const SignIn: React.FC<SignInProps> = ({ history, location }) => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
+					title: _t.error.title,
+					text: `${_t.error.text} '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
 					type: "error",
 				})
 			);
@@ -105,8 +107,8 @@ export const SignIn: React.FC<SignInProps> = ({ history, location }) => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _t.error.title,
+					text: `${_t.error.text} '${err}'`,
 					type: "error",
 				})
 			);

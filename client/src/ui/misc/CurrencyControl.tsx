@@ -4,10 +4,17 @@
 import { useCallback, useMemo } from "react";
 
 /**
+ * Apollo
+ */
+import { useMutation } from "@apollo/client";
+import { USER_UPDATE } from "lib/graphql/user.queries";
+
+/**
  * Redux
  */
 import { useDispatch, useSelector } from "react-redux";
 import { selectCurrency, selectUser, setCurrency } from "store/auth.slice";
+import { addNotification } from "store/app.slice";
 
 /**
  * Utils
@@ -17,11 +24,10 @@ import { useTranslation } from "lib/hooks/useTranslation";
 /**
  * Components
  */
-import { IoLogoEuro, IoLogoUsd } from "react-icons/io";
+import { MenuItem } from "ui/misc/MenuItem";
+import { MenuItemLabel } from "ui/misc/MenuItemLabel";
 import { Option, Select } from "ui/form/Select";
-import { MenuItem, MenuItemLabel } from "ui/misc/MenuItem";
-import { useMutation } from "@apollo/client";
-import { USER_UPDATE } from "lib/graphql/user.queries";
+import { IoLogoEuro, IoLogoUsd } from "react-icons/io";
 
 interface CurrencyControlProps {}
 
@@ -32,6 +38,7 @@ export const CurrencyControl: React.FC<CurrencyControlProps> = () => {
 
 	const _t = useTranslation("header");
 	const _tLang = useTranslation("language");
+	const _tNot = useTranslation("notifications");
 
 	const [updateUser] = useMutation(USER_UPDATE, {
 		onCompleted({ updateUser }) {
@@ -42,10 +49,22 @@ export const CurrencyControl: React.FC<CurrencyControlProps> = () => {
 		},
 	});
 
-	const onChange = useCallback((o: Option) => {
-		updateUser({ variables: { id: user!.id, currency: o.value } });
-		dispatch(setCurrency(o.value));
-	}, []);
+	const onChange = useCallback(
+		(o: Option) => {
+			updateUser({ variables: { id: user!.id, currency: o.value } });
+			dispatch(setCurrency(o.value));
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.controls.curr.title,
+					text: `${_tNot.controls.curr.text} ${currency}`,
+					type: "normal",
+				})
+			);
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[_tNot, currency]
+	);
 
 	const options = useMemo(
 		() => [

@@ -1,5 +1,3 @@
-@import "./Form.Field.css";
-
 @layer components {
 	.Field--Checkbox {
 		&__Options {

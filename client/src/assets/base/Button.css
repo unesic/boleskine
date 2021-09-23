@@ -1,7 +1,8 @@
 @layer components {
 	.Button {
-		@apply flex items-center justify-center gap-2 mt-4 px-4 py-2 rounded bg-opacity-70 text-app-light-100;
+		@apply flex items-center justify-center gap-2 mt-4 px-4 py-2 rounded;
 		@apply transition-all duration-200 ease-out;
+		@apply bg-opacity-70 text-app-light-100 disabled:bg-app-light-500 disabled:cursor-not-allowed;
 
 		&--primary {
 			@apply bg-app-accent-blue hover:bg-opacity-100;

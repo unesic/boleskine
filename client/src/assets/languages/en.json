@@ -96,5 +96,39 @@
 				"cancel": "Cancel"
 			}
 		}
+	},
+	"notifications": {
+		"error": {
+			"title": "There's been an error!",
+			"text": "Error:"
+		},
+		"entry": {
+			"created": {
+				"title": "Entry created!",
+				"text": "Created entry:"
+			},
+			"updated": {
+				"title": "Entry updated!",
+				"text": "Updated entry:"
+			},
+			"deleted": {
+				"title": "Entry deleted!",
+				"text": "Deleted entry:"
+			}
+		},
+		"controls": {
+			"mode": {
+				"title": "Mode changed!",
+				"text": "You changed the application's display mode."
+			},
+			"lang": {
+				"title": "Jezik promenjen!",
+				"text": "Srpski jezik se sada koristi za prikaz."
+			},
+			"curr": {
+				"title": "Currency changed!",
+				"text": "New currency:"
+			}
+		}
 	}
 }

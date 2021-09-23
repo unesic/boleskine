@@ -32,7 +32,7 @@ import { useTranslation } from "lib/hooks/useTranslation";
 import { useMoment } from "lib/hooks/useMoment";
 
 /**
- * Components & utilities
+ * Components
  */
 import { Card, Header } from "ui/card";
 
@@ -40,6 +40,7 @@ interface NewEntryProps {}
 
 export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 	const _t = useTranslation("app");
+	const _tNot = useTranslation("notifications");
 	const moment = useMoment();
 
 	const dispatch = useDispatch();
@@ -73,8 +74,8 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "Added new entry!",
-					text: `Entry '${createEntry.description}' added!`,
+					title: _tNot.entry.created.title,
+					text: `${_tNot.entry.created.text} '${createEntry.description}'`,
 					type: "normal",
 				})
 			);
@@ -83,8 +84,8 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
 					type: "error",
 				})
 			);
@@ -100,8 +101,8 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
 					type: "error",
 				})
 			);

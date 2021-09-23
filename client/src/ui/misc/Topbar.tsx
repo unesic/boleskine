@@ -20,7 +20,8 @@ import { useTranslation } from "lib/hooks/useTranslation";
  * Components
  */
 import { Spacer } from "ui/misc/Spacer";
-import { MenuItem, MenuItemLabel } from "ui/misc/MenuItem";
+import { MenuItem } from "ui/misc/MenuItem";
+import { MenuItemLabel } from "ui/misc/MenuItemLabel";
 import { ModeControl } from "ui/misc/ModeControl";
 import { LanguageControl } from "ui/misc/LanguageControl";
 import { CurrencyControl } from "ui/misc/CurrencyControl";
