@@ -12,8 +12,8 @@ import { selectActiveDate, selectActiveDays } from "store/track.slice";
 /**
  * Utilities
  */
-import { useFormatMonth } from "lib/utils/useFormat";
-import { useCalculateMonthTotals } from "lib/utils/useTotals";
+import { useFormatMonth } from "lib/hooks/utils/useFormat";
+import { useCalculateMonthTotals } from "lib/hooks/utils/useTotals";
 
 /**
  * Components
@@ -34,7 +34,11 @@ export const CurrentMonth: React.FC<CurrentMonthProps> = memo(() => {
 		<div className="Widget--CurrentMonth">
 			<Card>
 				<Header title={formatMonth(activeDate)} />
-				<Totals income={totals.inc} expense={totals.exp} />
+				<Totals
+					income={totals.inc}
+					expense={totals.exp}
+					testId="current-month"
+				/>
 			</Card>
 		</div>
 	);

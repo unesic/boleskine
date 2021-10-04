@@ -130,5 +130,28 @@
 				"text": "New currency:"
 			}
 		}
+	},
+	"input_errors": {
+		"email": {
+			"default": "Email must be a valid email address.",
+			"required": "Email address is required."
+		},
+		"password": {
+			"required": "Password is required.",
+			"min": "Password must contain at least 8 characters."
+		},
+		"repassword": {
+			"required": "Password is required.",
+			"matching": "Passwords must match."
+		},
+		"description": {
+			"required": "Description is required.",
+			"max": "Must be 100 characters or less."
+		},
+		"type": "Please select entry type.",
+		"amount": {
+			"required": "Please enter an amount.",
+			"positive": "Amount must be a positive number."
+		}
 	}
 }

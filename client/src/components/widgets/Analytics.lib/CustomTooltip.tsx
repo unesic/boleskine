@@ -6,8 +6,8 @@ import {
 	NameType,
 	ValueType,
 } from "recharts/types/component/DefaultTooltipContent";
-import { useFormatLabel } from "lib/utils/useFormatLabel";
-import { useCurrencyFormatter } from "lib/utils/useFormat";
+import { useFormatLabel } from "lib/hooks/utils/useFormatLabel";
+import { useCurrencyFormatter } from "lib/hooks/utils/useFormat";
 
 /**
  * Components

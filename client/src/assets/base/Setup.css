@@ -4,7 +4,7 @@
 	}
 
 	body {
-		@apply bg-gradient-to-br bg-fixed min-h-screen;
+		@apply bg-gradient-to-br bg-fixed;
 		@apply from-app-light-100 to-app-light-200;
 
 		&.dark {
@@ -38,5 +38,9 @@
 		#root {
 			@apply relative overflow-x-hidden;
 		}
+	}
+
+	.Main {
+		@apply lg:max-w-5xl container mx-auto mt-8 pb-8;
 	}
 }

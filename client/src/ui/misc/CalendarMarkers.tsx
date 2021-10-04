@@ -6,7 +6,7 @@ import { useMemo } from "react";
 /**
  * Utilities
  */
-import { getMonthMarks } from "lib/entriesFormatter";
+import { getMonthMarks } from "lib/utils/entries.utils";
 
 /**
  * Components

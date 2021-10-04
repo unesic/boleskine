@@ -10,8 +10,8 @@ import { PublicRoute } from "lib/routes/PublicRoute";
  */
 import { SignUp } from "views/SignUp";
 import { SignIn } from "views/SignIn";
-import { Home } from "views/Home";
 import { SignOut } from "views/SignOut";
+import { Home } from "views/Home";
 
 interface RouterProps {}
 

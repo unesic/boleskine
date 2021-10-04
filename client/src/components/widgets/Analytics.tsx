@@ -14,7 +14,7 @@ import { selectMonths } from "store/track.slice";
  */
 import { Card } from "ui/card";
 import { Option, Select } from "ui/form/Select";
-import { AnalyticsGraph } from "components/AnalyticsGraph";
+import { AnalyticsGraph } from "./Analytics.lib/AnalyticsGraph";
 
 /**
  * Utils

@@ -22,9 +22,9 @@ import { useTranslation } from "lib/hooks/useTranslation";
 import { Spacer } from "ui/misc/Spacer";
 import { MenuItem } from "ui/misc/MenuItem";
 import { MenuItemLabel } from "ui/misc/MenuItemLabel";
-import { ModeControl } from "ui/misc/ModeControl";
-import { LanguageControl } from "ui/misc/LanguageControl";
-import { CurrencyControl } from "ui/misc/CurrencyControl";
+import { DarkModeControl } from "ui/controls/DarkModeControl";
+import { LanguageControl } from "ui/controls/LanguageControl";
+import { CurrencyControl } from "ui/controls/CurrencyControl";
 
 /**
  * Icons
@@ -38,9 +38,8 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 	const [menuRef, isVisible, setIsVisible] = useVisible(false);
 	const cssRef = useRef() as React.RefObject<HTMLDivElement>;
 
-	const user = useSelector(selectUser);
-
 	const _t = useTranslation("header");
+	const user = useSelector(selectUser);
 
 	const toggleMenu = useCallback(() => {
 		setIsVisible(!isVisible);
@@ -82,7 +81,7 @@ export const Topbar: React.FC<TopbarProps> = memo(() => {
 
 								<Spacer direction="horizontal" />
 
-								<ModeControl />
+								<DarkModeControl />
 								<LanguageControl />
 								<CurrencyControl />
 

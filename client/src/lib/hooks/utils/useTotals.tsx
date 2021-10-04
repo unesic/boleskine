@@ -1,5 +1,5 @@
 import { useMoment } from "lib/hooks/useMoment";
-import { useGetWeekEnd, useGetWeekStart } from "lib/utils/useFormat";
+import { useGetWeekEnd, useGetWeekStart } from "lib/hooks/utils/useFormat";
 import { DayType, EntryType } from "lib/types/shared.types";
 
 export const useCalculateMonthTotals = (days: DayType[]) => {

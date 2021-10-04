@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const GET_MONTH = gql`
+export const GET_MONTH = gql`
 	query getMonth($id: ID!) {
 		getMonth(id: $id) {
 			id
@@ -17,7 +17,7 @@ const GET_MONTH = gql`
 	}
 `;
 
-const GET_USER_MONTHS = gql`
+export const GET_USER_MONTHS = gql`
 	query getUserMonths {
 		getUserMonths {
 			id
@@ -34,7 +34,7 @@ const GET_USER_MONTHS = gql`
 	}
 `;
 
-const CREATE_MONTH = gql`
+export const CREATE_MONTH = gql`
 	mutation createMonth($date: String!) {
 		createMonth(date: $date) {
 			id
@@ -43,5 +43,3 @@ const CREATE_MONTH = gql`
 		}
 	}
 `;
-
-export { GET_MONTH, GET_USER_MONTHS, CREATE_MONTH };

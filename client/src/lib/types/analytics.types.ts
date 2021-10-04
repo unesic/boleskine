@@ -1,4 +1,4 @@
-import { EntriesType, MonthType } from "./shared.types";
+import { EntriesType, MonthType, Mutable } from "lib/types/shared.types";
 
 export type SplitData = {
 	[key: string]: MonthType[];
@@ -11,7 +11,7 @@ export type TotalType = {
 };
 
 type TotalsType = {
-	[key in Writeable<Period>]: TotalType[] | null;
+	[key in Mutable<Period>]: TotalType[] | null;
 };
 
 export type MasterDataType = {
@@ -33,5 +33,3 @@ export type AnalysisTypeEntries = {
 export type AnalysisTypes = {
 	[key in Periods]: AnalysisTypeEntries;
 };
-
-type Writeable<T> = { -readonly [P in keyof T]: T[P] };

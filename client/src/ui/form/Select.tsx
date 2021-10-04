@@ -38,7 +38,7 @@ export const Select: React.FC<SelectProps> = ({
 }) => {
 	return (
 		<div className="Field">
-			<fieldset className="Field--Select--fs">
+			<fieldset className="Field--Select">
 				<ReactSelect
 					value={value}
 					options={options}

@@ -22,7 +22,7 @@ import { selectLanguage } from "store/auth.slice";
 import { useMoment } from "lib/hooks/useMoment";
 import { useTranslation } from "lib/hooks/useTranslation";
 import { useWindowResize } from "lib/hooks/useWindowResize";
-import { getMarkedDates } from "lib/entriesFormatter";
+import { getMarkedDates } from "lib/utils/entries.utils";
 
 /**
  * Components & Icons

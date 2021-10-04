@@ -10,7 +10,7 @@ import moment from "moment";
 import {
 	formatActiveMonthEntries,
 	sortMonthEntries,
-} from "lib/entriesFormatter";
+} from "lib/utils/entries.utils";
 import type { DayType, MonthType, EntryType } from "lib/types/shared.types";
 
 type ActiveDate = {

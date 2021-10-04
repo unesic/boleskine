@@ -20,6 +20,8 @@
 @import "components/ui/misc/Spacer.css";
 @import "components/ui/misc/EntryOptions.css";
 @import "components/ui/misc/ModeControl.css";
+@import "components/ui/misc/User.css";
+@import "components/ui/misc/Spinner.css";
 
 @import "components/ui/form/Checkbox.css";
 @import "components/ui/form/Error.css";

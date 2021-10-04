@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 
 /**
  * Redux
@@ -11,7 +11,7 @@ import { userSignOut } from "store/auth.slice";
 
 interface SignOutProps {}
 
-export const SignOut: React.FC<SignOutProps> = () => {
+export const SignOut: React.FC<SignOutProps> = memo(() => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -20,4 +20,4 @@ export const SignOut: React.FC<SignOutProps> = () => {
 	}, []);
 
 	return null;
-};
+});

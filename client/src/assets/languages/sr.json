@@ -130,5 +130,28 @@
 				"text": "Nova izabrana valuta:"
 			}
 		}
+	},
+	"input_errors": {
+		"email": {
+			"default": "Email mora biti validna email adresa.",
+			"required": "Email adresa je obavezna."
+		},
+		"password": {
+			"required": "Lozinka je obavezna.",
+			"min": "Lozinka mora imati minimum 8 karaktera."
+		},
+		"repassword": {
+			"required": "Lozinka je obavezna.",
+			"matching": "Lozinke moraju biti iste."
+		},
+		"description": {
+			"required": "Opis je obavezan.",
+			"max": "Opis može sadržati maksimum 100 karaktera."
+		},
+		"type": "Morate izabrati tip.",
+		"amount": {
+			"required": "Iznos je obavezan.",
+			"positive": "Iznos mora biti pozitivan broj."
+		}
 	}
 }

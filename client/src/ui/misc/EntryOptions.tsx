@@ -25,11 +25,11 @@ import { DELETE_ENTRY, UPDATE_ENTRY } from "lib/graphql/entry.queries";
 /**
  * Utilities
  */
-import { EntryInitialValues, useEntryForm } from "lib/hooks/useEntryForm";
-import { useTranslation } from "lib/hooks/useTranslation";
+import { PopupContext } from "lib/PopupContext";
 import { useVisible } from "lib/hooks/useVisible";
-import { useGetEntryData } from "lib/utils/useGetEntryData";
-import { PopupContext } from "lib/utils/PopupContext";
+import { useTranslation } from "lib/hooks/useTranslation";
+import { EntryInitialValues, useEntryForm } from "lib/hooks/useEntryForm";
+import { useGetEntryData } from "lib/hooks/utils/useGetEntryData";
 
 /**
  * Icons

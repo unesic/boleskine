@@ -12,7 +12,7 @@ import { selectPopup, closePopup, clearPopup } from "store/app.slice";
 /**
  * Utilities
  */
-import { PopupContext } from "lib/utils/PopupContext";
+import { PopupContext } from "lib/PopupContext";
 import { useTranslation } from "lib/hooks/useTranslation";
 
 /**

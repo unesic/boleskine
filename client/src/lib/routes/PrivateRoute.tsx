@@ -12,12 +12,13 @@ import { selectUser } from "store/auth.slice";
 /**
  * Components
  */
-import { Topbar } from "ui/misc/Topbar";
 import { Notifications } from "ui/misc/Notifications";
 import { EntryOptions } from "ui/misc/EntryOptions";
 import { ConfirmationPoup } from "ui/misc/ConfirmationPopup";
+import { useMemo } from "react";
 
 interface PrivateRouteProps {
+	component: React.FC<any>;
 	[key: string]: any;
 }
 
@@ -28,10 +29,16 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 	const user = useSelector(selectUser);
 	const location = useLocation();
 
+	const page = useMemo(() => location.pathname.replaceAll("/", "") || "home", [
+		location,
+	]);
+
 	return (
-		<>
-			<Topbar />
-			<main className="lg:max-w-5xl container mx-auto mt-8 pb-8">
+		<div
+			className={`Page--${page}`}
+			style={{ height: page !== "home" ? "100vh" : undefined }}
+		>
+			<main className="Main">
 				<Route
 					{...rest}
 					render={(props) =>
@@ -49,6 +56,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 			<Notifications position="tr" />
 			<EntryOptions />
 			<ConfirmationPoup />
-		</>
+		</div>
 	);
 };

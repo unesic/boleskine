@@ -23,7 +23,7 @@ import { GET_USER_MONTHS } from "lib/graphql/month.queries";
  */
 import { useTranslation } from "lib/hooks/useTranslation";
 import { useMoment } from "lib/hooks/useMoment";
-import { PopupContextProvider } from "lib/utils/PopupContext";
+import { PopupContextProvider } from "lib/PopupContext";
 
 interface AppProps {}
 

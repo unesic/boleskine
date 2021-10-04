@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const GET_USER = gql`
+export const GET_USER = gql`
 	query getUser($userId: ID!) {
 		getUser(userId: $userId) {
 			id
@@ -15,23 +15,13 @@ const GET_USER = gql`
 	}
 `;
 
-const USER_SIGNUP = gql`
+export const USER_SIGNUP = gql`
 	mutation createUser(
 		$email: String!
 		$password: String!
 		$rePassword: String!
-		$language: String
-		$currency: String
-		$darkMode: String
 	) {
-		createUser(
-			email: $email
-			password: $password
-			rePassword: $rePassword
-			language: $language
-			currency: $currency
-			darkMode: $darkMode
-		) {
+		createUser(email: $email, password: $password, rePassword: $rePassword) {
 			id
 			email
 			firstName
@@ -45,7 +35,7 @@ const USER_SIGNUP = gql`
 	}
 `;
 
-const USER_LOGIN = gql`
+export const USER_LOGIN = gql`
 	mutation loginUser($email: String!, $password: String!, $remember: Boolean!) {
 		loginUser(email: $email, password: $password, remember: $remember) {
 			id
@@ -61,7 +51,7 @@ const USER_LOGIN = gql`
 	}
 `;
 
-const USER_UPDATE = gql`
+export const USER_UPDATE = gql`
 	mutation updateUser(
 		$id: ID!
 		$email: String
@@ -99,7 +89,7 @@ const USER_UPDATE = gql`
 	}
 `;
 
-const USER_AUTH = gql`
+export const USER_AUTH = gql`
 	mutation authUser(
 		$email: String
 		$firstName: String
@@ -124,5 +114,3 @@ const USER_AUTH = gql`
 		}
 	}
 `;
-
-export { GET_USER, USER_SIGNUP, USER_LOGIN, USER_UPDATE, USER_AUTH };

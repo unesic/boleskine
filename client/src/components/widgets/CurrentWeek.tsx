@@ -12,8 +12,8 @@ import { selectActiveDate, selectActiveDays } from "store/track.slice";
 /**
  * Utilities
  */
-import { useFormatWeek } from "lib/utils/useFormat";
-import { useCalculateWeekTotals } from "lib/utils/useTotals";
+import { useFormatWeek } from "lib/hooks/utils/useFormat";
+import { useCalculateWeekTotals } from "lib/hooks/utils/useTotals";
 
 /**
  * Components
@@ -37,7 +37,11 @@ export const CurrentWeek: React.FC<CurrentWeekProps> = memo(() => {
 		<div className="Widget--CurrentWeek">
 			<Card>
 				<Header title={formatWeek([startDate, endDate])} />
-				<Totals income={totals.inc} expense={totals.exp} />
+				<Totals
+					income={totals.inc}
+					expense={totals.exp}
+					testId="current-week"
+				/>
 			</Card>
 		</div>
 	);

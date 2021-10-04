@@ -4,7 +4,7 @@ import {
 	useFormatWeek,
 	useGetWeekEnd,
 	useGetWeekStart,
-} from "lib/utils/useFormat";
+} from "lib/hooks/utils/useFormat";
 
 export const useFormatLabel = () => {
 	const _t = useTranslation("app");

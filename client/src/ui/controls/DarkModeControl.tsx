@@ -28,9 +28,9 @@ import { MenuItem } from "ui/misc/MenuItem";
 import { MenuItemLabel } from "ui/misc/MenuItemLabel";
 import { VscColorMode } from "react-icons/vsc";
 
-interface ModeControlProps {}
+interface DarkModeControlProps {}
 
-export const ModeControl: React.FC<ModeControlProps> = () => {
+export const DarkModeControl: React.FC<DarkModeControlProps> = () => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const darkMode = useSelector(selectDarkMode);

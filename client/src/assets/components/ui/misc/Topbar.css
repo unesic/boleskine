@@ -41,7 +41,7 @@
 					}
 
 					&__item {
-						@apply flex items-center my-2 py-1 px-2 text-sm transition-colors duration-200;
+						@apply flex items-center my-2 py-1 px-2 text-sm cursor-pointer transition-colors duration-200;
 						@apply text-app-dark-500 text-opacity-80 hover:text-opacity-100;
 						@apply dark:text-app-light-100 dark:text-opacity-80 dark:hover:text-opacity-100;
 
@@ -53,11 +53,7 @@
 							@apply text-xs;
 						}
 
-						&--clickable {
-							@apply cursor-pointer;
-						}
-
-						&--not-clickable {
+						&--no-click {
 							@apply cursor-default;
 						}
 
