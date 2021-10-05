@@ -7,7 +7,7 @@
 		}
 
 		&__inner {
-			@apply absolute z-20 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-screen-lg px-4;
+			@apply absolute z-20 top-[50vh] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-screen-lg px-4;
 
 			.Card {
 				@apply bg-opacity-70;
@@ -19,7 +19,7 @@
 				}
 
 				&__content {
-					@apply px-2 min-w-[400px] max-w-full text-lg;
+					@apply px-2 min-w-[500px] max-w-full text-lg;
 					@apply text-app-dark-500;
 					@apply dark:text-app-light-100;
 				}

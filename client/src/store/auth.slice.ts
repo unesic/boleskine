@@ -6,9 +6,9 @@ import { createSlice } from "@reduxjs/toolkit";
 interface UserType {
 	id?: string;
 	email?: string;
-	firstName?: string;
-	lastName?: string;
-	image?: string;
+	firstName: string;
+	lastName: string;
+	image: string;
 	language?: string;
 	currency?: string;
 	darkMode?: boolean;
@@ -18,9 +18,12 @@ interface SignInType extends UserType {
 	token: string;
 }
 
-let user: UserType = {
+const initialUserData: UserType = {
 	id: undefined,
 	darkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
+	firstName: "",
+	lastName: "",
+	image: "",
 };
 
 interface IAuth {
@@ -34,7 +37,7 @@ interface IState {
 export const Slice = createSlice({
 	name: "auth",
 	initialState: {
-		user: user,
+		user: initialUserData,
 	} as IAuth,
 	reducers: {
 		// User reducers
@@ -43,10 +46,7 @@ export const Slice = createSlice({
 			localStorage.setItem("auth-token", action.payload.token);
 		},
 		userSignOut: (state) => {
-			state.user = {
-				id: undefined,
-				darkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
-			};
+			state.user = { ...initialUserData };
 			localStorage.removeItem("auth-token");
 		},
 

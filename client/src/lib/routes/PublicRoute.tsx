@@ -103,7 +103,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 			className={`Page--${location.pathname.replaceAll("/", "") || "home"}`}
 			style={{ height: "100vh" }}
 		>
-			{loading ? (
+			{!loading ? (
 				<Route
 					{...rest}
 					render={(props) =>

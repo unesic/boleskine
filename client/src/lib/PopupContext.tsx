@@ -3,11 +3,11 @@
  */
 import { createContext, useState } from "react";
 
+type ContentType = JSX.Element | string | null;
+
 type PopupContextState = {
-	popupContent: JSX.Element | string | null;
-	setPopupContent: React.Dispatch<
-		React.SetStateAction<JSX.Element | string | null>
-	>;
+	popupContent: ContentType;
+	setPopupContent: React.Dispatch<React.SetStateAction<ContentType>>;
 };
 
 const initialValues: PopupContextState = {
@@ -18,11 +18,10 @@ const initialValues: PopupContextState = {
 export const PopupContext = createContext<PopupContextState>(initialValues);
 
 export const PopupContextProvider: React.FC = ({ children }) => {
-	const [content, setContent] = useState<JSX.Element | string | null>(null);
+	const [popupContent, setPopupContent] = useState<ContentType>(null);
+
 	return (
-		<PopupContext.Provider
-			value={{ popupContent: content, setPopupContent: setContent }}
-		>
+		<PopupContext.Provider value={{ popupContent, setPopupContent }}>
 			{children}
 		</PopupContext.Provider>
 	);

@@ -50,9 +50,9 @@ enum ENTRY_ACTIONS {
 interface EntryOptionsProps {}
 
 type PositionType = {
-	top: number | undefined;
-	left: number | undefined;
-	right: number | undefined;
+	top?: number;
+	left?: number;
+	right?: number;
 };
 
 export const EntryOptions: React.FC<EntryOptionsProps> = () => {
