@@ -2,19 +2,14 @@
  * Base
  */
 import { useMemo } from "react";
-import { FormikErrors, FormikTouched, useFormik } from "formik";
+import { FormikContextType, useFormik } from "formik";
 import * as Yup from "yup";
-
-/**
- * Utilities
- */
-import { useTranslation } from "lib/hooks/useTranslation";
 
 /**
  * Components
  */
-import { Button } from "ui/misc/Button";
 import { Text } from "ui/form/Text";
+import { ImageUpload } from "ui/misc/ImageUpload";
 
 type UserProfileSchema = {
 	firstName: string;
@@ -23,24 +18,11 @@ type UserProfileSchema = {
 };
 
 export const useProfileForm = (
-	onFormSubmit: (values: UserProfileSchema) => Promise<any>
-): [
-	form: JSX.Element,
-	cb: () => Promise<any>,
-	values: UserProfileSchema,
-	errors: FormikErrors<UserProfileSchema>,
-	touched: FormikTouched<UserProfileSchema>
-] => {
-	const _t = useTranslation("app");
-
-	const initialValues = useMemo(
-		() => ({
-			firstName: "",
-			lastName: "",
-			image: "",
-		}),
-		[]
-	);
+	onFormSubmit: (values: UserProfileSchema) => Promise<any>,
+	setImageFile: React.Dispatch<React.SetStateAction<File | null>>,
+	profileData: UserProfileSchema
+): [form: JSX.Element, formik: FormikContextType<UserProfileSchema>] => {
+	const initialValues = useMemo(() => ({ ...profileData }), [profileData]);
 
 	const validationSchema = useMemo(
 		() =>
@@ -86,10 +68,15 @@ export const useProfileForm = (
 				touched={formik.touched.lastName}
 				label={"Last name"}
 			/>
+			<ImageUpload
+				id="image"
+				name="image"
+				value={formik.values.image}
+				accept="image/png, image/jpeg"
+				onChange={(image) => setImageFile(image.file)}
+				errors={formik.errors.image}
+			/>
 		</form>,
-		formik.submitForm,
-		formik.values,
-		formik.errors,
-		formik.touched,
+		formik,
 	];
 };

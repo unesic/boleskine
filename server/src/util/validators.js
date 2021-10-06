@@ -1,10 +1,11 @@
-module.exports.validateRegisterInput = (email, password, rePassword) => {
+function validateRegisterInput(email, password, rePassword) {
 	const errors = {};
 
 	if (email.trim() === "") {
 		errors.email = "Email must not be empty";
 	} else {
-		const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+		const regEx =
+			/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 		if (!email.match(regEx)) {
 			errors.email = "Email must be a valid email address";
 		}
@@ -24,15 +25,16 @@ module.exports.validateRegisterInput = (email, password, rePassword) => {
 		errors,
 		valid: Object.keys(errors).length < 1,
 	};
-};
+}
 
-module.exports.validateLoginInput = (email, password) => {
+function validateLoginInput(email, password) {
 	const errors = {};
 
 	if (email.trim() === "") {
 		errors.email = "Email must not be empty";
 	} else {
-		const regEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+		const regEx =
+			/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 		if (!email.match(regEx)) {
 			errors.email = "Email must be a valid email address";
 		}
@@ -46,16 +48,13 @@ module.exports.validateLoginInput = (email, password) => {
 		errors,
 		valid: Object.keys(errors).length < 1,
 	};
-};
+}
 
-module.exports.validateUpdateInput = (
-	email = "",
-	password = "",
-	rePassword = ""
-) => {
+function validateUpdateInput(email = "", password = "", rePassword = "") {
 	const errors = {};
 
-	const emailRegEx = /^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
+	const emailRegEx =
+		/^([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})$/;
 	if (email.trim() !== "" && !email.match(emailRegEx)) {
 		errors.email = "Email must be a valid email address";
 	}
@@ -68,4 +67,10 @@ module.exports.validateUpdateInput = (
 		errors,
 		valid: Object.keys(errors).length < 1,
 	};
+}
+
+module.exports = {
+	validateRegisterInput,
+	validateLoginInput,
+	validateUpdateInput,
 };

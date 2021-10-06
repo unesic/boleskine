@@ -42,25 +42,31 @@ export const CurrencyControl: React.FC<CurrencyControlProps> = () => {
 
 	const [updateUser] = useMutation(USER_UPDATE, {
 		onCompleted({ updateUser }) {
-			console.log(updateUser);
+			dispatch(setCurrency(updateUser.currency));
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.controls.curr.title,
+					text: `${_tNot.controls.curr.text} ${updateUser.currency}`,
+					type: "normal",
+				})
+			);
 		},
 		onError(err) {
-			console.log(err);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 
 	const onChange = useCallback(
 		(o: Option) => {
 			updateUser({ variables: { id: user!.id, currency: o.value } });
-			dispatch(setCurrency(o.value));
-			dispatch(
-				addNotification({
-					id: new Date().toISOString(),
-					title: _tNot.controls.curr.title,
-					text: `${_tNot.controls.curr.text} ${currency}`,
-					type: "normal",
-				})
-			);
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[_tNot, currency]

@@ -40,24 +40,30 @@ export const DarkModeControl: React.FC<DarkModeControlProps> = () => {
 
 	const [updateUser] = useMutation(USER_UPDATE, {
 		onCompleted({ updateUser }) {
-			console.log(updateUser);
+			dispatch(setDarkMode(updateUser.darkMode));
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.controls.mode.title,
+					text: _tNot.controls.mode.text,
+					type: "normal",
+				})
+			);
 		},
 		onError(err) {
-			console.log(err);
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
+					type: "error",
+				})
+			);
 		},
 	});
 
 	const onClick = useCallback(() => {
 		updateUser({ variables: { id: user!.id, darkMode: !darkMode } });
-		dispatch(setDarkMode(!darkMode));
-		dispatch(
-			addNotification({
-				id: new Date().toISOString(),
-				title: _tNot.controls.mode.title,
-				text: _tNot.controls.mode.text,
-				type: "normal",
-			})
-		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [_tNot, darkMode]);
 

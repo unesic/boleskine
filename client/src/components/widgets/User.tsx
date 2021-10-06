@@ -1,13 +1,29 @@
 /**
+ * Base
+ */
+import { useCallback, useContext, useEffect, useRef } from "react";
+
+/**
+ * Apollo
+ */
+import { useMutation } from "@apollo/client";
+import { FILE_UPLOAD } from "lib/graphql/file.queries";
+import { USER_UPDATE } from "lib/graphql/user.queries";
+
+/**
  * Redux
  */
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "store/auth.slice";
+import { selectUser, setUser } from "store/auth.slice";
+import { addNotification, selectPopup, setPopup } from "store/app.slice";
 
 /**
  * Utilities
  */
 import { useTranslation } from "lib/hooks/useTranslation";
+import { useProfileForm } from "lib/hooks/useProfileForm";
+import { PopupContext } from "lib/PopupContext";
 import { useToggle } from "lib/hooks/useToggle";
 
 /**
@@ -27,12 +43,8 @@ import { CurrencyControl } from "ui/controls/CurrencyControl";
 /**
  * Icons
  */
-import { BiCaretDownCircle, BiLogOut } from "react-icons/bi";
+import { BiCaretDownCircle, BiLogOut, BiUser } from "react-icons/bi";
 import { BsFillGearFill } from "react-icons/bs";
-import { useCallback, useContext, useEffect, useRef } from "react";
-import { PopupContext } from "lib/PopupContext";
-import { useProfileForm } from "lib/hooks/useProfileForm";
-import { selectPopup, setPopup } from "store/app.slice";
 
 enum PROFILE_ACTIONS {
 	UPDATE = "UPDATE",
@@ -42,13 +54,15 @@ interface UserProps {}
 
 export const User: React.FC<UserProps> = () => {
 	const menuRef = useRef<HTMLDivElement | null>(null);
-	const { popupContent, setPopupContent } = useContext(PopupContext);
+	const { setPopupContent } = useContext(PopupContext);
+	const [imageFile, setImageFile] = useState<File | null>(null);
 
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const popup = useSelector(selectPopup);
 
 	const _t = useTranslation("header");
+	const _tNot = useTranslation("notifications");
 	const [visible, toggleVisible] = useToggle(false);
 
 	const profileData = {
@@ -57,29 +71,43 @@ export const User: React.FC<UserProps> = () => {
 		image: user.image,
 	};
 
+	const onProfileUpdate = useCallback(
+		async (values: any) => {
+			await updateUser({
+				variables: {
+					id: user.id,
+					...values,
+				},
+			});
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[user]
+	);
+
+	const [ProfileForm, formik] = useProfileForm(
+		onProfileUpdate,
+		setImageFile,
+		profileData
+	);
+
 	useEffect(() => {
 		const { execute, action } = popup;
 
 		if (typeof execute === "undefined" || !execute) return;
-		if (action !== PROFILE_ACTIONS.UPDATE || profileData === values) return;
+		if (action !== PROFILE_ACTIONS.UPDATE || profileData === formik.values)
+			return;
 
-		submitUpdate();
+		if (!imageFile) formik.submitForm();
+		else singleUpload({ variables: { file: imageFile } });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [popup]);
-
-	const [
-		ProfileForm,
-		submitUpdate,
-		values,
-		errors,
-		touched,
-	] = useProfileForm(async (v) => {});
+	}, [popup, imageFile]);
 
 	useEffect(() => {
-		if (!touched && !Object.keys(errors).length) return;
+		if (!formik.touched && !Object.keys(formik.errors).length) return;
 		setPopupContent(ProfileForm);
+
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [values, errors, touched]);
+	}, [formik.values, formik.errors, formik.touched]);
 
 	const openProfilePopup = useCallback(() => {
 		setPopupContent(ProfileForm);
@@ -92,7 +120,49 @@ export const User: React.FC<UserProps> = () => {
 				action: PROFILE_ACTIONS.UPDATE,
 			})
 		);
-	}, []);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [ProfileForm]);
+
+	const [updateUser] = useMutation(USER_UPDATE, {
+		onCompleted({ updateUser }) {
+			dispatch(setUser(updateUser));
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: "Profile updated!",
+					text: "You've successfully updated your profile information!",
+					type: "success",
+				})
+			);
+		},
+		onError(err) {
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
+					type: "error",
+				})
+			);
+		},
+	});
+
+	const [singleUpload] = useMutation(FILE_UPLOAD, {
+		onCompleted({ singleUpload }) {
+			formik.setFieldValue("image", singleUpload.path);
+			formik.submitForm();
+		},
+		onError(err) {
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
+					type: "error",
+				})
+			);
+		},
+	});
 
 	if (!user.id) return null;
 
@@ -102,8 +172,11 @@ export const User: React.FC<UserProps> = () => {
 				<div className="User__Info">
 					<img
 						src={
-							user.image ||
-							`https://avatars.dicebear.com/api/identicon/${user.id}.svg`
+							user.image
+								? user.image.includes("images/")
+									? `${process.env.REACT_APP_SERVER_URL}/${user.image}`
+									: user.image
+								: `https://avatars.dicebear.com/api/identicon/${user.id}.svg`
 						}
 						alt={`${user.firstName} ${user.lastName}'s avatar`}
 						referrerPolicy="no-referrer"
@@ -143,12 +216,12 @@ export const User: React.FC<UserProps> = () => {
 
 					<Spacer direction="horizontal" />
 
-					<MenuItem link to="/">
+					{/* <MenuItem link to="/">
 						<BsFillGearFill /> {_t.settings}
-					</MenuItem>
+					</MenuItem> */}
 
 					<MenuItem onClick={openProfilePopup}>
-						<BsFillGearFill /> Edit profile
+						<BiUser /> Edit profile
 					</MenuItem>
 
 					<MenuItem link to="/sign-out">

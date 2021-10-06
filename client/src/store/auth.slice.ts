@@ -41,6 +41,9 @@ export const Slice = createSlice({
 	} as IAuth,
 	reducers: {
 		// User reducers
+		setUser: (state, action: { payload: UserType }) => {
+			state.user = { ...action.payload };
+		},
 		userSignIn: (state, action: { payload: SignInType }) => {
 			state.user = { ...action.payload };
 			localStorage.setItem("auth-token", action.payload.token);
@@ -73,6 +76,7 @@ export const selectCurrency = (state: IState) => state.auth.user.currency;
 export const selectDarkMode = (state: IState) => state.auth.user.darkMode;
 
 export const {
+	setUser,
 	userSignIn,
 	userSignOut,
 	setLanguage,

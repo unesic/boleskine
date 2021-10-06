@@ -36,3 +36,27 @@
 
 @import "tailwindcss/utilities";
 @import "utilities/FancyScroll.css";
+
+.ImageUpload__Container {
+	@apply relative p-2 bg-white border border-solid border-gray-300 rounded flex justify-center items-center;
+}
+
+.ImageUpload__Overlay {
+	@apply flex justify-center items-center absolute z-0 inset-0 rounded bg-gray-800 bg-opacity-0 transition-all ease-in-out duration-200;
+}
+
+.ImageUpload__OverlayActive {
+	@apply bg-opacity-50 z-10;
+}
+
+.ImageUpload__Text {
+	@apply mt-1 pl-2 text-sm text-gray-600;
+}
+
+.ImageUpload__OverlayText {
+	@apply text-sm text-gray-300 relative opacity-0 transition-all ease-in-out duration-200;
+}
+
+.ImageUpload__OverlayTextActive {
+	@apply opacity-100;
+}

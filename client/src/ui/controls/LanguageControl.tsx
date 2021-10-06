@@ -42,17 +42,7 @@ export const LanguageControl: React.FC<LanguageControlProps> = () => {
 
 	const [updateUser] = useMutation(USER_UPDATE, {
 		onCompleted({ updateUser }) {
-			console.log(updateUser);
-		},
-		onError(err) {
-			console.log(err);
-		},
-	});
-
-	const onChange = useCallback(
-		(o: Option) => {
-			updateUser({ variables: { id: user!.id, language: o.value } });
-			dispatch(setLanguage(o.value));
+			dispatch(setLanguage(updateUser.language));
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
@@ -61,6 +51,22 @@ export const LanguageControl: React.FC<LanguageControlProps> = () => {
 					type: "normal",
 				})
 			);
+		},
+		onError(err) {
+			dispatch(
+				addNotification({
+					id: new Date().toISOString(),
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
+					type: "error",
+				})
+			);
+		},
+	});
+
+	const onChange = useCallback(
+		(o: Option) => {
+			updateUser({ variables: { id: user!.id, language: o.value } });
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 		[_tNot, language]

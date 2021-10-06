@@ -34,6 +34,13 @@ module.exports = gql`
 		entries: [Entry]
 	}
 
+	type File {
+		id: ID!
+		filename: String!
+		mimetype: String!
+		path: String!
+	}
+
 	type Query {
 		getAllUsers: [User]
 		getUser(userId: ID!): User
@@ -44,6 +51,8 @@ module.exports = gql`
 
 		getMonth(id: ID!): Month
 		getUserMonths: [Month]
+
+		getFile(fileId: ID!): File!
 	}
 
 	type Mutation {
@@ -87,5 +96,7 @@ module.exports = gql`
 			amount: String
 		): Entry
 		deleteEntry(id: ID!): Entry
+
+		singleUpload(file: Upload!): File!
 	}
 `;
