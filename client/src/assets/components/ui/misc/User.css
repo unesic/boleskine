@@ -1,0 +1,62 @@
+@layer components {
+	.User {
+		&__Info {
+			@apply outline-none focus:outline-none;
+			@apply flex items-center gap-1;
+			@apply text-xs text-app-light-200 text-opacity-80;
+			@apply hover:text-opacity-100 transition-colors duration-200;
+
+			&__avatar {
+				@apply w-12 h-12 object-cover object-center rounded-full;
+				@apply bg-app-light-100;
+				@apply dark:bg-app-dark-400;
+			}
+
+			&__details {
+				& > .User__Menu__item {
+					@apply my-0 py-0;
+				}
+			}
+
+			&__toggle {
+				@apply outline-none focus:outline-none shadow-none focus:shadow-none;
+				@apply transition-transform duration-300;
+				@apply ml-auto;
+
+				&--open {
+					@apply -rotate-180;
+				}
+			}
+		}
+
+		&__Menu {
+			@apply overflow-hidden transition-all duration-300 max-h-0;
+
+			&__item {
+				@apply flex items-center my-2 py-1 px-2 text-sm cursor-pointer transition-colors duration-200;
+				@apply text-app-dark-500 text-opacity-80 hover:text-opacity-100;
+				@apply dark:text-app-light-100 dark:text-opacity-80 dark:hover:text-opacity-100;
+
+				&--big {
+					@apply text-base;
+				}
+
+				&--small {
+					@apply text-xs;
+				}
+
+				&--no-click {
+					@apply cursor-default;
+				}
+
+				.label {
+					@apply flex items-center mr-2;
+				}
+
+				svg {
+					@apply inline-block h-[1.125rem] mr-1 align-text-bottom;
+				}
+			}
+		}
+	}
+}

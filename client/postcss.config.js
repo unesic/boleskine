@@ -1,15 +1,13 @@
 const tailwindcss = require("tailwindcss");
 
-module.exports = ({ env }) => ({
+module.exports = {
 	plugins: [
 		require("postcss-import"),
 		require("postcss-nested"),
 		require("autoprefixer"),
 		tailwindcss("./tailwind.config.js"),
-		env === "production"
-			? require("cssnano")({
-					preset: ["default"],
-			  })
-			: false,
+		require("cssnano")({
+			preset: ["default"],
+		}),
 	],
-});
+};

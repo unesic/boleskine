@@ -7,7 +7,7 @@ import { memo } from "react";
  * Types & Components
  */
 import type { EntryType } from "lib/types/shared.types";
-import { Entry } from "./Entry";
+import { Entry } from "components/Entry";
 
 interface EntriesProps {
 	dayId: string;

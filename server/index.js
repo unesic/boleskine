@@ -20,9 +20,11 @@ const server = new ApolloServer({
 	context: ({ req }) => ({ req }),
 });
 
-const dir = path.join(process.cwd(), "assets");
 app.use(cors("*"));
-app.use("/assets", express.static(dir));
+const assetsDir = path.join(process.cwd(), "assets");
+const imagesDir = path.join(process.cwd(), "images");
+app.use("/assets", express.static(assetsDir));
+app.use("/images", express.static(imagesDir));
 
 app.use(
 	session({
@@ -36,7 +38,6 @@ oauth(app);
 
 server.applyMiddleware({ app });
 
-mongoose.set("useFindAndModify", false);
 mongoose
 	.connect(process.env.MONGO_DB, {
 		useNewUrlParser: true,

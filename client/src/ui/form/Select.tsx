@@ -6,7 +6,7 @@ import ReactSelect, { OptionsType } from "react-select";
 /**
  * Components
  */
-import { Error } from "./Error";
+import { Error } from "ui/form/Error";
 
 export type Option = {
 	value: string;
@@ -32,13 +32,13 @@ export const Select: React.FC<SelectProps> = ({
 	onBlur,
 	errors,
 	touched,
-	placeholder = "Select...",
+	placeholder = "",
 	isMulti = false,
 	isSearchable = true,
 }) => {
 	return (
 		<div className="Field">
-			<fieldset className="Field--Select--fs">
+			<fieldset className="Field--Select">
 				<ReactSelect
 					value={value}
 					options={options}

@@ -13,7 +13,7 @@ import { selectTargetEntryId, setTargetEntryId } from "store/app.slice";
 /**
  * Utilities
  */
-import { useCurrencyFormatter } from "lib/utils/useFormat";
+import { useCurrencyFormatter } from "lib/hooks/utils/useFormat";
 
 /**
  * Icons
@@ -76,6 +76,7 @@ export const Entry: React.FC<EntryProps> = memo(
 						) : null}
 
 						<button
+							data-testid={`${description}-option`}
 							ref={optionsRef}
 							onClick={optionsToggle}
 							className={`Option Option--${

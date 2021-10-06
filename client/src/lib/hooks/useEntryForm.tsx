@@ -3,12 +3,15 @@
  */
 import { useMemo } from "react";
 import { FormikErrors, FormikTouched, useFormik } from "formik";
-import * as Yup from "yup";
 
 /**
  * Utilities
  */
 import { useTranslation } from "lib/hooks/useTranslation";
+import {
+	useFormikSchema,
+	EntryInitialValues,
+} from "lib/schemas/NewEntry.schema";
 
 /**
  * Components
@@ -17,27 +20,10 @@ import { Select } from "ui/form/Select";
 import { Button } from "ui/misc/Button";
 import { Text } from "ui/form/Text";
 
-type EntryType = {
-	value: string;
-	label: string;
-};
-
-export type EntryInitialValues = {
-	description: string;
-	amount: string;
-	type: EntryType | null;
-};
-
-const emptyInitialValues: EntryInitialValues = {
-	description: "",
-	amount: "",
-	type: null,
-};
-
 export const useEntryForm = (
 	onFormSubmit: (values: EntryInitialValues) => Promise<any>,
 	withSubmit = false,
-	initialValues = emptyInitialValues
+	values: EntryInitialValues | null = null
 ): [
 	form: JSX.Element,
 	cb: () => Promise<any>,
@@ -46,36 +32,16 @@ export const useEntryForm = (
 	touched: FormikTouched<EntryInitialValues>
 ] => {
 	const _t = useTranslation("app");
-	const selectOptions = useMemo(
-		() => [
-			{ value: "inc", label: _t.new_entry.type.inc },
-			{ value: "exp", label: _t.new_entry.type.exp },
-			{ value: "not", label: _t.new_entry.type.not },
-		],
-		[_t]
-	);
+	const { initialValues, validationSchema, selectOptions } = useFormikSchema();
 
-	const validationSchema = Yup.object({
-		description: Yup.string()
-			.max(100, "Must be 100 characters or less")
-			.required("Description is required"),
-		type: Yup.object({
-			value: Yup.string(),
-			label: Yup.string(),
-		})
-			.required("Please select entry type")
-			.nullable(),
-		amount: Yup.number().when("type", {
-			is: (type: EntryType) => type?.value === "inc" || type?.value === "exp",
-			then: Yup.number()
-				.positive("Amount must be a positive number")
-				.required("Please enter an amount"),
-		}),
-	});
+	const initialVals = useMemo(() => values || initialValues, [
+		values,
+		initialValues,
+	]);
 
 	const formik = useFormik({
 		enableReinitialize: true,
-		initialValues: initialValues,
+		initialValues: initialVals,
 		validationSchema: validationSchema,
 		onSubmit: async (values, { resetForm }) => {
 			await onFormSubmit(values);
@@ -128,3 +94,5 @@ export const useEntryForm = (
 		formik.touched,
 	];
 };
+
+export type { EntryInitialValues };

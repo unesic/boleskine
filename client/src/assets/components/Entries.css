@@ -66,6 +66,10 @@
 					&--hidden {
 						@apply w-0 h-0;
 					}
+
+					svg {
+						@apply w-4 h-4;
+					}
 				}
 			}
 

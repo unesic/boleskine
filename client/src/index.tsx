@@ -9,12 +9,8 @@ import "assets/dist/main.css";
  * Apollo
  */
 import { setContext } from "@apollo/client/link/context";
-import {
-	ApolloProvider,
-	ApolloClient,
-	InMemoryCache,
-	createHttpLink,
-} from "@apollo/client";
+import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 
 /**
  * Redux
@@ -26,10 +22,6 @@ import { Store } from "store";
  * Components
  */
 import { App } from "App";
-
-const httpLink = createHttpLink({
-	uri: `${process.env.REACT_APP_SERVER_URL}/graphql`,
-});
 
 const authLink = setContext((_, { headers }) => {
 	const token = localStorage.getItem("auth-token");
@@ -43,7 +35,11 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
 	cache: new InMemoryCache(),
-	link: authLink.concat(httpLink),
+	link: authLink.concat(
+		createUploadLink({
+			uri: `${process.env.REACT_APP_SERVER_URL}/graphql`,
+		})
+	),
 });
 
 ReactDOM.render(

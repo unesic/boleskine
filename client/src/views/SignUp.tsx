@@ -1,48 +1,45 @@
 /**
  * Base
  */
+import { memo } from "react";
 import { useMutation } from "@apollo/client";
-import { useFormik } from "formik";
 
 /**
  * Redux
  */
 import { useDispatch } from "react-redux";
 import { userSignIn } from "store/auth.slice";
+import { addNotification } from "store/app.slice";
 
 /**
  * Utilities
  */
 import { USER_SIGNUP } from "lib/graphql/user.queries";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 /**
  * Components
  */
-import { initialValues, validationSchema } from "lib/formik/SignUp.formik";
-import { SignUpTemplate } from "views/templates/SignUp.template";
-import { addNotification } from "store/app.slice";
+import { SignUpTemplate, FormValues } from "views/templates/SignUp.template";
 
 interface SignUpProps {
 	history: any;
 	location: any;
 }
 
-export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
+export const SignUp: React.FC<SignUpProps> = memo(({ history, location }) => {
+	const _t = useTranslation("notifications");
 	const dispatch = useDispatch();
 
-	const formik = useFormik({
-		initialValues: initialValues,
-		validationSchema: validationSchema,
-		onSubmit: async (values) => {
-			await createUser({
-				variables: {
-					email: values.email,
-					password: values.password,
-					rePassword: values.rePassword,
-				},
-			});
-		},
-	});
+	const onSubmit = async (values: FormValues) => {
+		await createUser({
+			variables: {
+				email: values.email,
+				password: values.password,
+				rePassword: values.rePassword,
+			},
+		});
+	};
 
 	const [createUser] = useMutation(USER_SIGNUP, {
 		onCompleted({ createUser }) {
@@ -58,13 +55,13 @@ export const SignUp: React.FC<SignUpProps> = ({ history, location }) => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
+					title: _t.error.title,
+					text: `${_t.error.text} '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
 					type: "error",
 				})
 			);
 		},
 	});
 
-	return <SignUpTemplate formik={formik} />;
-};
+	return <SignUpTemplate onSubmit={onSubmit} />;
+});

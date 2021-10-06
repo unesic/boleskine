@@ -12,7 +12,7 @@ import { selectPopup, closePopup, clearPopup } from "store/app.slice";
 /**
  * Utilities
  */
-import { PopupContext } from "lib/utils/PopupContext";
+import { PopupContext } from "lib/PopupContext";
 import { useTranslation } from "lib/hooks/useTranslation";
 
 /**
@@ -33,11 +33,11 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
 	const popup = useSelector(selectPopup);
 
 	const confirmText = useMemo(() => {
-		return !popup.confirm ? _t.misc.popup.confirm : popup.confirm;
+		return !popup.confirm ? _t.popup.default.confirm : popup.confirm;
 	}, [_t, popup.confirm]);
 
 	const cancelText = useMemo(() => {
-		return !popup.cancel ? _t.misc.popup.cancel : popup.cancel;
+		return !popup.cancel ? _t.popup.default.cancel : popup.cancel;
 	}, [_t, popup.cancel]);
 
 	const popupConfirm = useCallback(() => {

@@ -6,26 +6,33 @@
 @import "tailwindcss/components";
 @import "components/Analytics.css";
 @import "components/Calendar.css";
-@import "components/Card.css";
-@import "components/Countdown.css";
-@import "components/ConfirmationPopup.css";
 @import "components/Entries.css";
-@import "components/EntryOptions.css";
-@import "components/Form.Checkbox.css";
-@import "components/Form.Error.css";
-@import "components/Form.Field.css";
-@import "components/Form.Select.css";
-@import "components/Form.Text.css";
-@import "components/Form.Textarea.css";
-@import "components/Notifications.css";
-@import "components/ModeControl.css";
-@import "components/Topbar.css";
-@import "components/SocialButtons.css";
-@import "components/Spacer.css";
 @import "components/Totals.css";
 @import "components/Tracking.css";
 
-@import "components/HomepageMain.css";
+@import "components/ui/Card.css";
+
+@import "components/ui/misc/Countdown.css";
+@import "components/ui/misc/ConfirmationPopup.css";
+@import "components/ui/misc/Notifications.css";
+@import "components/ui/misc/SocialButtons.css";
+@import "components/ui/misc/Spacer.css";
+@import "components/ui/misc/EntryOptions.css";
+@import "components/ui/misc/ModeControl.css";
+@import "components/ui/misc/User.css";
+@import "components/ui/misc/Spinner.css";
+
+@import "components/ui/form/Checkbox.css";
+@import "components/ui/form/Error.css";
+@import "components/ui/form/Field.css";
+@import "components/ui/form/Select.css";
+@import "components/ui/form/Textarea.css";
+@import "components/ui/form/Text.css";
+@import "components/ui/form/ImageUpload.css";
+
+@import "components/views/Home.css";
+@import "components/views/SignIn.css";
+@import "components/views/SignUp.css";
 
 @import "tailwindcss/utilities";
 @import "utilities/FancyScroll.css";

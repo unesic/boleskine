@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
 interface MenuItemProps {
@@ -20,42 +21,32 @@ export const MenuItem: React.FC<MenuItemProps> = ({
 	children,
 	...rest
 }) => {
-	return !link ? (
-		!onClick ? (
-			<div
-				className={`User__Menu__item ${
-					small || big
-						? `User__Menu__item--${small ? "small" : big ? "big" : ""}`
-						: ""
-				} "User__Menu__item--${clickable ? "clickable" : "not-clickable"}`}
-			>
-				{children}
-			</div>
-		) : (
-			<p
-				onClick={onClick}
-				className={`User__Menu__item  "User__Menu__item--${
-					clickable ? "clickable" : "not-clickable"
-				}`}
-			>
-				{children}
-			</p>
-		)
-	) : (
-		<Link
-			to={to}
-			{...rest}
-			className={`User__Menu__item  "User__Menu__item--${
-				clickable ? "clickable" : "not-clickable"
-			}`}
-		>
+	const classNames = useMemo(() => {
+		const BASE = "User__Menu__item";
+		const classes = [BASE];
+
+		if (small) classes.push(`${BASE}--small`);
+		if (big) classes.push(`${BASE}--big`);
+		if (!clickable) classes.push(`${BASE}--no-click`);
+
+		return classes.join(" ");
+	}, [small, big, clickable]);
+
+	const wrapper = useMemo(() => {
+		if (link) return "link";
+		if (!onClick) return "div";
+		return "p";
+	}, [link, onClick]);
+
+	return wrapper === "link" ? (
+		<Link to={to} {...rest} className={classNames}>
 			{children}
 		</Link>
+	) : wrapper === "div" ? (
+		<div className={classNames}>{children}</div>
+	) : (
+		<p className={classNames} onClick={onClick!}>
+			{children}
+		</p>
 	);
-};
-
-interface LabelProps {}
-
-export const MenuItemLabel: React.FC<LabelProps> = ({ children }) => {
-	return <span className="label">{children}</span>;
 };

@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-const CREATE_ENTRY = gql`
+export const CREATE_ENTRY = gql`
 	mutation createEntry(
 		$monthId: ID
 		$date: String!
@@ -27,7 +27,7 @@ const CREATE_ENTRY = gql`
 	}
 `;
 
-const UPDATE_ENTRY = gql`
+export const UPDATE_ENTRY = gql`
 	mutation updateEntry(
 		$id: ID!
 		$description: String
@@ -50,7 +50,7 @@ const UPDATE_ENTRY = gql`
 	}
 `;
 
-const DELETE_ENTRY = gql`
+export const DELETE_ENTRY = gql`
 	mutation deleteEntry($id: ID!) {
 		deleteEntry(id: $id) {
 			id
@@ -60,5 +60,3 @@ const DELETE_ENTRY = gql`
 		}
 	}
 `;
-
-export { CREATE_ENTRY, UPDATE_ENTRY, DELETE_ENTRY };

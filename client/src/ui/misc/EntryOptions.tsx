@@ -25,10 +25,11 @@ import { DELETE_ENTRY, UPDATE_ENTRY } from "lib/graphql/entry.queries";
 /**
  * Utilities
  */
-import { PopupContext } from "lib/utils/PopupContext";
+import { PopupContext } from "lib/PopupContext";
 import { useVisible } from "lib/hooks/useVisible";
 import { useTranslation } from "lib/hooks/useTranslation";
 import { EntryInitialValues, useEntryForm } from "lib/hooks/useEntryForm";
+import { useGetEntryData } from "lib/hooks/utils/useGetEntryData";
 
 /**
  * Icons
@@ -40,7 +41,6 @@ import {
 	removeEntryFromMonths,
 	removeEntryFromActiveDays,
 } from "store/track.slice";
-import { useGetEntryData } from "lib/utils/useGetEntryData";
 
 enum ENTRY_ACTIONS {
 	UPDATE = "UPDATE",
@@ -50,9 +50,9 @@ enum ENTRY_ACTIONS {
 interface EntryOptionsProps {}
 
 type PositionType = {
-	top: number | undefined;
-	left: number | undefined;
-	right: number | undefined;
+	top?: number;
+	left?: number;
+	right?: number;
 };
 
 export const EntryOptions: React.FC<EntryOptionsProps> = () => {
@@ -64,6 +64,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 	const popup = useSelector(selectPopup);
 
 	const _t = useTranslation("app");
+	const _tNot = useTranslation("notifications");
+
 	const entryData = useGetEntryData(targetEntryId);
 	const [ref, visible, setVisible] = useVisible(false, (t: any) => {
 		const btnCheck = ".Entries__Entry button.Option";
@@ -164,8 +166,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "Entry updated!",
-					text: `Entry '${updateEntry.description}' updated!`,
+					title: _tNot.entry.updated.title,
+					text: `${_tNot.entry.updated.text} '${updateEntry.description}'`,
 					type: "success",
 				})
 			);
@@ -174,8 +176,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
 					type: "error",
 				})
 			);
@@ -190,8 +192,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "Entry deleted!",
-					text: `Entry '${deleteEntry.description}' deleted!`,
+					title: _tNot.entry.deleted.title,
+					text: `${_tNot.entry.deleted.text} '${deleteEntry.description}'`,
 					type: "success",
 				})
 			);
@@ -200,8 +202,8 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "There's been an error!",
-					text: `Error: '${err}'`,
+					title: _tNot.error.title,
+					text: `${_tNot.error.text} '${err}'`,
 					type: "error",
 				})
 			);
@@ -213,9 +215,9 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		dispatch(
 			setPopup({
 				visible: true,
-				title: "Edit entry",
-				confirm: "Update",
-				cancel: "Discard",
+				title: _t.popup.entry.update.title,
+				confirm: _t.popup.entry.update.confirm,
+				cancel: _t.popup.entry.update.cancel,
 				action: ENTRY_ACTIONS.UPDATE,
 			})
 		);
@@ -223,13 +225,13 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 	}, [EditForm]);
 
 	const onRemove = useCallback(() => {
-		setPopupContent("Are you sure you want to delete this entry?");
+		setPopupContent(_t.popup.entry.delete.content!);
 		dispatch(
 			setPopup({
 				visible: true,
-				title: "Delete entry",
-				confirm: "Yes, delete it.",
-				cancel: "I changed my mind.",
+				title: _t.popup.entry.delete.title,
+				confirm: _t.popup.entry.delete.confirm,
+				cancel: _t.popup.entry.delete.cancel,
 				action: ENTRY_ACTIONS.DELETE,
 			})
 		);

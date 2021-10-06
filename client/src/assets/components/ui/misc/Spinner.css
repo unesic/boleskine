@@ -1,0 +1,34 @@
+@layer components {
+	.Spinner {
+		@apply flex items-center justify-center h-full;
+
+		&__SVG {
+			transform: rotateY(-180deg) rotateZ(-90deg);
+			--radius: 125px; /* 2rPi */
+
+			circle {
+				stroke-dasharray: var(--radius);
+				animation: loading 3s linear infinite normal;
+				stroke: theme("colors.app.accent.blue");
+			}
+
+			@keyframes loading {
+				0% {
+					stroke-dashoffset: 0px;
+				}
+				25% {
+					stroke-dashoffset: calc(var(--radius) * -1);
+				}
+				50% {
+					stroke-dashoffset: 0px;
+				}
+				75% {
+					stroke-dashoffset: var(--radius);
+				}
+				100% {
+					stroke-dashoffset: 0px;
+				}
+			}
+		}
+	}
+}
