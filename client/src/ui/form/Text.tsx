@@ -1,4 +1,9 @@
 /**
+ * Base
+ */
+import { memo } from "react";
+
+/**
  * Components
  */
 import { Error } from "./Error";
@@ -16,30 +21,27 @@ interface TextProps {
 	label: string;
 }
 
-export const Text: React.FC<TextProps> = ({
-	errors,
-	touched,
-	label,
-	...props
-}) => {
-	return (
-		<div className="Field">
-			<fieldset
-				className={`Field--Text ${
-					props.value !== "" ? "Field--Text--has-value" : ""
-				} ${touched && errors ? "Field--Text--has-errors" : ""}`.trim()}
-			>
-				<input
-					{...props}
-					className={`Field--Text__input ${
-						props.value !== "" ? "Field--Text__input--has-value" : ""
-					}`.trim()}
-				/>
-				<label htmlFor={props.name} className="Field--Text__label">
-					{label}
-				</label>
-			</fieldset>
-			{touched && errors ? <Error>{errors}</Error> : null}
-		</div>
-	);
-};
+export const Text: React.FC<TextProps> = memo(
+	({ errors, touched, label, ...props }) => {
+		return (
+			<div className="Field">
+				<fieldset
+					className={`Field--Text ${
+						props.value !== "" ? "Field--Text--has-value" : ""
+					} ${touched && errors ? "Field--Text--has-errors" : ""}`.trim()}
+				>
+					<input
+						{...props}
+						className={`Field--Text__input ${
+							props.value !== "" ? "Field--Text__input--has-value" : ""
+						}`.trim()}
+					/>
+					<label htmlFor={props.name} className="Field--Text__label">
+						{label}
+					</label>
+				</fieldset>
+				{touched && errors ? <Error>{errors}</Error> : null}
+			</div>
+		);
+	}
+);

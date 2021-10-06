@@ -1,6 +1,7 @@
 /**
  * Base
  */
+import { memo } from "react";
 import ReactSelect, { OptionsType } from "react-select";
 
 /**
@@ -25,35 +26,37 @@ interface SelectProps {
 	isSearchable?: boolean;
 }
 
-export const Select: React.FC<SelectProps> = ({
-	options,
-	value,
-	onChange,
-	onBlur,
-	errors,
-	touched,
-	placeholder = "",
-	isMulti = false,
-	isSearchable = true,
-}) => {
-	return (
-		<div className="Field">
-			<fieldset className="Field--Select">
-				<ReactSelect
-					value={value}
-					options={options}
-					onChange={onChange}
-					onBlur={onBlur}
-					placeholder={placeholder}
-					className={`Field--Select ${
-						touched && errors ? "Field--Select--has-errors" : ""
-					}`.trim()}
-					classNamePrefix="Field--Select"
-					isMulti={isMulti}
-					isSearchable={isSearchable}
-				/>
-			</fieldset>
-			{touched && errors ? <Error>{errors}</Error> : null}
-		</div>
-	);
-};
+export const Select: React.FC<SelectProps> = memo(
+	({
+		options,
+		value,
+		onChange,
+		onBlur,
+		errors,
+		touched,
+		placeholder = "",
+		isMulti = false,
+		isSearchable = true,
+	}) => {
+		return (
+			<div className="Field">
+				<fieldset className="Field--Select">
+					<ReactSelect
+						value={value}
+						options={options}
+						onChange={onChange}
+						onBlur={onBlur}
+						placeholder={placeholder}
+						className={`Field--Select ${
+							touched && errors ? "Field--Select--has-errors" : ""
+						}`.trim()}
+						classNamePrefix="Field--Select"
+						isMulti={isMulti}
+						isSearchable={isSearchable}
+					/>
+				</fieldset>
+				{touched && errors ? <Error>{errors}</Error> : null}
+			</div>
+		);
+	}
+);

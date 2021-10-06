@@ -1,3 +1,8 @@
+/**
+ * Base
+ */
+import { memo } from "react";
+
 interface ButtonProps {
 	type?: "button" | "submit";
 	variant?: "primary" | "secondary";
@@ -6,22 +11,24 @@ interface ButtonProps {
 	onClick?: () => void;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-	type = "button",
-	variant = "primary",
-	className = "",
-	disabled = false,
-	onClick = () => {},
-	children,
-}) => {
-	return (
-		<button
-			className={`Button Button--${variant} ${className}`.trim()}
-			type={type}
-			onClick={onClick}
-			disabled={disabled}
-		>
-			{children}
-		</button>
-	);
-};
+export const Button: React.FC<ButtonProps> = memo(
+	({
+		type = "button",
+		variant = "primary",
+		className = "",
+		disabled = false,
+		onClick = () => {},
+		children,
+	}) => {
+		return (
+			<button
+				className={`Button Button--${variant} ${className}`.trim()}
+				type={type}
+				onClick={onClick}
+				disabled={disabled}
+			>
+				{children}
+			</button>
+		);
+	}
+);

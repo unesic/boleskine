@@ -1,7 +1,14 @@
 /**
- * Vase
+ * Base
  */
-import { useMemo, useRef, useCallback, useEffect, useContext } from "react";
+import {
+	useMemo,
+	useRef,
+	useCallback,
+	useEffect,
+	useContext,
+	memo,
+} from "react";
 
 /**
  * Redux
@@ -24,7 +31,7 @@ import { Button } from "ui/misc/Button";
 
 interface ConfirmationPoupProps {}
 
-export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
+export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 	const { popupContent, setPopupContent } = useContext(PopupContext);
 	const popupRef = useRef() as React.RefObject<HTMLDivElement>;
 	const _t = useTranslation("app");
@@ -117,4 +124,4 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = () => {
 			</div>
 		</CSSTransition>
 	);
-};
+});

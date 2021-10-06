@@ -1,4 +1,8 @@
 /**
+ * Base
+ */
+import { memo } from "react";
+/**
  * Components
  */
 import TextareaAutosize from "react-textarea-autosize";
@@ -17,34 +21,29 @@ interface TextareaProps {
 	maxRows?: number;
 }
 
-export const Textarea: React.FC<TextareaProps> = ({
-	errors,
-	touched,
-	label,
-	minRows = 1,
-	maxRows = 3,
-	...props
-}) => {
-	return (
-		<div className="Field">
-			<fieldset
-				className={`Field--Textarea ${
-					props.value !== "" ? "Field--Textarea--has-value" : ""
-				} ${touched && errors ? "Field--Textarea--has-errors" : ""}`.trim()}
-			>
-				<TextareaAutosize
-					{...props}
-					minRows={minRows}
-					maxRows={maxRows}
-					className={`Field--Textarea__input ${
-						props.value !== "" ? "Field--Textarea__input--has-value" : ""
-					}`.trim()}
-				/>
-				<label htmlFor={props.name} className="Field--Textarea__label">
-					{label}
-				</label>
-			</fieldset>
-			{touched && errors ? <Error>{errors}</Error> : null}
-		</div>
-	);
-};
+export const Textarea: React.FC<TextareaProps> = memo(
+	({ errors, touched, label, minRows = 1, maxRows = 3, ...props }) => {
+		return (
+			<div className="Field">
+				<fieldset
+					className={`Field--Textarea ${
+						props.value !== "" ? "Field--Textarea--has-value" : ""
+					} ${touched && errors ? "Field--Textarea--has-errors" : ""}`.trim()}
+				>
+					<TextareaAutosize
+						{...props}
+						minRows={minRows}
+						maxRows={maxRows}
+						className={`Field--Textarea__input ${
+							props.value !== "" ? "Field--Textarea__input--has-value" : ""
+						}`.trim()}
+					/>
+					<label htmlFor={props.name} className="Field--Textarea__label">
+						{label}
+					</label>
+				</fieldset>
+				{touched && errors ? <Error>{errors}</Error> : null}
+			</div>
+		);
+	}
+);

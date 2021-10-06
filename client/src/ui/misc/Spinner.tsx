@@ -1,6 +1,11 @@
+/**
+ * Base
+ */
+import { memo } from "react";
+
 interface SpinnerProps {}
 
-export const Spinner: React.FC<SpinnerProps> = () => {
+export const Spinner: React.FC<SpinnerProps> = memo(() => {
 	return (
 		<div className="Spinner">
 			<svg className="Spinner__SVG" width="80" height="80">
@@ -16,4 +21,4 @@ export const Spinner: React.FC<SpinnerProps> = () => {
 			</svg>
 		</div>
 	);
-};
+});

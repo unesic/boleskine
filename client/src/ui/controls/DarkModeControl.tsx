@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useCallback } from "react";
+import { memo, useCallback } from "react";
 
 /**
  * Apollo
@@ -30,7 +30,7 @@ import { VscColorMode } from "react-icons/vsc";
 
 interface DarkModeControlProps {}
 
-export const DarkModeControl: React.FC<DarkModeControlProps> = () => {
+export const DarkModeControl: React.FC<DarkModeControlProps> = memo(() => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const darkMode = useSelector(selectDarkMode);
@@ -75,4 +75,4 @@ export const DarkModeControl: React.FC<DarkModeControlProps> = () => {
 			<button className="ModeControl" onClick={onClick}></button>
 		</MenuItem>
 	);
-};
+});

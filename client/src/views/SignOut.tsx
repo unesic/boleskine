@@ -21,3 +21,5 @@ export const SignOut: React.FC<SignOutProps> = memo(() => {
 
 	return null;
 });
+
+export default SignOut;

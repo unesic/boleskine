@@ -1,6 +1,6 @@
 @layer components {
-	body.dark .ModeControl::after {
-		@apply translate-x-full;
+	body.dark .ModeControl {
+		@apply after:translate-x-full;
 	}
 
 	.ModeControl {
@@ -9,11 +9,8 @@
 		@apply bg-app-light-300 dark:bg-app-dark-300;
 		@apply focus:shadow-solid-focus outline-none focus:outline-none;
 
-		&::after {
-			content: "";
-			@apply block rounded-full w-6 h-6;
-			@apply transform transition-all duration-200;
-			@apply bg-app-light-100  dark:bg-app-dark-100;
-		}
+		@apply after:block after:rounded-full after:w-6 after:h-6;
+		@apply after:transition-all after:duration-200;
+		@apply after:bg-app-light-100 dark:after:bg-app-dark-100;
 	}
 }

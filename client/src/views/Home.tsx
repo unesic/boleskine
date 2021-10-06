@@ -35,3 +35,5 @@ export const Home: React.FC<HomeProps> = memo(() => {
 		</>
 	);
 });
+
+export default Home;

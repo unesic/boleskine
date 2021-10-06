@@ -3,12 +3,9 @@
 		&__viewContainer {
 			@apply relative flex gap-8;
 
-			&::after {
-				content: "";
-				@apply md:hidden absolute top-0 bottom-0 left-1/2 transform -translate-x-1/2 w-px;
-				@apply bg-app-dark-500 bg-opacity-20;
-				@apply dark:bg-app-light-100 dark:bg-opacity-10;
-			}
+			@apply md:after:hidden after:absolute after:top-0 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-px;
+			@apply after:bg-app-dark-500 after:bg-opacity-20;
+			@apply dark:after:bg-app-light-100 dark:after:bg-opacity-10;
 
 			.react-calendar__month-view {
 				@apply w-full;
@@ -110,11 +107,7 @@
 					@apply flex justify-center items-center rounded-full;
 					@apply focus:outline-none focus:shadow-gradient-focus;
 
-					&::after {
-						content: "";
-						padding-bottom: 100%;
-						@apply block;
-					}
+					@apply after:pb-[100%] after:block;
 
 					&--marked {
 						@apply relative;

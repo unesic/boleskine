@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useMemo } from "react";
+import { useMemo, memo } from "react";
 
 /**
  * Utilities
@@ -21,23 +21,22 @@ interface CalendarMarkersProps {
 	}[];
 }
 
-export const CalendarMarkers: React.FC<CalendarMarkersProps> = ({
-	view,
-	marked,
-}) => {
-	const [markers] = useMemo(() => getMonthMarks(marked), [marked]);
+export const CalendarMarkers: React.FC<CalendarMarkersProps> = memo(
+	({ view, marked }) => {
+		const [markers] = useMemo(() => getMonthMarks(marked), [marked]);
 
-	return (
-		<span className="markers">
-			{view === "year"
-				? markers.map((marker, idx) => (
-						<CalendarMarker key={idx} type={marker} />
-				  ))
-				: marked.map((m) =>
-						m.marks.map((marker, idx) => (
+		return (
+			<span className="markers">
+				{view === "year"
+					? markers.map((marker, idx) => (
 							<CalendarMarker key={idx} type={marker} />
-						))
-				  )}
-		</span>
-	);
-};
+					  ))
+					: marked.map((m) =>
+							m.marks.map((marker, idx) => (
+								<CalendarMarker key={idx} type={marker} />
+							))
+					  )}
+			</span>
+		);
+	}
+);

@@ -1,3 +1,6 @@
+/**
+ * Base
+ */
 import { memo } from "react";
 
 interface HeaderProps {
