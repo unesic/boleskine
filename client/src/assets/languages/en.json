@@ -5,7 +5,7 @@
 		"language": "Language:",
 		"currency": "Currency:",
 		"mode": "Mode:",
-		"settings": "Settings",
+		"profile": "Edit profile",
 		"sign_out": "Sign out"
 	},
 	"sign_in": {
@@ -90,10 +90,31 @@
 				"exp": "Expense:"
 			}
 		},
-		"misc": {
-			"popup": {
+		"popup": {
+			"default": {
+				"title": "",
 				"confirm": "Confirm",
 				"cancel": "Cancel"
+			},
+			"entry": {
+				"update": {
+					"title": "Edit entry",
+					"confirm": "Update",
+					"cancel": "Discard"
+				},
+				"delete": {
+					"content": "Are you sure you want to delete this entry?",
+					"title": "Delete entry",
+					"confirm": "Yes, delete it",
+					"cancel": "I changed my mind"
+				}
+			},
+			"user": {
+				"update": {
+					"title": "Edit profile info",
+					"confirm": "Confirm",
+					"cancel": "Cancel"
+				}
 			}
 		}
 	},
@@ -129,9 +150,15 @@
 				"title": "Currency changed!",
 				"text": "New currency:"
 			}
+		},
+		"user": {
+			"title": "Profile updated!",
+			"text": "You've successfully updated your profile information!"
 		}
 	},
 	"input_errors": {
+		"firstName": "Must be 50 characters or less.",
+		"lastName": "Must be 50 characters or less.",
 		"email": {
 			"default": "Email must be a valid email address.",
 			"required": "Email address is required."
@@ -152,6 +179,20 @@
 		"amount": {
 			"required": "Please enter an amount.",
 			"positive": "Amount must be a positive number."
+		}
+	},
+	"profile_update": {
+		"firstName": {
+			"label": "First name"
+		},
+		"lastName": {
+			"label": "Last name"
+		},
+		"image": {
+			"label": "Profile image",
+			"overlay": "Drop the image here...",
+			"instruction": "Drag and drop the image or click to select.",
+			"altText": "'s avatar"
 		}
 	}
 }

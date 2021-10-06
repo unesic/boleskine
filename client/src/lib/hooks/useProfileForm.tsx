@@ -9,7 +9,8 @@ import * as Yup from "yup";
  * Components
  */
 import { Text } from "ui/form/Text";
-import { ImageUpload } from "ui/misc/ImageUpload";
+import { ImageUpload } from "ui/form/ImageUpload";
+import { useTranslation } from "./useTranslation";
 
 type UserProfileSchema = {
 	firstName: string;
@@ -22,16 +23,19 @@ export const useProfileForm = (
 	setImageFile: React.Dispatch<React.SetStateAction<File | null>>,
 	profileData: UserProfileSchema
 ): [form: JSX.Element, formik: FormikContextType<UserProfileSchema>] => {
+	const _t = useTranslation("input_errors");
+	const _tProf = useTranslation("profile_update");
+
 	const initialValues = useMemo(() => ({ ...profileData }), [profileData]);
 
 	const validationSchema = useMemo(
 		() =>
 			Yup.object({
-				firstName: Yup.string().max(50, "Must be 50 characters or less."),
-				lastName: Yup.string().max(50, "Must be 50 characters or less."),
+				firstName: Yup.string().max(50, _t.firstName),
+				lastName: Yup.string().max(50, _t.lastName),
 				image: Yup.string(),
 			}),
-		[]
+		[_t]
 	);
 
 	const formik = useFormik({
@@ -55,7 +59,7 @@ export const useProfileForm = (
 				onBlur={formik.handleBlur}
 				errors={formik.errors.firstName}
 				touched={formik.touched.firstName}
-				label={"First name"}
+				label={_tProf.firstName.label}
 			/>
 			<Text
 				id="lastName"
@@ -66,7 +70,7 @@ export const useProfileForm = (
 				onBlur={formik.handleBlur}
 				errors={formik.errors.lastName}
 				touched={formik.touched.lastName}
-				label={"Last name"}
+				label={_tProf.lastName.label}
 			/>
 			<ImageUpload
 				id="image"
@@ -75,6 +79,10 @@ export const useProfileForm = (
 				accept="image/png, image/jpeg"
 				onChange={(image) => setImageFile(image.file)}
 				errors={formik.errors.image}
+				label={_tProf.image.label}
+				overlay={_tProf.image.overlay}
+				instruction={_tProf.image.instruction}
+				altText={`${formik.values.firstName}${_tProf.image.altText}`}
 			/>
 		</form>,
 		formik,

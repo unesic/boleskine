@@ -9,8 +9,9 @@
 		&__inner {
 			@apply absolute z-20 top-[50vh] left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-screen-lg px-4;
 
-			.Card {
-				@apply bg-opacity-70;
+			& > .Card {
+				@apply bg-opacity-80;
+				@apply dark:bg-app-dark-300 dark:bg-opacity-80;
 			}
 
 			.Confirmation {

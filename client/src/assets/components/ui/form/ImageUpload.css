@@ -1,0 +1,72 @@
+@layer components {
+	.Field--Image {
+		@apply relative rounded pt-12 px-10 pb-6 transition-all duration-200 ease-out;
+		@apply bg-app-light-200 bg-opacity-40;
+		@apply dark:bg-app-dark-500 dark:bg-opacity-40;
+
+		&--has-errors {
+			@apply shadow-solid-error;
+		}
+
+		&__input {
+			@apply relative rounded p-2 w-full min-h-[100px] cursor-pointer;
+			@apply bg-white bg-opacity-60 shadow-md;
+			@apply dark:bg-app-dark-500 dark:bg-opacity-40;
+
+			&:hover {
+				& > .Overlay {
+					@apply bg-opacity-20 z-10;
+				}
+			}
+
+			& .Image {
+				@apply flex justify-center items-center;
+
+				&__inner {
+					@apply relative w-full pt-[100%];
+					@apply after:absolute after:top-0 after:left-0 after:w-full after:h-full;
+
+					&::after {
+						background: radial-gradient(
+							circle at center,
+							transparent 64.85%,
+							rgb(0 0 0 / 0.5) 65.15%
+						);
+					}
+
+					img {
+						@apply absolute top-0 left-0 w-full h-full object-center object-cover;
+					}
+				}
+			}
+
+			& > .Overlay {
+				@apply absolute z-0 inset-0 flex justify-center items-center rounded;
+				@apply transition-all duration-200 ease-out;
+
+				@apply bg-app-dark-500 bg-opacity-0;
+				@apply dark:bg-app-dark-500 dark:bg-opacity-0;
+				@apply text-base text-app-light-100 text-opacity-0;
+				@apply dark:text-base dark:text-app-light-100 dark:text-opacity-0;
+
+				&.active {
+					@apply z-10 backdrop-blur-sm;
+					@apply bg-opacity-60 text-opacity-100;
+					@apply dark:bg-opacity-60 dark:text-opacity-100;
+				}
+			}
+		}
+
+		&__label {
+			@apply absolute top-1 left-1 text-xs cursor-text;
+			@apply text-app-light-500 text-opacity-70;
+			@apply dark:text-app-light-300 dark:text-opacity-70;
+		}
+
+		&__instruction {
+			@apply mt-2 text-sm;
+			@apply text-app-light-500 text-opacity-90;
+			@apply dark:text-app-light-300 dark:text-opacity-70;
+		}
+	}
+}

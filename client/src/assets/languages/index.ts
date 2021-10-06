@@ -15,4 +15,5 @@ export type {
 	NotificationsT,
 	SignInT,
 	SignUpT,
+	ProfileUpdateT,
 } from "lib/types/language.types";

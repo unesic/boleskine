@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { Error } from "./Error";
 
 type ImageType = {
 	path: string;
@@ -20,6 +21,10 @@ interface ImageUploadProps {
 	accept: string;
 	onChange: (e: ImageType) => void;
 	errors: string | undefined;
+	label: string;
+	overlay: string;
+	instruction: string;
+	altText?: string;
 }
 
 export const ImageUpload: React.FC<ImageUploadProps> = ({
@@ -29,6 +34,10 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 	accept,
 	onChange,
 	errors,
+	label,
+	overlay,
+	instruction,
+	altText = "",
 }) => {
 	const [image, setImage] = useState<ImageType>({ path: value });
 
@@ -44,38 +53,40 @@ export const ImageUpload: React.FC<ImageUploadProps> = ({
 		onChange(newImage);
 	};
 
-	const { getRootProps, getInputProps, isDragActive } = useDropzone({
+	const {
+		getRootProps: rootProps,
+		getInputProps: inputProps,
+		isDragActive: dragActive,
+	} = useDropzone({
 		onDrop,
 	});
 
 	return (
-		<div>
-			<div
-				{...getRootProps()}
-				className="relative"
-				style={{ minHeight: "100px" }}
+		<div className="Field">
+			<fieldset
+				className={`Field--Image ${errors ? " Field--Image--has-errors" : ""}`}
 			>
-				<div
-					className={`ImageUpload__Overlay ${
-						isDragActive && "ImageUpload__OverlayActive"
-					}`}
-				>
-					<p
-						className={`ImageUpload__OverlayText ${
-							isDragActive && "ImageUpload__OverlayTextActive"
-						}`}
-					>
-						Drop the image here...
-					</p>
-				</div>
-				<input {...getInputProps()} id={id} name={name} accept={accept} />
-				{image.path && (
-					<div className="ImageUpload__Container">
-						<img src={image.blob || image.path} alt="" />
+				<div {...rootProps()} className="Field--Image__input">
+					<input {...inputProps()} id={id} name={name} accept={accept} />
+
+					<div className="Image">
+						<div className="Image__inner">
+							<img src={image.blob || image.path} alt={altText} />
+						</div>
 					</div>
-				)}
-			</div>
-			<p className="ImageUpload__Text">Drop image here, or click to select.</p>
+
+					<div className={`Overlay ${dragActive ? " active" : ""}`}>
+						{overlay}
+					</div>
+				</div>
+
+				<label htmlFor={name} className="Field--Image__label">
+					{label}
+				</label>
+
+				<p className="Field--Image__instruction">{instruction}</p>
+			</fieldset>
+			{errors ? <Error>{errors}</Error> : null}
 		</div>
 	);
 };

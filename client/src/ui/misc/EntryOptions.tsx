@@ -215,9 +215,9 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		dispatch(
 			setPopup({
 				visible: true,
-				title: "Edit entry",
-				confirm: "Update",
-				cancel: "Discard",
+				title: _t.popup.entry.update.title,
+				confirm: _t.popup.entry.update.confirm,
+				cancel: _t.popup.entry.update.cancel,
 				action: ENTRY_ACTIONS.UPDATE,
 			})
 		);
@@ -225,13 +225,13 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 	}, [EditForm]);
 
 	const onRemove = useCallback(() => {
-		setPopupContent("Are you sure you want to delete this entry?");
+		setPopupContent(_t.popup.entry.delete.content!);
 		dispatch(
 			setPopup({
 				visible: true,
-				title: "Delete entry",
-				confirm: "Yes, delete it.",
-				cancel: "I changed my mind.",
+				title: _t.popup.entry.delete.title,
+				confirm: _t.popup.entry.delete.confirm,
+				cancel: _t.popup.entry.delete.cancel,
 				action: ENTRY_ACTIONS.DELETE,
 			})
 		);

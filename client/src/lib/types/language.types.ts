@@ -3,7 +3,7 @@ export type HeaderT = {
 	language: string;
 	currency: string;
 	mode: string;
-	settings: string;
+	profile: string;
 	sign_out: string;
 };
 
@@ -54,6 +54,13 @@ export type SignUpT = {
 	};
 };
 
+type PopupT = {
+	content?: string;
+	title: string;
+	confirm: string;
+	cancel: string;
+};
+
 export type AppT = {
 	calendar_title: string;
 	total_inc: string;
@@ -91,10 +98,14 @@ export type AppT = {
 			exp: string;
 		};
 	};
-	misc: {
-		popup: {
-			confirm: string;
-			cancel: string;
+	popup: {
+		default: PopupT;
+		entry: {
+			update: PopupT;
+			delete: PopupT;
+		};
+		user: {
+			update: PopupT;
 		};
 	};
 };
@@ -116,9 +127,12 @@ export type NotificationsT = {
 		lang: NotificationT;
 		curr: NotificationT;
 	};
+	user: NotificationT;
 };
 
 export type InputErrorsT = {
+	firstName: string;
+	lastName: string;
 	email: {
 		default: string;
 		required: string;
@@ -142,6 +156,21 @@ export type InputErrorsT = {
 	};
 };
 
+export type ProfileUpdateT = {
+	firstName: {
+		label: string;
+	};
+	lastName: {
+		label: string;
+	};
+	image: {
+		label: string;
+		overlay: string;
+		instruction: string;
+		altText: string;
+	};
+};
+
 export type LanguageT = {
 	language: string;
 	header: HeaderT;
@@ -150,4 +179,5 @@ export type LanguageT = {
 	app: AppT;
 	notifications: NotificationsT;
 	input_errors: InputErrorsT;
+	profile_update: ProfileUpdateT;
 };

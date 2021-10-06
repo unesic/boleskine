@@ -44,7 +44,6 @@ import { CurrencyControl } from "ui/controls/CurrencyControl";
  * Icons
  */
 import { BiCaretDownCircle, BiLogOut, BiUser } from "react-icons/bi";
-import { BsFillGearFill } from "react-icons/bs";
 
 enum PROFILE_ACTIONS {
 	UPDATE = "UPDATE",
@@ -63,6 +62,8 @@ export const User: React.FC<UserProps> = () => {
 
 	const _t = useTranslation("header");
 	const _tNot = useTranslation("notifications");
+	const _tPop = useTranslation("app");
+
 	const [visible, toggleVisible] = useToggle(false);
 
 	const profileData = {
@@ -114,14 +115,14 @@ export const User: React.FC<UserProps> = () => {
 		dispatch(
 			setPopup({
 				visible: true,
-				title: "Edit profile info",
-				confirm: "Update",
-				cancel: "Discard",
+				title: _tPop.popup.user.update.title,
+				confirm: _tPop.popup.user.update.confirm,
+				cancel: _tPop.popup.user.update.cancel,
 				action: PROFILE_ACTIONS.UPDATE,
 			})
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [ProfileForm]);
+	}, [ProfileForm, _tPop]);
 
 	const [updateUser] = useMutation(USER_UPDATE, {
 		onCompleted({ updateUser }) {
@@ -129,8 +130,8 @@ export const User: React.FC<UserProps> = () => {
 			dispatch(
 				addNotification({
 					id: new Date().toISOString(),
-					title: "Profile updated!",
-					text: "You've successfully updated your profile information!",
+					title: _tNot.user.title,
+					text: _tNot.user.text,
 					type: "success",
 				})
 			);
@@ -216,12 +217,8 @@ export const User: React.FC<UserProps> = () => {
 
 					<Spacer direction="horizontal" />
 
-					{/* <MenuItem link to="/">
-						<BsFillGearFill /> {_t.settings}
-					</MenuItem> */}
-
 					<MenuItem onClick={openProfilePopup}>
-						<BiUser /> Edit profile
+						<BiUser /> {_t.profile}
 					</MenuItem>
 
 					<MenuItem link to="/sign-out">

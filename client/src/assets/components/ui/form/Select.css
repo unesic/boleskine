@@ -17,7 +17,7 @@
 		}
 
 		&__value-container {
-			@apply rounded;
+			@apply rounded p-2;
 
 			&--has-value {
 				@apply bg-white bg-opacity-60;
@@ -26,9 +26,14 @@
 
 			&--is-multi {
 			}
+
+			div[class*="Input"] {
+				@apply m-0 p-0;
+			}
 		}
 
 		&__single-value {
+			@apply text-base;
 			@apply text-app-dark-500;
 			@apply dark:text-app-light-100;
 		}
@@ -123,7 +128,7 @@
 			&:active,
 			&--is-selected {
 				@apply bg-app-light-200 bg-opacity-50 text-opacity-100 hover:bg-white hover:bg-opacity-40;
-				@apply dark:bg-app-dark-200 dark:bg-opacity-50 dark:text-opacity-100 dark:hover:bg-app-dark-100 hover:bg-opacity-5;
+				@apply dark:bg-app-dark-200 dark:bg-opacity-50 dark:text-opacity-100 dark:hover:bg-app-dark-100 dark:hover:bg-opacity-5;
 			}
 		}
 
