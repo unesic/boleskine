@@ -29,7 +29,6 @@ app.use("/images", express.static(path.join(process.cwd(), "images")));
 if (process.env.NODE_ENV == "production") {
 	app.use(express.static(path.join(process.cwd(), "/client/build")));
 	app.get("*", (req, res) => {
-		res.sendFile();
 		res.sendFile(path.join(process.cwd(), "/client/build"));
 	});
 }
