@@ -3,7 +3,6 @@
  */
 import React from "react";
 import ReactDOM from "react-dom";
-import "assets/dist/main.css";
 
 /**
  * Apollo

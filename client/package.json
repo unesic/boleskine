@@ -42,9 +42,9 @@
 		"build:opt": "node ./scripts/build-non-split.js",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
-		"postcss:watch": "TAILWIND_MODE=watch NODE_END=development postcss src/assets/main.css -o src/assets/dist/main.css -w",
-		"postcss:build:dev": "TAILWIND_MODE=build NODE_END=development postcss src/assets/main.css -o src/assets/dist/main.css",
-		"postcss:build:prod": "TAILWIND_MODE=build NODE_END=production postcss src/assets/main.css -o src/assets/dist/main.css",
+		"postcss:watch": "TAILWIND_MODE=watch NODE_END=development postcss src/assets/main.css -o public/main.css -w",
+		"postcss:build:dev": "TAILWIND_MODE=build NODE_END=development postcss src/assets/main.css -o public/main.css",
+		"postcss:build:prod": "TAILWIND_MODE=build NODE_END=production postcss src/assets/main.css -o public/main.css",
 		"storybook": "start-storybook -p 6006 -s public",
 		"build-storybook": "build-storybook -s public",
 		"cypress:open": "cypress open"
