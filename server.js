@@ -1,6 +1,7 @@
 const { ApolloServer } = require("apollo-server-express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
+const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
@@ -20,11 +21,15 @@ const server = new ApolloServer({
 });
 
 app.use(cors("*"));
-app.use(express.static(__dir + "/assets"));
-app.use(express.static(__dir + "/images"));
+app.use(express.static(path.join(__dir, "/assets")));
+app.use(express.static(path.join(__dir, "/images")));
 
 if (process.env.NODE_ENV == "production") {
-	app.use(express.static(__dir + "/client/build"));
+	app.use(express.static(path.join(__dir, "/client/build")));
+	app.get("*", (req, res) => {
+		res.sendFile();
+		res.sendFile(path.join(__dirname, "/client/build"));
+	});
 }
 
 app.use(
