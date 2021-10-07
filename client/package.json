@@ -5,7 +5,7 @@
 	"dependencies": {
 		"@apollo/client": "^3.3.12",
 		"@heroicons/react": "^1.0.1",
-		"@reduxjs/toolkit": "^1.5.1",
+		"@reduxjs/toolkit": "^1.6.2",
 		"@storybook/addon-actions": "^6.3.10",
 		"@storybook/addon-essentials": "^6.3.10",
 		"@storybook/addon-links": "^6.3.10",
@@ -24,7 +24,6 @@
 		"@types/react-calendar": "^3.4.3",
 		"@types/react-dom": "^17.0.0",
 		"@types/react-router-dom": "^5.3.1",
-		"@types/react-select": "^5.0.1",
 		"@types/react-textarea-autosize": "^4.3.6",
 		"@types/react-transition-group": "^4.4.3",
 		"apollo-upload-client": "^16.0.0",
@@ -92,6 +91,7 @@
 		]
 	},
 	"devDependencies": {
+		"@types/react-select": "^5.0.1",
 		"autoprefixer": "^10.2.5",
 		"cssnano": "^5.0.2",
 		"cypress": "^8.4.1",
