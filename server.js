@@ -1,5 +1,4 @@
 const { ApolloServer } = require("apollo-server-express");
-const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const path = require("path");
 const express = require("express");
@@ -9,7 +8,9 @@ const oauth = require("./src/auth");
 
 const app = express();
 
-dotenv.config();
+if (process.env.NODE_ENV !== "production") {
+	require("dotenv").config();
+}
 
 const typeDefs = require("./src/graphql/typeDefs");
 const resolvers = require("./src/graphql/resolvers");
