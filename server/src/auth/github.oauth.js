@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.GITHUB_OAUTH_CLIENT_ID,
 				clientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
-				callbackURL: `${process.env.SERVER_URL}:${process.env.PORT}/oauth/github/callback`,
+				callbackURL: `${process.env.SERVER_URL}/oauth/github/callback`,
 				scope: ["user:email"],
 			},
 			function (_, __, profile, done) {

@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.GOOGLE_OAUTH_CLIENT_ID,
 				clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
-				callbackURL: `${process.env.SERVER_URL}:${process.env.PORT}/oauth/google/callback`,
+				callbackURL: `${process.env.SERVER_URL}/oauth/google/callback`,
 			},
 			function (_, __, profile, done) {
 				userProfile = profile;

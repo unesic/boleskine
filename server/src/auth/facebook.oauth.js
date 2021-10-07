@@ -9,7 +9,7 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.FACEBOOK_OAUTH_CLIENT_ID,
 				clientSecret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET,
-				callbackURL: `${process.env.SERVER_URL}:${process.env.PORT}/oauth/facebook/callback`,
+				callbackURL: `${process.env.SERVER_URL}/oauth/facebook/callback`,
 				profileFields: ["id", "email", "name", "picture.type(large)"],
 			},
 			function (_, __, profile, done) {
