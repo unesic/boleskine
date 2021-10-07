@@ -23,7 +23,7 @@
 			}
 
 			&__Inner {
-				@apply flex justify-between items-center gap-2 p-2 transform translate-x-full;
+				@apply flex justify-between items-center gap-2 p-2 translate-x-full;
 				@apply transition-transform duration-200 ease-out;
 
 				&--enter {

@@ -1,6 +1,6 @@
 @layer components {
 	.EntryOptions {
-		@apply fixed top-0 right-0 transform translate-x-full rounded-lg w-max;
+		@apply fixed top-0 right-0 translate-x-full rounded-lg w-max;
 		@apply backdrop-filter backdrop-blur-md opacity-0 transition-all duration-200;
 		@apply bg-app-dark-500 bg-opacity-10;
 		@apply dark:bg-black dark:bg-opacity-25;

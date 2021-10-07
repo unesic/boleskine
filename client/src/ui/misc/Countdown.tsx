@@ -1,11 +1,11 @@
 /**
  * Base
  */
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 
 interface CountdownProps {}
 
-export const Countdown: React.FC<CountdownProps> = () => {
+export const Countdown: React.FC<CountdownProps> = memo(() => {
 	const [timer, setTimer] = useState(5);
 
 	useEffect(() => {
@@ -21,4 +21,4 @@ export const Countdown: React.FC<CountdownProps> = () => {
 			</svg>
 		</div>
 	);
-};
+});

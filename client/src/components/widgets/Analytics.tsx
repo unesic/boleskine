@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, memo } from "react";
 
 /**
  * Redux
@@ -26,7 +26,7 @@ import { useMoment } from "lib/hooks/useMoment";
 
 interface AnalyticsProps {}
 
-export const Analytics: React.FC<AnalyticsProps> = () => {
+export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 	const _t = useTranslation("app");
 	const moment = useMoment();
 	const months = useSelector(selectMonths);
@@ -122,4 +122,4 @@ export const Analytics: React.FC<AnalyticsProps> = () => {
 			</div>
 		</Card>
 	) : null;
-};
+});

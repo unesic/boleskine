@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useState, useEffect, useCallback, useContext } from "react";
+import { useState, useEffect, useCallback, useContext, memo } from "react";
 import { CSSTransition } from "react-transition-group";
 
 /**
@@ -55,7 +55,7 @@ type PositionType = {
 	right?: number;
 };
 
-export const EntryOptions: React.FC<EntryOptionsProps> = () => {
+export const EntryOptions: React.FC<EntryOptionsProps> = memo(() => {
 	const [position, setPosition] = useState<PositionType | null>(null);
 	const { setPopupContent } = useContext(PopupContext);
 
@@ -134,17 +134,21 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [popup, targetEntryId]);
 
-	const onEntryUpdate = async (values: EntryInitialValues) => {
-		const { description, amount, type } = values;
-		await updateEntry({
-			variables: {
-				id: targetEntryId,
-				type: type!.value,
-				amount: amount.toString(),
-				description: description,
-			},
-		});
-	};
+	const onEntryUpdate = useCallback(
+		async (values: EntryInitialValues) => {
+			const { description, amount, type } = values;
+			await updateEntry({
+				variables: {
+					id: targetEntryId,
+					type: type!.value,
+					amount: amount.toString(),
+					description: description,
+				},
+			});
+		},
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+		[targetEntryId]
+	);
 
 	const [EditForm, submitUpdate, values, errors, touched] = useEntryForm(
 		onEntryUpdate,
@@ -266,4 +270,4 @@ export const EntryOptions: React.FC<EntryOptionsProps> = () => {
 			</div>
 		</CSSTransition>
 	);
-};
+});

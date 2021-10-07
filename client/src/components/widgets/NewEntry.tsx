@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo } from "react";
+import { memo, useCallback } from "react";
 
 /**
  * Redux
@@ -47,7 +47,7 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 	const activeMonthId = useSelector(selectActiveMonthId);
 	const activeDate = useSelector(selectActiveDate);
 
-	const foobar = async (values: EntryInitialValues) => {
+	const onFormSubmit = useCallback(async (values: EntryInitialValues) => {
 		await createEntry({
 			variables: {
 				...values,
@@ -58,9 +58,10 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 				date: activeDate.month,
 			},
 		});
-	};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
-	const [EntryForm] = useEntryForm(foobar, true);
+	const [EntryForm] = useEntryForm(onFormSubmit, true);
 
 	const [createEntry] = useMutation(CREATE_ENTRY, {
 		onCompleted({ createEntry }) {

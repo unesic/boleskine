@@ -23,7 +23,7 @@
 
 		&__Day {
 			@apply rounded pt-2;
-			@apply transform translate-x-full;
+			@apply translate-x-full;
 			@apply transition duration-200 ease-out;
 			@apply bg-app-light-200 bg-opacity-10 hover:bg-opacity-30;
 			@apply dark:bg-black dark:bg-opacity-5 dark:hover:bg-opacity-[7.5%];

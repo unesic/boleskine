@@ -15,7 +15,7 @@
 			@apply relative;
 
 			&__text {
-				@apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex justify-center items-center;
+				@apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center;
 				@apply rounded-full w-8 h-8 backdrop-filter backdrop-blur-2xl shadow-gradient-focus text-xs;
 				@apply text-app-dark-400 text-opacity-80;
 				@apply dark:text-app-light-100 dark:text-opacity-80;

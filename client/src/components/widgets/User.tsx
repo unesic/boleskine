@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useCallback, useContext, useEffect, useRef } from "react";
+import { memo, useCallback, useContext, useEffect, useRef } from "react";
 
 /**
  * Apollo
@@ -51,7 +51,7 @@ enum PROFILE_ACTIONS {
 
 interface UserProps {}
 
-export const User: React.FC<UserProps> = () => {
+export const User: React.FC<UserProps> = memo(() => {
 	const menuRef = useRef<HTMLDivElement | null>(null);
 	const { setPopupContent } = useContext(PopupContext);
 	const [imageFile, setImageFile] = useState<File | null>(null);
@@ -228,4 +228,4 @@ export const User: React.FC<UserProps> = () => {
 			</Card>
 		</div>
 	);
-};
+});

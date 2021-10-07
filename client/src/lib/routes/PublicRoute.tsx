@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Redirect, Route } from "react-router-dom";
 
 /**
@@ -66,10 +66,9 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 
 		if (provider && accessToken) {
 			const variables = parseAuthData(provider, accessToken);
-			const authenticate = async () => {
+			(async () => {
 				await authUser({ variables: variables });
-			};
-			authenticate();
+			})();
 			return;
 		}
 
@@ -93,10 +92,11 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 		},
 	});
 
-	const handleUserAuth = (userData: any) => {
+	const handleUserAuth = useCallback((userData: any) => {
 		dispatch(userSignIn(userData));
 		setLoading(false);
-	};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	return (
 		<div

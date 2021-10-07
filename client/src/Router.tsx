@@ -1,21 +1,26 @@
 /**
  * Base
  */
+import { lazy, memo } from "react";
 import { BrowserRouter, Switch } from "react-router-dom";
+
+/**
+ * Routes
+ */
 import { PrivateRoute } from "lib/routes/PrivateRoute";
 import { PublicRoute } from "lib/routes/PublicRoute";
 
 /**
  * Views
  */
-import { SignUp } from "views/SignUp";
-import { SignIn } from "views/SignIn";
-import { SignOut } from "views/SignOut";
 import { Home } from "views/Home";
+const SignUp = lazy(() => import("views/SignUp"));
+const SignIn = lazy(() => import("views/SignIn"));
+const SignOut = lazy(() => import("views/SignOut"));
 
 interface RouterProps {}
 
-export const Router: React.FC<RouterProps> = () => {
+export const Router: React.FC<RouterProps> = memo(() => {
 	return (
 		<BrowserRouter>
 			<Switch>
@@ -26,4 +31,4 @@ export const Router: React.FC<RouterProps> = () => {
 			</Switch>
 		</BrowserRouter>
 	);
-};
+});

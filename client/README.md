@@ -24,7 +24,7 @@ Everything from `create-react-app` framework plus the following:
 
 `src` is the main entry containing:
 
-- `assets/` – CSS Assets
+- `assets/` – CSS Assets and language translations
 - `components/` – Main components used in the app
 - `lib/` – Contains private and public react router routes, utility and helper functions and:
 	- `data/` – Dummy data used in development

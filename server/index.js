@@ -44,5 +44,5 @@ mongoose
 		useUnifiedTopology: true,
 	})
 	.then(() => {
-		return app.listen(process.env.PORT || 5000);
+		return app.listen(process.env.PORT || 3000);
 	});

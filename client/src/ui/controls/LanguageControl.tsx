@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 
 /**
  * Apollo
@@ -31,7 +31,7 @@ import { MdLanguage } from "react-icons/md";
 
 interface LanguageControlProps {}
 
-export const LanguageControl: React.FC<LanguageControlProps> = () => {
+export const LanguageControl: React.FC<LanguageControlProps> = memo(() => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const language = useSelector(selectLanguage);
@@ -96,4 +96,4 @@ export const LanguageControl: React.FC<LanguageControlProps> = () => {
 			/>
 		</MenuItem>
 	);
-};
+});

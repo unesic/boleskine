@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 
 /**
  * Apollo
@@ -31,7 +31,7 @@ import { IoLogoEuro, IoLogoUsd } from "react-icons/io";
 
 interface CurrencyControlProps {}
 
-export const CurrencyControl: React.FC<CurrencyControlProps> = () => {
+export const CurrencyControl: React.FC<CurrencyControlProps> = memo(() => {
 	const dispatch = useDispatch();
 	const user = useSelector(selectUser);
 	const currency = useSelector(selectCurrency);
@@ -97,4 +97,4 @@ export const CurrencyControl: React.FC<CurrencyControlProps> = () => {
 			/>
 		</MenuItem>
 	);
-};
+});

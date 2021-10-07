@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import { useMutation } from "@apollo/client";
 
 /**
@@ -31,11 +31,12 @@ export const SignIn: React.FC<SignInProps> = memo(({ history, location }) => {
 	const _t = useTranslation("notifications");
 	const dispatch = useDispatch();
 
-	const onSubmit = async (values: FormValues) => {
+	const onSubmit = useCallback(async (values: FormValues) => {
 		await loginUser({
 			variables: { ...values, remember: Array.isArray(values.remember) },
 		});
-	};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
 
 	const [loginUser] = useMutation(USER_LOGIN, {
 		onCompleted({ loginUser }) {
@@ -61,3 +62,5 @@ export const SignIn: React.FC<SignInProps> = memo(({ history, location }) => {
 
 	return <SignInTemplate onSubmit={onSubmit} />;
 });
+
+export default SignIn;
