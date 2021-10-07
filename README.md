@@ -54,6 +54,8 @@ Everything from `create-react-app` framework plus the following:
 - `ui/` – UI Components
 - `views/` – Application's 'pages'
 
+---
+
 ### Back-end
 
 - [Express](https://expressjs.com/)
