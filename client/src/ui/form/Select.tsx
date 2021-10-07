@@ -2,7 +2,7 @@
  * Base
  */
 import { memo } from "react";
-import ReactSelect, { OptionsType } from "react-select";
+import ReactSelect, { MultiValue } from "react-select";
 
 /**
  * Components
@@ -17,7 +17,7 @@ export type Option = {
 interface SelectProps {
 	options: Option[];
 	value: Option | Option[] | null;
-	onChange: (o: Option | OptionsType<Option> | null) => void;
+	onChange: (o: Option | MultiValue<Option> | null) => void;
 	onBlur: () => void;
 	errors: string | undefined;
 	touched: boolean | undefined;
