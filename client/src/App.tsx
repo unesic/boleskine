@@ -59,9 +59,8 @@ export const App: React.FC<AppProps> = memo(() => {
 
 	const [getUserMonths] = useLazyQuery(GET_USER_MONTHS, {
 		onCompleted({ getUserMonths }) {
-			const initialDate = moment().format("YYYY-MM");
 			dispatch(setMonths(getUserMonths));
-			dispatch(setActiveDays(initialDate));
+			dispatch(setActiveDays(moment().format("YYYY-MM")));
 		},
 		onError(err) {
 			dispatch(
