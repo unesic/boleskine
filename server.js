@@ -22,14 +22,15 @@ const server = new ApolloServer({
 });
 
 app.use(cors("*"));
-app.use(express.static(path.join(__dir, "/assets")));
-app.use(express.static(path.join(__dir, "/images")));
+
+app.use("/assets", express.static(path.join(process.cwd(), "assets")));
+app.use("/images", express.static(path.join(process.cwd(), "images")));
 
 if (process.env.NODE_ENV == "production") {
-	app.use(express.static(path.join(__dir, "/client/build")));
+	app.use(express.static(path.join(process.cwd(), "/client/build")));
 	app.get("*", (req, res) => {
 		res.sendFile();
-		res.sendFile(path.join(__dirname, "/client/build"));
+		res.sendFile(path.join(process.cwd(), "/client/build"));
 	});
 }
 
