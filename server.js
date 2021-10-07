@@ -3,7 +3,6 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const express = require("express");
 const session = require("express-session");
-const path = require("path");
 const cors = require("cors");
 const oauth = require("./src/auth");
 
@@ -21,13 +20,11 @@ const server = new ApolloServer({
 });
 
 app.use(cors("*"));
-const assetsDir = path.join(process.cwd(), "assets");
-const imagesDir = path.join(process.cwd(), "images");
-app.use("/assets", express.static(assetsDir));
-app.use("/images", express.static(imagesDir));
+app.use(express.static(__dir + "/assets"));
+app.use(express.static(__dir + "/images"));
 
 if (process.env.NODE_ENV == "production") {
-	app.use(express.static("client/build"));
+	app.use(express.static(__dir + "/client/build"));
 }
 
 app.use(
