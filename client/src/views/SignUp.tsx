@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo, useCallback } from "react";
+import { memo, useCallback, useState } from "react";
 import { useMutation } from "@apollo/client";
 
 /**
@@ -9,13 +9,11 @@ import { useMutation } from "@apollo/client";
  */
 import { useDispatch } from "react-redux";
 import { userSignIn } from "store/auth.slice";
-import { addNotification } from "store/app.slice";
 
 /**
  * Utilities
  */
 import { USER_SIGNUP } from "lib/graphql/user.queries";
-import { useTranslation } from "lib/hooks/useTranslation";
 
 /**
  * Components
@@ -28,7 +26,7 @@ interface SignUpProps {
 }
 
 export const SignUp: React.FC<SignUpProps> = memo(({ history, location }) => {
-	const _t = useTranslation("notifications");
+	const [errors, setErrors] = useState<{ [key: string]: string }>();
 	const dispatch = useDispatch();
 
 	const onSubmit = useCallback(
@@ -56,18 +54,11 @@ export const SignUp: React.FC<SignUpProps> = memo(({ history, location }) => {
 			}
 		},
 		onError(err) {
-			dispatch(
-				addNotification({
-					id: new Date().toISOString(),
-					title: _t.error.title,
-					text: `${_t.error.text} '${err?.graphQLErrors[0]?.extensions?.exception?.errors}'`,
-					type: "error",
-				})
-			);
+			setErrors(err?.graphQLErrors[0]?.extensions?.exception?.errors);
 		},
 	});
 
-	return <SignUpTemplate onSubmit={onSubmit} />;
+	return <SignUpTemplate onSubmit={onSubmit} errors={errors} />;
 });
 
 export default SignUp;

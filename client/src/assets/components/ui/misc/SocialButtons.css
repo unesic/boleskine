@@ -1,6 +1,6 @@
 @layer components {
 	.SocialButtons {
-		@apply flex flex-col gap-4 items-center self-center;
+		@apply flex flex-col gap-4 items-center self-center md:w-auto w-full;
 
 		&__button {
 			@apply flex justify-center items-center gap-2 min-w-max w-full;

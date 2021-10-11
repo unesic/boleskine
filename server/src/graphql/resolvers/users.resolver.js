@@ -71,16 +71,9 @@ module.exports = {
 
 			password = await bcrypt.hash(password, 12);
 
-			const newUser = new User({
-				email,
-				password,
-				firstName: "",
-				lastName: "",
-				image: "",
-				language: "en",
-				currency: "EUR",
-				darkMode: false,
-			});
+			const newUser = new User({ email, password });
+			newUser.image = `https://avatars.dicebear.com/api/identicon/${newUser.id}.svg?size=100`;
+
 			const res = await newUser.save();
 			const token = generateToken(res);
 
@@ -100,14 +93,14 @@ module.exports = {
 			const user = await User.findOne({ email });
 
 			if (!user) {
-				errors.general = "User not found";
-				throw new UserInputError("User not found", { errors });
+				errors.email = "The email you entered isn’t connected to an account.";
+				throw new UserInputError("Wrong email", { errors });
 			}
 
 			const match = await bcrypt.compare(password, user.password);
 			if (!match) {
-				errors.general = "Wrong credentials";
-				throw new UserInputError("Wrong credentials", { errors });
+				errors.password = "The password you’ve entered is incorrect.";
+				throw new UserInputError("Wrong password", { errors });
 			}
 
 			const token = generateToken(user, remember);
@@ -164,9 +157,9 @@ module.exports = {
 				{
 					email: email || currUser.email,
 					password: password || currUser.password,
-					firstName: firstName || currUser.firstName,
-					lastName: lastName || currUser.lastName,
-					image: image || currUser.image,
+					firstName: firstName ?? currUser.firstName,
+					lastName: lastName ?? currUser.lastName,
+					image: image ?? currUser.image,
 					language: language || currUser.language,
 					currency: currency || currUser.currency,
 					darkMode: darkMode !== undefined ? darkMode : currUser.darkMode,

@@ -9,6 +9,7 @@ import { useFormik } from "formik";
  * Utilities
  */
 import { useTranslation } from "lib/hooks/useTranslation";
+import { useWindowResize } from "lib/hooks/useWindowResize";
 import { useFormikSchema } from "lib/schemas/SignUp.schema";
 
 /**
@@ -29,11 +30,13 @@ export interface FormValues {
 
 interface SignUpTemplateProps {
 	onSubmit: (v: FormValues) => void;
+	errors?: { [key: string]: string };
 }
 
 export const SignUpTemplate: React.FC<SignUpTemplateProps> = memo(
-	({ onSubmit }) => {
+	({ onSubmit, errors }) => {
 		const _t = useTranslation("sign_up");
+		const [screenW] = useWindowResize();
 		const { initialValues, validationSchema } = useFormikSchema();
 
 		const formik = useFormik({
@@ -51,7 +54,10 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = memo(
 						<div className="MainContent">
 							<SocialButtons variant="sign_up" />
 
-							<Spacer direction="vertical" withText={_t.spacer} />
+							<Spacer
+								direction={screenW > 767 ? "vertical" : "horizontal"}
+								withText={_t.spacer}
+							/>
 
 							<div className="MainContent__Form">
 								<Caption className="MainContent__Form__caption">
@@ -65,7 +71,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = memo(
 										value={formik.values.email}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										errors={formik.errors.email}
+										errors={formik.errors.email || errors?.email}
 										touched={formik.touched.email}
 										label={_t.form.email}
 									/>
@@ -76,7 +82,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = memo(
 										value={formik.values.password}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										errors={formik.errors.password}
+										errors={formik.errors.password || errors?.password}
 										touched={formik.touched.password}
 										label={_t.form.pass}
 									/>
@@ -87,7 +93,7 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = memo(
 										value={formik.values.rePassword}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										errors={formik.errors.rePassword}
+										errors={formik.errors.rePassword || errors?.rePassword}
 										touched={formik.touched.rePassword}
 										label={_t.form.repass}
 									/>
@@ -100,9 +106,9 @@ export const SignUpTemplate: React.FC<SignUpTemplateProps> = memo(
 								</form>
 							</div>
 						</div>
-						<Caption className="HasAccount">
+						<Caption className="Account">
 							{_t.has_acc.copy}{" "}
-							<Link to="/sign-in" className="HasAccount__link">
+							<Link to="/sign-in" className="Account__link">
 								{_t.has_acc.link}
 							</Link>
 						</Caption>

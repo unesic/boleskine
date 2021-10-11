@@ -192,7 +192,10 @@
 			"label": "Profile image",
 			"overlay": "Drop the image here...",
 			"instruction": "Drag and drop the image or click to select.",
-			"altText": "'s avatar"
+			"altText": "'s avatar",
+			"label_url": "Image URL",
+			"label_opt": "Pick avatar",
+			"spacer": "OR"
 		}
 	}
 }

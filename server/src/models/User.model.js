@@ -8,12 +8,36 @@ const usersSchema = new Schema(
 			unique: true,
 		},
 		password: String,
-		firstName: String,
-		lastName: String,
-		image: String,
-		language: String,
-		currency: String,
-		darkMode: Boolean,
+		firstName: {
+			type: String,
+			required: false,
+			default: "",
+		},
+		lastName: {
+			type: String,
+			required: false,
+			default: "",
+		},
+		image: {
+			type: String,
+			required: false,
+			default: "",
+		},
+		language: {
+			type: String,
+			required: false,
+			default: "en",
+		},
+		currency: {
+			type: String,
+			required: false,
+			default: "EUR",
+		},
+		darkMode: {
+			type: Boolean,
+			required: false,
+			default: false,
+		},
 	},
 	{
 		timestamps: true,

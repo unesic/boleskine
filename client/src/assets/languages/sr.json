@@ -192,7 +192,10 @@
 			"label": "Profilna slika",
 			"overlay": "Prevucite sliku ovde...",
 			"instruction": "Prevucite sliku ili kliknite da bi izabrali.",
-			"altText": "– profilna slika"
+			"altText": "– profilna slika",
+			"label_url": "Link slike",
+			"label_opt": "Izaberite avatar",
+			"spacer": "ILI"
 		}
 	}
 }

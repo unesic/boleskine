@@ -1,6 +1,7 @@
 /**
  * Base
  */
+import { useMemo } from "react";
 import { Redirect, Route, useLocation } from "react-router-dom";
 
 /**
@@ -8,14 +9,6 @@ import { Redirect, Route, useLocation } from "react-router-dom";
  */
 import { useSelector } from "react-redux";
 import { selectUser } from "store/auth.slice";
-
-/**
- * Components
- */
-import { Notifications } from "ui/misc/Notifications";
-import { EntryOptions } from "ui/misc/EntryOptions";
-import { ConfirmationPoup } from "ui/misc/ConfirmationPopup";
-import { useMemo } from "react";
 
 interface PrivateRouteProps {
 	component: React.FC<any>;
@@ -52,10 +45,6 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 					}
 				/>
 			</main>
-
-			<Notifications position="tr" />
-			<EntryOptions />
-			<ConfirmationPoup />
 		</div>
 	);
 };

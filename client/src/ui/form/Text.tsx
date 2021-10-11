@@ -11,7 +11,7 @@ import { Error } from "./Error";
 interface TextProps {
 	id: string;
 	name: string;
-	type: "text" | "email" | "password" | "number";
+	type: "text" | "email" | "password" | "number" | "url";
 	step?: string;
 	value: any;
 	onChange: (e: React.ChangeEvent<any>) => void;

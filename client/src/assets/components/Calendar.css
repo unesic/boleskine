@@ -3,7 +3,7 @@
 		&__viewContainer {
 			@apply relative flex gap-8;
 
-			@apply md:after:hidden after:absolute after:top-0 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-px;
+			@apply md:after:hidden sm:after:block after:hidden after:absolute after:top-0 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-px;
 			@apply after:bg-app-dark-500 after:bg-opacity-20;
 			@apply dark:after:bg-app-light-100 dark:after:bg-opacity-10;
 
