@@ -49,18 +49,21 @@ export const ImageUpload: React.FC<ImageUploadProps> = memo(
 	}) => {
 		const [image, setImage] = useState<ImageType>({ path: value });
 
-		const onDrop = useCallback((acceptedFiles: AcceptedFile[]) => {
-			const file = acceptedFiles[0];
-			const blob = URL.createObjectURL(file);
-			const mimetype = file.type;
-			const filename = file.path?.split(".")[0] as string;
+		const onDrop = useCallback(
+			(acceptedFiles: AcceptedFile[]) => {
+				const file = acceptedFiles[0];
+				const blob = URL.createObjectURL(file);
+				const mimetype = file.type;
+				const filename = file.path?.split(".")[0] as string;
 
-			const newImage = { ...image, file, blob, mimetype, filename };
+				const newImage = { ...image, file, blob, mimetype, filename };
 
-			setImage(newImage);
-			onChange(newImage);
+				setImage(newImage);
+				onChange(newImage);
+			},
 			// eslint-disable-next-line react-hooks/exhaustive-deps
-		}, []);
+			[setImage, onChange]
+		);
 
 		const {
 			getRootProps: rootProps,

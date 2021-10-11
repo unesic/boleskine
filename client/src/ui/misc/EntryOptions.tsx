@@ -226,7 +226,7 @@ export const EntryOptions: React.FC<EntryOptionsProps> = memo(() => {
 			})
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [EditForm]);
+	}, [EditForm, _t]);
 
 	const onRemove = useCallback(() => {
 		setPopupContent(_t.popup.entry.delete.content!);
@@ -240,7 +240,7 @@ export const EntryOptions: React.FC<EntryOptionsProps> = memo(() => {
 			})
 		);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [_t]);
 
 	return (
 		<CSSTransition

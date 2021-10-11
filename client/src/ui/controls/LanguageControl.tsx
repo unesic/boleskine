@@ -69,7 +69,7 @@ export const LanguageControl: React.FC<LanguageControlProps> = memo(() => {
 			updateUser({ variables: { id: user!.id, language: o.value } });
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[_tNot, language]
+		[_tNot, language, user]
 	);
 
 	const options = useMemo(

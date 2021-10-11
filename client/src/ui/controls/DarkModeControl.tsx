@@ -65,7 +65,7 @@ export const DarkModeControl: React.FC<DarkModeControlProps> = memo(() => {
 	const onClick = useCallback(() => {
 		updateUser({ variables: { id: user!.id, darkMode: !darkMode } });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [_tNot, darkMode]);
+	}, [_tNot, darkMode, user]);
 
 	return (
 		<MenuItem clickable={false}>

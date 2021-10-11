@@ -69,7 +69,7 @@ export const CurrencyControl: React.FC<CurrencyControlProps> = memo(() => {
 			updateUser({ variables: { id: user!.id, currency: o.value } });
 		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-		[_tNot, currency]
+		[_tNot, currency, user]
 	);
 
 	const options = useMemo(

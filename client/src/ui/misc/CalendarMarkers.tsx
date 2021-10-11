@@ -23,7 +23,7 @@ interface CalendarMarkersProps {
 
 export const CalendarMarkers: React.FC<CalendarMarkersProps> = memo(
 	({ view, marked }) => {
-		const [markers] = useMemo(() => getMonthMarks(marked), [marked]);
+		const [markers] = useMemo(() => getMonthMarks(marked), [marked, view]);
 
 		return (
 			<span className="markers">
