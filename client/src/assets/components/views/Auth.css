@@ -1,4 +1,5 @@
 @layer components {
+	.SignUp,
 	.SignIn {
 		@apply container mx-auto min-h-screen flex justify-center items-center;
 
@@ -6,10 +7,10 @@
 			@apply min-w-min;
 
 			.MainContent {
-				@apply flex gap-8 px-2;
+				@apply flex gap-2 px-2 md:flex-nowrap flex-wrap;
 
 				&__Form {
-					@apply w-80;
+					@apply md:w-80 w-full;
 
 					&__caption {
 						@apply mb-4 text-lg text-center;
@@ -17,7 +18,7 @@
 				}
 			}
 
-			.NoAccount {
+			.Account {
 				@apply mt-4 pb-2 text-center;
 
 				&__link {

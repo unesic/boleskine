@@ -3,15 +3,24 @@
 		@apply my-4;
 
 		&__Inner {
-			@apply flex items-center justify-center gap-[0.5rem] mb-6;
+			@apply flex flex-row items-center justify-center gap-[0.5rem] mb-6;
+			@apply md:flex-nowrap flex-wrap;
 
 			&__copy {
-				flex: 0 0 auto;
 				@apply text-xl text-app-dark-500 dark:text-app-light-100 text-center;
+				flex: 0 0 45%;
+
+				@screen md {
+					flex: 0 0 auto;
+				}
 			}
 
 			&__dropdown {
-				flex: 0 0 20%;
+				flex: 1 0 50%;
+
+				@screen md {
+					flex: 0 0 20%;
+				}
 			}
 		}
 

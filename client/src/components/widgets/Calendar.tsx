@@ -111,7 +111,7 @@ export const Calendar: React.FC<CalendarProps> = memo(() => {
 					title={moment(calendarDate).format(`[${_t.calendar_title}] dddd, LL`)}
 				/>
 				<ReactCalendar
-					showDoubleView={screenW < 768}
+					showDoubleView={screenW < 768 && screenW > 639}
 					locale={language}
 					value={calendarDate}
 					onChange={onChange}

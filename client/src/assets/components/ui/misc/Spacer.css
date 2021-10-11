@@ -4,15 +4,22 @@
 		@apply dark:bg-app-light-300 dark:bg-opacity-40;
 
 		&--horizontal {
-			@apply h-px my-2;
+			@apply w-full h-px my-2 mx-0;
 		}
 
 		&--vertical {
-			@apply w-px mx-2;
+			@apply w-px mx-2 my-0;
 		}
 
 		&--with-text {
 			@apply relative;
+
+			&[class*="horizontal"] {
+				@apply mx-0 my-8;
+			}
+			&[class*="vertical"] {
+				@apply mx-8 my-0;
+			}
 
 			&__text {
 				@apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex justify-center items-center;

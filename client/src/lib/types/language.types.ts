@@ -168,6 +168,9 @@ export type ProfileUpdateT = {
 		overlay: string;
 		instruction: string;
 		altText: string;
+		label_url: string;
+		label_opt: string;
+		spacer: string;
 	};
 };
 

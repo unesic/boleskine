@@ -25,6 +25,13 @@ import { useTranslation } from "lib/hooks/useTranslation";
 import { useMoment } from "lib/hooks/useMoment";
 import { PopupContextProvider } from "lib/PopupContext";
 
+/**
+ * Components
+ */
+import { Notifications } from "ui/misc/Notifications";
+import { EntryOptions } from "ui/misc/EntryOptions";
+import { ConfirmationPoup } from "ui/misc/ConfirmationPopup";
+
 interface AppProps {}
 
 export const App: React.FC<AppProps> = memo(() => {
@@ -77,6 +84,10 @@ export const App: React.FC<AppProps> = memo(() => {
 	return (
 		<PopupContextProvider>
 			<Router />
+
+			<Notifications position="tr" />
+			<EntryOptions />
+			<ConfirmationPoup />
 		</PopupContextProvider>
 	);
 });

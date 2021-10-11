@@ -6,11 +6,16 @@ import { FormikContextType, useFormik } from "formik";
 import * as Yup from "yup";
 
 /**
+ * Utilities
+ */
+import { useTranslation } from "lib/hooks/useTranslation";
+
+/**
  * Components
  */
 import { Text } from "ui/form/Text";
 import { ImageUpload } from "ui/form/ImageUpload";
-import { useTranslation } from "./useTranslation";
+import { Avatar } from "ui/form/Avatar";
 
 type UserProfileSchema = {
 	firstName: string;
@@ -33,7 +38,7 @@ export const useProfileForm = (
 			Yup.object({
 				firstName: Yup.string().max(50, _t.firstName),
 				lastName: Yup.string().max(50, _t.lastName),
-				image: Yup.string(),
+				image: Yup.string().url(),
 			}),
 		[_t]
 	);
@@ -72,18 +77,33 @@ export const useProfileForm = (
 				touched={formik.touched.lastName}
 				label={_tProf.lastName.label}
 			/>
-			<ImageUpload
+			<Avatar
 				id="image"
 				name="image"
 				value={formik.values.image}
-				accept="image/png, image/jpeg"
-				onChange={(image) => setImageFile(image.file)}
+				onChange={formik.handleChange}
+				onBlur={formik.handleBlur}
 				errors={formik.errors.image}
-				label={_tProf.image.label}
-				overlay={_tProf.image.overlay}
-				instruction={_tProf.image.instruction}
-				altText={`${formik.values.firstName}${_tProf.image.altText}`}
+				touched={formik.touched.image}
+				labelUrl={_tProf.image.label_url}
+				labelOpt={_tProf.image.label_opt}
+				spacer={_tProf.image.spacer}
+				setValue={formik.setFieldValue}
 			/>
+			{process.env.NODE_ENV === "test" ? (
+				<ImageUpload
+					id="image"
+					name="image"
+					value={formik.values.image}
+					accept="image/png, image/jpeg"
+					onChange={(image) => setImageFile(image.file)}
+					errors={formik.errors.image}
+					label={_tProf.image.label}
+					overlay={_tProf.image.overlay}
+					instruction={_tProf.image.instruction}
+					altText={`${formik.values.firstName}${_tProf.image.altText}`}
+				/>
+			) : null}
 		</form>,
 		formik,
 	];

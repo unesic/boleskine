@@ -9,6 +9,7 @@ import { useFormik } from "formik";
  * Utilities
  */
 import { useTranslation } from "lib/hooks/useTranslation";
+import { useWindowResize } from "lib/hooks/useWindowResize";
 import { useFormikSchema } from "lib/schemas/SignIn.schema";
 
 /**
@@ -21,6 +22,7 @@ import { Spacer } from "ui/misc/Spacer";
 import { Caption } from "ui/form/Caption";
 import { Checkbox } from "ui/form/Checkbox";
 import { SocialButtons } from "ui/misc/SocialButtons";
+import { Error } from "ui/form/Error";
 
 export interface FormValues {
 	email: string;
@@ -30,11 +32,13 @@ export interface FormValues {
 
 interface SignInTemplateProps {
 	onSubmit: (v: FormValues) => void;
+	errors?: { [key: string]: string };
 }
 
 export const SignInTemplate: React.FC<SignInTemplateProps> = memo(
-	({ onSubmit }) => {
+	({ onSubmit, errors }) => {
 		const _t = useTranslation("sign_in");
+		const [screenW] = useWindowResize();
 		const { initialValues, validationSchema } = useFormikSchema();
 
 		const formik = useFormik({
@@ -52,7 +56,10 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = memo(
 						<div className="MainContent">
 							<SocialButtons variant="sign_in" />
 
-							<Spacer direction="vertical" withText={_t.spacer} />
+							<Spacer
+								direction={screenW > 767 ? "vertical" : "horizontal"}
+								withText={_t.spacer}
+							/>
 
 							<div className="MainContent__Form">
 								<Caption className="MainContent__Form__caption">
@@ -66,7 +73,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = memo(
 										value={formik.values.email}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										errors={formik.errors.email}
+										errors={formik.errors.email || errors?.email}
 										touched={formik.touched.email}
 										label={_t.form.email}
 									/>
@@ -77,7 +84,7 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = memo(
 										value={formik.values.password}
 										onChange={formik.handleChange}
 										onBlur={formik.handleBlur}
-										errors={formik.errors.password}
+										errors={formik.errors.password || errors?.password}
 										touched={formik.touched.password}
 										label={_t.form.pass}
 									/>
@@ -104,9 +111,9 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = memo(
 							</div>
 						</div>
 
-						<Caption className="NoAccount">
+						<Caption className="Account">
 							{_t.no_acc.copy}{" "}
-							<Link to="/sign-up" className="NoAccount__link">
+							<Link to="/sign-up" className="Account__link">
 								{_t.no_acc.link}
 							</Link>
 						</Caption>

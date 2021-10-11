@@ -28,6 +28,7 @@ import { useTranslation } from "lib/hooks/useTranslation";
 import { CSSTransition } from "react-transition-group";
 import { Card, Header } from "ui/card";
 import { Button } from "ui/misc/Button";
+import { IoClose } from "react-icons/io5";
 
 interface ConfirmationPoupProps {}
 
@@ -93,10 +94,9 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 				<div className="ConfirmationPopup__inner">
 					<Card>
 						<Header title={popup.title} />
-						<button
-							className="Confirmation__close"
-							onClick={popupCancel}
-						></button>
+						<button className="Confirmation__close" onClick={popupCancel}>
+							<IoClose />
+						</button>
 						<div className="Confirmation__content">{popupContent}</div>
 						<div className="Confirmation__Options">
 							<Button

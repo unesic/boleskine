@@ -172,22 +172,18 @@ export const User: React.FC<UserProps> = memo(() => {
 			<Card>
 				<div className="User__Info">
 					<img
-						src={
-							user.image
-								? user.image.includes("images/")
-									? `${process.env.REACT_APP_SERVER_URL}/${user.image}`
-									: user.image
-								: `https://avatars.dicebear.com/api/identicon/${user.id}.svg`
-						}
+						src={user.image}
 						alt={`${user.firstName} ${user.lastName}'s avatar`}
 						referrerPolicy="no-referrer"
 						className="User__Info__avatar"
 					/>
 					<div className="User__Info__details">
-						<MenuItem big link to="/foo">
+						<MenuItem big onClick={openProfilePopup}>
 							{user.firstName} {user.lastName}
 						</MenuItem>
-						<MenuItem small>{user.email}</MenuItem>
+						<MenuItem small onClick={openProfilePopup}>
+							{user.email}
+						</MenuItem>
 					</div>
 
 					<button

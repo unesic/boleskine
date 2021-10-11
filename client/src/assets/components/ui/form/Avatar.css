@@ -1,0 +1,74 @@
+@layer components {
+	.Field--Avatar {
+		@apply relative rounded p-1 transition-all duration-200 ease-out;
+		@apply bg-app-light-200 bg-opacity-40;
+		@apply dark:bg-app-dark-500 dark:bg-opacity-40;
+
+		&:focus-within,
+		&--has-value {
+			@apply pt-6;
+		}
+
+		&--has-errors {
+			@apply shadow-solid-error;
+		}
+
+		&__input {
+			@apply rounded p-2 w-full outline-none focus:shadow-solid-focus;
+			@apply transition-all duration-200 ease-out;
+			@apply bg-white bg-opacity-0 hover:bg-opacity-40;
+			@apply text-app-dark-400;
+			@apply dark:bg-app-dark-500 dark:bg-opacity-0 dark:hover:bg-opacity-40;
+			@apply dark:text-app-light-100;
+
+			&::-webkit-outer-spin-button,
+			&::-webkit-inner-spin-button {
+				-webkit-appearance: none;
+				margin: 0;
+			}
+
+			&[type="number"] {
+				-moz-appearance: textfield;
+			}
+
+			&:focus,
+			&--has-value {
+				@apply bg-opacity-60;
+				@apply dark:bg-opacity-40;
+
+				& ~ [class*="_label"] {
+					@apply top-1 left-1 text-xs;
+				}
+			}
+		}
+
+		&__label {
+			@apply absolute top-3 left-3 text-base transition-all duration-200 ease-out cursor-text;
+			@apply text-app-light-500 text-opacity-70;
+			@apply dark:text-app-light-300 dark:text-opacity-70;
+		}
+
+		&__options {
+			@apply relative flex gap-4 rounded p-2 pt-8 transition-all duration-200 ease-out;
+			@apply bg-app-light-200 bg-opacity-40;
+			@apply dark:bg-app-dark-500 dark:bg-opacity-40;
+
+			& > [class*="_label"] {
+				@apply top-1 left-1 text-xs;
+			}
+
+			& > .AvatarOption {
+				@apply rounded p-2 outline-none focus:shadow-solid-focus;
+				@apply transition-all duration-200 ease-out;
+				@apply bg-white bg-opacity-40 hover:bg-opacity-80;
+				@apply dark:bg-app-dark-500 dark:bg-opacity-40 dark:hover:bg-opacity-80;
+
+				&--selected {
+					@apply shadow-solid-focus;
+					@apply bg-opacity-80;
+					@apply dark:bg-opacity-80;
+				}
+			}
+		}
+	}
+}

@@ -7,20 +7,24 @@
 		}
 
 		&__inner {
-			@apply absolute z-20 top-[50vh] left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-screen-lg px-4;
+			@apply fixed z-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+			@apply lg:max-w-screen-lg lg:w-auto w-full max-w-full px-4;
 
 			& > .Card {
+				@apply relative;
 				@apply bg-opacity-80;
-				@apply dark:bg-app-dark-300 dark:bg-opacity-80;
+				@apply dark:bg-app-dark-300 dark:bg-opacity-90;
 			}
 
 			.Confirmation {
 				&__close {
-					@apply absolute top-1 right-1;
+					@apply absolute top-1 right-1 text-2xl;
+					@apply text-app-dark-500 text-opacity-70;
+					@apply dark:text-app-light-200 dark:text-opacity-80;
 				}
 
 				&__content {
-					@apply px-2 min-w-[500px] max-w-full text-lg;
+					@apply px-2 sm:min-w-[500px] max-w-full text-lg;
 					@apply text-app-dark-500;
 					@apply dark:text-app-light-100;
 				}
