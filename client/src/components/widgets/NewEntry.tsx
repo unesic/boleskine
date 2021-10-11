@@ -47,19 +47,22 @@ export const NewEntry: React.FC<NewEntryProps> = memo(() => {
 	const activeMonthId = useSelector(selectActiveMonthId);
 	const activeDate = useSelector(selectActiveDate);
 
-	const onFormSubmit = useCallback(async (values: EntryInitialValues) => {
-		await createEntry({
-			variables: {
-				...values,
-				amount: values.amount.toString(),
-				monthId: activeMonthId,
-				type: values.type!.value,
-				timestamp: moment(activeDate.day).toISOString(),
-				date: activeDate.month,
-			},
-		});
+	const onFormSubmit = useCallback(
+		async (values: EntryInitialValues) => {
+			await createEntry({
+				variables: {
+					...values,
+					amount: values.amount.toString(),
+					monthId: activeMonthId,
+					type: values.type!.value,
+					timestamp: moment(activeDate.day).toISOString(),
+					date: activeDate.month,
+				},
+			});
+		},
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		[activeMonthId, activeDate]
+	);
 
 	const [EntryForm] = useEntryForm(onFormSubmit, true);
 

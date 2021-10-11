@@ -179,7 +179,8 @@
 		"amount": {
 			"required": "Iznos je obavezan.",
 			"positive": "Iznos mora biti pozitivan broj."
-		}
+		},
+		"image": "Vrednost mora biti validan URL."
 	},
 	"profile_update": {
 		"firstName": {

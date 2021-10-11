@@ -154,6 +154,7 @@ export type InputErrorsT = {
 		required: string;
 		positive: string;
 	};
+	image: string;
 };
 
 export type ProfileUpdateT = {

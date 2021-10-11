@@ -22,7 +22,6 @@ import { Spacer } from "ui/misc/Spacer";
 import { Caption } from "ui/form/Caption";
 import { Checkbox } from "ui/form/Checkbox";
 import { SocialButtons } from "ui/misc/SocialButtons";
-import { Error } from "ui/form/Error";
 
 export interface FormValues {
 	email: string;

@@ -1,14 +1,7 @@
 /**
  * Base
  */
-import {
-	useMemo,
-	useRef,
-	useCallback,
-	useEffect,
-	useContext,
-	memo,
-} from "react";
+import { useRef, useCallback, useEffect, useContext, memo } from "react";
 
 /**
  * Redux
@@ -40,14 +33,6 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 	const dispatch = useDispatch();
 	const popup = useSelector(selectPopup);
 
-	const confirmText = useMemo(() => {
-		return !popup.confirm ? _t.popup.default.confirm : popup.confirm;
-	}, [_t, popup.confirm]);
-
-	const cancelText = useMemo(() => {
-		return !popup.cancel ? _t.popup.default.cancel : popup.cancel;
-	}, [_t, popup.cancel]);
-
 	const popupConfirm = useCallback(() => {
 		dispatch(closePopup(true));
 		setTimeout(() => {
@@ -55,7 +40,7 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 			setPopupContent(null);
 		}, 200);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [popup]);
+	}, [popup, setPopupContent]);
 
 	const popupCancel = useCallback(() => {
 		dispatch(closePopup(false));
@@ -64,7 +49,7 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 			setPopupContent(null);
 		}, 200);
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [popup]);
+	}, [popup, setPopupContent]);
 
 	const handleEscKey = useCallback(
 		(e: KeyboardEvent) => {
@@ -104,7 +89,7 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 								className="Confirmation__Options__option"
 								onClick={popupConfirm}
 							>
-								{confirmText}
+								{_t.popup.default.confirm || popup.confirm}
 							</Button>
 
 							<Button
@@ -112,7 +97,7 @@ export const ConfirmationPoup: React.FC<ConfirmationPoupProps> = memo(() => {
 								className="Confirmation__Options__option"
 								onClick={popupCancel}
 							>
-								{cancelText}
+								{_t.popup.default.cancel || popup.cancel}
 							</Button>
 						</div>
 					</Card>

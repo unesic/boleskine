@@ -179,7 +179,8 @@
 		"amount": {
 			"required": "Please enter an amount.",
 			"positive": "Amount must be a positive number."
-		}
+		},
+		"image": "Value must be a valid URL."
 	},
 	"profile_update": {
 		"firstName": {

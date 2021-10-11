@@ -38,7 +38,7 @@ export const useProfileForm = (
 			Yup.object({
 				firstName: Yup.string().max(50, _t.firstName),
 				lastName: Yup.string().max(50, _t.lastName),
-				image: Yup.string().url(),
+				image: Yup.string().url(_t.image),
 			}),
 		[_t]
 	);

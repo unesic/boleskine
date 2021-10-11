@@ -9,7 +9,7 @@ export const useScrollPosition = () => {
 		if (!childRef.current) return;
 		const { y } = childRef.current.getBoundingClientRect();
 		setPosition(y);
-	}, []);
+	}, [childRef]);
 
 	useEffect(() => {
 		parentRef.current?.addEventListener("scroll", handleScroll, true);

@@ -1,4 +1,11 @@
+/**
+ * Base
+ */
 import { useMemo } from "react";
+
+/**
+ * Redux
+ */
 import { useSelector } from "react-redux";
 import { selectActiveDate, selectMonths } from "store/track.slice";
 
