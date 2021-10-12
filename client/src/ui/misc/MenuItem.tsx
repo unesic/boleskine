@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo, useMemo } from "react";
+import { useMemo, memo } from "react";
 
 /**
  * Components
