@@ -44,7 +44,7 @@ app.use(
 /**
  * Load in client directories
  */
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 
 /**
  * Handle client routes
@@ -52,7 +52,7 @@ app.use(express.static(path.join(__dirname, "client", "build")));
 const clientRoutes = ["/", "/sign-in", "/sign-up"];
 clientRoutes.forEach((route) => {
 	app.get(route, (req, res) => {
-		res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+		res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 	});
 });
 
