@@ -48,7 +48,7 @@
 			@apply dark:text-app-dark-400;
 
 			&:checked {
-				background-image: url("http://localhost:5001/assets/icons/check.svg");
+				background-image: url("/assets/icons/check.svg");
 				background-size: 100% 100%;
 				@apply bg-no-repeat bg-center bg-current;
 				@apply border-app-dark-500 border-opacity-100;

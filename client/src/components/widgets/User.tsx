@@ -72,6 +72,14 @@ export const User: React.FC<UserProps> = memo(() => {
 		image: user.image,
 	};
 
+	useEffect(() => {
+		if (visible) {
+			setTimeout(() => menuRef.current?.classList.add("User__Menu--open"), 350);
+		} else {
+			menuRef.current?.classList.remove("User__Menu--open");
+		}
+	}, [visible]);
+
 	const onProfileUpdate = useCallback(
 		async (values: any) => {
 			await updateUser({

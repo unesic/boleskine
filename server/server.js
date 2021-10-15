@@ -1,6 +1,5 @@
 const { ApolloServer } = require("apollo-server-express");
 const mongoose = require("mongoose");
-const path = require("path");
 const express = require("express");
 const session = require("express-session");
 const cors = require("cors");
@@ -22,9 +21,6 @@ const server = new ApolloServer({
 });
 
 app.use(cors("*"));
-
-app.use("/assets", express.static(path.join(process.cwd(), "assets")));
-app.use("/images", express.static(path.join(process.cwd(), "images")));
 
 app.use(
 	session({
