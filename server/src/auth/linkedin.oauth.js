@@ -9,9 +9,7 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.LINKEDIN_OAUTH_CLIENT_ID,
 				clientSecret: process.env.LINKEDIN_OAUTH_CLIENT_SECRET,
-				callbackURL: `${
-					process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : ""
-				}/oauth/linkedin/callback`,
+				callbackURL: `${process.env.PUBLIC_URL}/oauth/linkedin/callback`,
 				scope: ["r_emailaddress", "r_liteprofile"],
 				state: true,
 			},
@@ -32,9 +30,7 @@ module.exports = function (app, passport) {
 			const data = { displayName, emails, id, name, photos, provider };
 			const token = jwt.sign(data, process.env.JWT_SECRET, {});
 			res.redirect(
-				`${
-					process.env.NODE_ENV === "production" ? "" : process.env.CLIENT_URL
-				}/sign-in/?provider=linkedin&access_token=${token}`
+				`${process.env.PUBLIC_URL}/sign-in/?provider=linkedin&access_token=${token}`
 			);
 		}
 	);

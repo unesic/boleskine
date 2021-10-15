@@ -9,9 +9,7 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.GITHUB_OAUTH_CLIENT_ID,
 				clientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET,
-				callbackURL: `${
-					process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : ""
-				}/oauth/github/callback`,
+				callbackURL: `${process.env.PUBLIC_URL}/oauth/github/callback`,
 				scope: ["user:email"],
 			},
 			function (_, __, profile, done) {
@@ -33,9 +31,7 @@ module.exports = function (app, passport) {
 				{}
 			);
 			res.redirect(
-				`${
-					process.env.NODE_ENV === "production" ? "" : process.env.CLIENT_URL
-				}/sign-in/?provider=github&access_token=${token}`
+				`${process.env.PUBLIC_URL}/sign-in/?provider=github&access_token=${token}`
 			);
 		}
 	);

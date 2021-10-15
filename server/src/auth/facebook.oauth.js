@@ -9,9 +9,7 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.FACEBOOK_OAUTH_CLIENT_ID,
 				clientSecret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET,
-				callbackURL: `${
-					process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : ""
-				}/oauth/facebook/callback`,
+				callbackURL: `${process.env.PUBLIC_URL}/oauth/facebook/callback`,
 				profileFields: ["id", "email", "name", "picture.type(large)"],
 			},
 			function (_, __, profile, done) {
@@ -32,9 +30,7 @@ module.exports = function (app, passport) {
 		function (req, res) {
 			const token = jwt.sign(userProfile._json, process.env.JWT_SECRET, {});
 			res.redirect(
-				`${
-					process.env.NODE_ENV === "production" ? "" : process.env.CLIENT_URL
-				}/sign-in/?provider=facebook&access_token=${token}`
+				`${process.env.PUBLIC_URL}/sign-in/?provider=facebook&access_token=${token}`
 			);
 		}
 	);
