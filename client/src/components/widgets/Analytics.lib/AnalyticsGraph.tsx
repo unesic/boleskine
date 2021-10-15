@@ -2,7 +2,7 @@
  * Base
  */
 
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, useMemo } from "react";
 
 /**
  * Redux
@@ -52,21 +52,32 @@ export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = memo(
 
 		useEffect(() => {
 			if (language === "en" && currency === "EUR") {
-				setMLeft(0);
+				setMLeft(5);
 			} else if (language === "en" && currency === "RSD") {
-				setMLeft(10);
+				setMLeft(30);
 			} else if (language === "en" && currency === "USD") {
-				setMLeft(0);
+				setMLeft(5);
 			} else if (language === "sr-Latn-RS" && currency === "EUR") {
-				setMLeft(15);
+				setMLeft(25);
 			} else if (language === "sr-Latn-RS" && currency === "RSD") {
-				setMLeft(30);
+				setMLeft(45);
 			} else if (language === "sr-Latn-RS" && currency === "USD") {
-				setMLeft(30);
+				setMLeft(40);
 			}
 
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [language, currency]);
+
+		const YAxisKey = useMemo(() => {
+			if (!data) return "inc";
+
+			const { inc, exp } = data.reduce(
+				(acc, curr) => ({ inc: acc.inc + curr.inc, exp: acc.exp + curr.exp }),
+				{ inc: 0, exp: 0 }
+			);
+
+			return inc > exp ? "inc" : "exp";
+		}, [data]);
 
 		if (!data) return null;
 
@@ -89,7 +100,7 @@ export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = memo(
 						<Area dataKey="exp" stroke="#db2a34" fill="url(#grad-exp)" />
 
 						<YAxis
-							dataKey="inc"
+							dataKey={YAxisKey}
 							axisLine={false}
 							tickLine={false}
 							tick={{

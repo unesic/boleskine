@@ -24,6 +24,7 @@ interface SelectProps {
 	placeholder?: string | null;
 	isMulti?: boolean;
 	isSearchable?: boolean;
+	menuIsOpen?: boolean;
 }
 
 export const Select: React.FC<SelectProps> = memo(
@@ -37,6 +38,7 @@ export const Select: React.FC<SelectProps> = memo(
 		placeholder = "",
 		isMulti = false,
 		isSearchable = true,
+		menuIsOpen,
 	}) => {
 		return (
 			<div className="Field">
@@ -53,6 +55,7 @@ export const Select: React.FC<SelectProps> = memo(
 						classNamePrefix="Field--Select"
 						isMulti={isMulti}
 						isSearchable={isSearchable}
+						menuIsOpen={menuIsOpen}
 					/>
 				</fieldset>
 				{touched && errors ? <Error>{errors}</Error> : null}

@@ -8,8 +8,13 @@
 		"npm": "7.24.0"
 	},
 	"scripts": {
-		"start": "node server.js",
-		"dev": "nodemon server.js"
+		"build": "cd client && npm run build",
+		"install-client": "cd client && npm install",
+		"heroku-postbuild": "npm run install-client && npm run build",
+		"server": "node server/server.js",
+		"server:dev": "nodemon server/server.js",
+		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\"",
+		"start": "concurrently --kill-others-on-fail \"npm run server\" \"npm run start --prefix client\""
 	},
 	"keywords": [],
 	"author": "",
@@ -22,6 +27,7 @@
 		"apollo-server": "^2.21.2",
 		"apollo-server-express": "^2.21.2",
 		"bcryptjs": "^2.4.3",
+		"concurrently": "^6.3.0",
 		"cors": "^2.8.5",
 		"express": "^4.17.1",
 		"express-session": "^1.17.1",

@@ -36,7 +36,10 @@ const client = new ApolloClient({
 	cache: new InMemoryCache(),
 	link: authLink.concat(
 		createUploadLink({
-			uri: `${process.env.REACT_APP_SERVER_URL}/graphql`,
+			uri:
+				process.env.NODE_ENV === "production"
+					? "/graphql"
+					: `${process.env.REACT_APP_SERVER_URL}/graphql`,
 		})
 	),
 });
