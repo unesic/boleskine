@@ -32,7 +32,7 @@ if (process.env.NODE_ENV !== "production") {
  * Initial setup
  */
 const app = express();
-app.use(cors());
+app.use(cors("*"));
 app.use(
 	session({
 		resave: false,

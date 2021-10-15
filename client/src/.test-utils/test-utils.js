@@ -27,7 +27,10 @@ import { Store } from "store";
 import { BrowserRouter, Switch } from "react-router-dom";
 
 const httpLink = createHttpLink({
-	uri: `${process.env.REACT_APP_SERVER_URL}/graphql`,
+	uri:
+		process.env.NODE_ENV === "production"
+			? "/graphql"
+			: `${process.env.REACT_APP_SERVER_URL}/graphql`,
 });
 
 const authLink = setContext((_, { headers }) => {
