@@ -1,2 +1,11 @@
+# General
 .DS_Store
-/.vscode
+*/**/.DS_Store
+.vscode/
+
+# Server
+node_modules/
+.env
+.env.local
+images/*
+
