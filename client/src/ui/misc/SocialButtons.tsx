@@ -25,41 +25,41 @@ export const SocialButtons: React.FC<SocialButtonsProps> = memo(
 		return (
 			<div className="SocialButtons">
 				<a
-					href={
+					href={`${
 						process.env.NODE_ENV === "production"
-							? "/oauth/github"
-							: `${process.env.REACT_APP_SERVER_URL}/oauth/github`
-					}
+							? process.env.PUBLIC_URL
+							: process.env.REACT_APP_SERVER_URL
+					}/oauth/github`}
 					className="SocialButtons__button SocialButtons__button--github"
 				>
 					<FaGithub size={22} /> {_t.socials.gh}
 				</a>
 				<a
-					href={
+					href={`${
 						process.env.NODE_ENV === "production"
-							? "/oauth/google"
-							: `${process.env.REACT_APP_SERVER_URL}/oauth/google`
-					}
+							? process.env.PUBLIC_URL
+							: process.env.REACT_APP_SERVER_URL
+					}/oauth/google`}
 					className="SocialButtons__button SocialButtons__button--google"
 				>
 					<FaGoogle size={22} /> {_t.socials.go}
 				</a>
 				<a
-					href={
+					href={`${
 						process.env.NODE_ENV === "production"
-							? "/oauth/facebook"
-							: `${process.env.REACT_APP_SERVER_URL}/oauth/facebook`
-					}
+							? process.env.PUBLIC_URL
+							: process.env.REACT_APP_SERVER_URL
+					}/oauth/facebook`}
 					className="SocialButtons__button SocialButtons__button--facebook"
 				>
 					<FaFacebook size={22} /> {_t.socials.fb}
 				</a>
 				<a
-					href={
+					href={`${
 						process.env.NODE_ENV === "production"
-							? "/oauth/linkedin"
-							: `${process.env.REACT_APP_SERVER_URL}/oauth/linkedin`
-					}
+							? process.env.PUBLIC_URL
+							: process.env.REACT_APP_SERVER_URL
+					}/oauth/linkedin`}
 					className="SocialButtons__button SocialButtons__button--linkedin"
 				>
 					<FaLinkedin size={22} /> {_t.socials.li}
