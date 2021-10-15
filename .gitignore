@@ -1,11 +1,6 @@
-# General
+node_modules/
 .DS_Store
 */**/.DS_Store
 .vscode/
-
-# Server
-node_modules/
 .env
 .env.local
-images/*
-
