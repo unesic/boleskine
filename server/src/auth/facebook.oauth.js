@@ -9,7 +9,9 @@ module.exports = function (app, passport) {
 			{
 				clientID: process.env.FACEBOOK_OAUTH_CLIENT_ID,
 				clientSecret: process.env.FACEBOOK_OAUTH_CLIENT_SECRET,
-				callbackURL: "/oauth/facebook/callback",
+				callbackURL: `${
+					process.env.NODE_ENV === "production" ? process.env.PUBLIC_URL : ""
+				}/oauth/facebook/callback`,
 				profileFields: ["id", "email", "name", "picture.type(large)"],
 			},
 			function (_, __, profile, done) {
