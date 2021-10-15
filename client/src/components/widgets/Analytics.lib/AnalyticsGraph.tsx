@@ -2,7 +2,7 @@
  * Base
  */
 
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect, useState, useMemo } from "react";
 
 /**
  * Redux
@@ -68,6 +68,17 @@ export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = memo(
 			// eslint-disable-next-line react-hooks/exhaustive-deps
 		}, [language, currency]);
 
+		const YAxisKey = useMemo(() => {
+			if (!data) return "inc";
+
+			const { inc, exp } = data.reduce(
+				(acc, curr) => ({ inc: acc.inc + curr.inc, exp: acc.exp + curr.exp }),
+				{ inc: 0, exp: 0 }
+			);
+
+			return inc > exp ? "inc" : "exp";
+		}, [data]);
+
 		if (!data) return null;
 
 		return (
@@ -89,7 +100,7 @@ export const AnalyticsGraph: React.FC<AnalyticsGraphProps> = memo(
 						<Area dataKey="exp" stroke="#db2a34" fill="url(#grad-exp)" />
 
 						<YAxis
-							dataKey="inc"
+							dataKey={YAxisKey}
 							axisLine={false}
 							tickLine={false}
 							tick={{
