@@ -1,39 +1,139 @@
 /**
  * Base
  */
-import { memo } from "react";
+import { memo, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 
 /**
- * Components
+ * Static assets
  */
-import { User } from "components/widgets/User";
-import { Calendar } from "components/widgets/Calendar";
-import { CurrentMonth } from "components/widgets/CurrentMonth";
-import { CurrentWeek } from "components/widgets/CurrentWeek";
-import { NewEntry } from "components/widgets/NewEntry";
-import { Tracking } from "components/widgets/Tracking";
-import { Analytics } from "components/widgets/Analytics";
+import { hero_graphic_dark, hero_graphic_light } from "assets/images";
+import {
+	apollo,
+	express,
+	formik,
+	heroku,
+	mongodb,
+	passport,
+	react,
+	redux,
+	router,
+	tailwind,
+	typescript,
+	graphql,
+	github,
+	globe,
+	linkedin,
+	mail,
+} from "assets/icons";
+import { useTranslation } from "lib/hooks/useTranslation";
 
 interface HomeProps {}
 
 export const Home: React.FC<HomeProps> = memo(() => {
+	const _t = useTranslation("homepage");
+
+	const stack = useMemo(
+		() => [
+			{ icon: react, label: "React" },
+			{ icon: typescript, label: "TypeScript" },
+			{ icon: redux, label: "Redux" },
+			{ icon: router, label: "Router" },
+			{ icon: formik, label: "Formik" },
+			{ icon: tailwind, label: "TailwindCSS" },
+			{ icon: express, label: "Express" },
+			{ icon: apollo, label: "Apollo" },
+			{ icon: passport, label: "Passport" },
+			{ icon: graphql, label: "GraphQL" },
+			{ icon: mongodb, label: "Mongodb" },
+			{ icon: heroku, label: "Heroku" },
+		],
+		[]
+	);
+
+	const links = useMemo(
+		() => [
+			{ icon: globe, label: "unesic.io", url: "https://unesic.io" },
+			{ icon: github, label: "Github", url: "https://github.com/unesic/" },
+			{
+				icon: linkedin,
+				label: "LinkedIn",
+				url: "https://www.linkedin.com/in/unesic/",
+			},
+			{ icon: mail, label: "Email", url: "mailto:info@unesic.io" },
+		],
+		[]
+	);
+
+	const darkMode = useMemo(
+		() => window.matchMedia("(prefers-color-scheme: dark)").matches,
+		[]
+	);
+
+	useEffect(() => {
+		if (darkMode) document.body.classList.add("dark");
+		else document.body.classList.remove("dark");
+	}, [darkMode]);
+
 	return (
-		<>
-			<div className="MainSection">
-				<div className="MainSection__widgets">
-					<User />
-					<Calendar />
-					<CurrentWeek />
-					<CurrentMonth />
+		<main className="Homepage">
+			<header className="Homepage__Header">
+				<div className="Homepage__Header__content">
+					<h1 className="content-head">{_t.head}</h1>
+					{_t.copy.map((t, idx) => (
+						<p key={idx} className="content-copy">
+							{t}
+						</p>
+					))}
+
+					<div className="content-btns">
+						<Link to="/app" className="Button Button--primary">
+							{_t.buttons.app}
+						</Link>
+						<a
+							target="_blank"
+							href="https://github.com/unesic/boleskine"
+							rel="noreferrer nofollow"
+							className="Button Button--github"
+						>
+							<img src={github} alt="Github icon" /> {_t.buttons.github}
+						</a>
+					</div>
+
+					<h2 className="content-subhead">{_t.subhead}</h2>
+					<ul className="tech-items">
+						{stack.map(({ icon, label }, idx) => (
+							<li key={idx} className="tech-items__item">
+								<img src={icon} alt={label} className="tech-icon" />{" "}
+								<span className="tech-label">{label}</span>
+							</li>
+						))}
+					</ul>
 				</div>
-				<div className="MainSection__tracking">
-					<NewEntry />
-					<Tracking />
+
+				<div className="Homepage__Header__graphic">
+					<img
+						src={darkMode ? hero_graphic_dark : hero_graphic_light}
+						alt="Boleskine hero graphic"
+						className="hero-graphic"
+					/>
 				</div>
-			</div>
-			<Analytics />
-		</>
+			</header>
+
+			<footer className="Homepage__Footer">
+				<ul className="footer-links">
+					{links.map(({ icon, url, label }, idx) => (
+						<li key={idx} className="footer-links__item">
+							<a href={url} className="footer-link">
+								<img src={icon} alt={label} className="footer-link__icon" />
+								<span aria-hidden="true" className="footer-link__label">
+									{label}
+								</span>
+							</a>
+						</li>
+					))}
+				</ul>
+			</footer>
+		</main>
 	);
 });
-
-export default Home;

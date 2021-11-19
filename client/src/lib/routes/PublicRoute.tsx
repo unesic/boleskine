@@ -110,7 +110,7 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 						user.id ? (
 							<Redirect
 								to={{
-									pathname: "/",
+									pathname: "/app",
 									state: { msg: "You are already logged in!" },
 								}}
 							/>

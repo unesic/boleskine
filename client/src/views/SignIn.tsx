@@ -43,7 +43,7 @@ export const SignIn: React.FC<SignInProps> = memo(({ history, location }) => {
 			if (location.state && location.state?.from.pathname !== "sign-out") {
 				history.push(location.state?.from.pathname);
 			} else {
-				history.push("/");
+				history.push("/app");
 			}
 		},
 		onError(err) {

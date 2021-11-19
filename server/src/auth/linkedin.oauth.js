@@ -30,7 +30,7 @@ module.exports = function (app, passport) {
 			const data = { displayName, emails, id, name, photos, provider };
 			const token = jwt.sign(data, process.env.JWT_SECRET, {});
 			res.redirect(
-				`${process.env.PUBLIC_URL}/sign-in/?provider=linkedin&access_token=${token}`
+				`${process.env.CLIENT_URL}/sign-in/?provider=linkedin&access_token=${token}`
 			);
 		}
 	);
