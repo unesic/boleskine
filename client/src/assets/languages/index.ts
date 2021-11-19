@@ -9,6 +9,7 @@ export const languages: { [language: string]: LanguageT } = {
 
 export type {
 	AppT,
+	HomepageT,
 	HeaderT,
 	InputErrorsT,
 	LanguageT,

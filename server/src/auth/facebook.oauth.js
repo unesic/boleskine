@@ -30,7 +30,7 @@ module.exports = function (app, passport) {
 		function (req, res) {
 			const token = jwt.sign(userProfile._json, process.env.JWT_SECRET, {});
 			res.redirect(
-				`${process.env.PUBLIC_URL}/sign-in/?provider=facebook&access_token=${token}`
+				`${process.env.CLIENT_URL}/sign-in/?provider=facebook&access_token=${token}`
 			);
 		}
 	);

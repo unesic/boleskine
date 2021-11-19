@@ -1,3 +1,13 @@
+export type HomepageT = {
+	head: string;
+	copy: string[];
+	buttons: {
+		app: string;
+		github: string;
+	};
+	subhead: string;
+};
+
 export type HeaderT = {
 	user_copy: string;
 	language: string;
@@ -177,6 +187,7 @@ export type ProfileUpdateT = {
 
 export type LanguageT = {
 	language: string;
+	homepage: HomepageT;
 	header: HeaderT;
 	sign_in: SignInT;
 	sign_up: SignUpT;

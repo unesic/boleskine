@@ -31,7 +31,7 @@ module.exports = function (app, passport) {
 				{}
 			);
 			res.redirect(
-				`${process.env.PUBLIC_URL}/sign-in/?provider=github&access_token=${token}`
+				`${process.env.CLIENT_URL}/sign-in/?provider=github&access_token=${token}`
 			);
 		}
 	);

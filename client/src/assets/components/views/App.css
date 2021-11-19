@@ -1,0 +1,28 @@
+@layer components {
+	.MainSection {
+		@apply grid grid-cols-12 gap-4 mb-4;
+
+		&__widgets {
+			@apply flex md:flex-col md:flex-nowrap flex-wrap gap-4;
+			@apply lg:col-span-4 md:col-span-5 col-span-full;
+
+			.Widget {
+				&--Calendar,
+				&--User {
+					@apply md:w-auto w-full;
+				}
+
+				&--CurrentWeek,
+				&--CurrentMonth {
+					@apply md:flex-initial;
+					flex: 1 1 calc(50% - theme("spacing.2"));
+				}
+			}
+		}
+
+		&__tracking {
+			@apply flex flex-col gap-4;
+			@apply lg:col-span-8 md:col-span-7 col-span-full;
+		}
+	}
+}

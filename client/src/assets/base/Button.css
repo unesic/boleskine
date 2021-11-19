@@ -13,5 +13,9 @@
 			@apply bg-app-light-500;
 			@apply dark:bg-app-dark-200;
 		}
+
+		&--github {
+			@apply filter hover:brightness-75 bg-[#24292E];
+		}
 	}
 }

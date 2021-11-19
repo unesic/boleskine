@@ -1,6 +1,7 @@
 import { languages } from "assets/languages";
 import type {
 	LanguageT,
+	HomepageT,
 	HeaderT,
 	SignInT,
 	SignUpT,
@@ -13,6 +14,7 @@ import { useSelector } from "react-redux";
 import { selectLanguage } from "store/auth.slice";
 
 export function useTranslation(section: "header"): HeaderT;
+export function useTranslation(section: "homepage"): HomepageT;
 export function useTranslation(section: "sign_in"): SignInT;
 export function useTranslation(section: "sign_up"): SignUpT;
 export function useTranslation(section: "app"): AppT;
@@ -27,6 +29,7 @@ export function useTranslation(section: any) {
 }
 
 export type {
+	HomepageT,
 	HeaderT,
 	SignInT,
 	SignUpT,
