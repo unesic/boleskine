@@ -1,28 +1,96 @@
 @layer components {
-	.MainSection {
-		@apply grid grid-cols-12 gap-4 mb-4;
+	.Homepage {
+		@apply container min-h-screen;
 
-		&__widgets {
-			@apply flex md:flex-col md:flex-nowrap flex-wrap gap-4;
-			@apply lg:col-span-4 md:col-span-5 col-span-full;
+		&__Header {
+			@apply grid grid-cols-12 gap-y-8 place-items-center lg:pt-24 pt-4 pb-32;
+			@apply lg:text-left text-center;
 
-			.Widget {
-				&--Calendar,
-				&--User {
-					@apply md:w-auto w-full;
+			&__content {
+				@apply xl:col-span-5 lg:col-span-6 col-span-full;
+				@apply lg:row-start-1 row-start-2;
+
+				& > .content-head {
+					@apply font-body-medium text-5xl;
+					@apply text-app-dark-500;
+					@apply dark:text-app-light-100;
 				}
 
-				&--CurrentWeek,
-				&--CurrentMonth {
-					@apply md:flex-initial;
-					flex: 1 1 calc(50% - theme("spacing.2"));
+				& > .content-copy {
+					@apply mt-4 text-lg xl:max-w-full max-w-[25rem];
+					@apply lg:mx-0 mx-auto;
+					@apply text-app-dark-400;
+					@apply dark:text-app-light-200;
+				}
+
+				& > .content-btns {
+					@apply flex space-x-4 mt-8;
+					@apply lg:justify-start justify-center;
+
+					& > * {
+						@apply m-0;
+					}
+				}
+
+				& > .content-subhead {
+					@apply font-body-medium text-2xl mt-16;
+					@apply text-app-dark-500;
+					@apply dark:text-app-light-100;
+				}
+
+				& > .tech-items {
+					@apply flex flex-wrap items-center mt-1;
+					@apply lg:justify-start justify-center;
+
+					& > li:not(:last-of-type) {
+						@apply mr-3;
+					}
+
+					& > .tech-items__item {
+						@apply flex items-center space-x-1 mt-3;
+
+						& > .tech-icon {
+						}
+
+						& > .tech-label {
+							@apply text-base;
+							@apply text-app-dark-400;
+							@apply dark:text-app-light-200;
+						}
+					}
+				}
+			}
+
+			&__graphic {
+				@apply xl:col-span-7 lg:col-span-6 col-span-full xl:pl-32;
+
+				.hero-graphic {
+					@apply lg:w-full w-[32rem] max-w-full;
 				}
 			}
 		}
 
-		&__tracking {
-			@apply flex flex-col gap-4;
-			@apply lg:col-span-8 md:col-span-7 col-span-full;
+		&__Footer {
+			@apply absolute bottom-8 inset-x-0;
+
+			.footer-links {
+				@apply flex justify-center space-x-8;
+
+				.footer-links__item {
+					.footer-link {
+						@apply flex opacity-60 hover:opacity-100;
+						@apply transition-opacity duration-200;
+
+						&__icon {
+							@apply block;
+						}
+
+						&__label {
+							@apply invisible w-0 h-0;
+						}
+					}
+				}
+			}
 		}
 	}
 }

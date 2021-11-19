@@ -1,5 +1,17 @@
 {
 	"language": "Srpski",
+	"homepage": {
+		"head": "Boleskine",
+		"copy": [
+			"Aplikacija za hvatanje beleški i praćenje finansija sa dostupnim pregledom nedeljnog i mesečnog preseka stanja uz grafikon koji pruža detaljniji uvid.",
+			"Prijavi se putem jednostane email/šifra kombinacije ili putem društvenih mreža."
+		],
+		"buttons": {
+			"app": "Poseti aplikaciju",
+			"github": "Vidi kod"
+		},
+		"subhead": "Tech stack"
+	},
 	"header": {
 		"user_copy": "Prijavljen kao:",
 		"language": "Jezik:",

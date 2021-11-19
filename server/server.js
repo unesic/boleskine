@@ -49,7 +49,7 @@ app.use(express.static(path.join(__dirname, "../client/build")));
 /**
  * Handle client routes
  */
-const clientRoutes = ["/", "/sign-in", "/sign-up"];
+const clientRoutes = ["/", "/app", "/sign-in", "/sign-up"];
 clientRoutes.forEach((route) => {
 	app.get(route, (req, res) => {
 		res.sendFile(path.join(__dirname, "../client/build", "index.html"));

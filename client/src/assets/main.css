@@ -32,6 +32,7 @@
 @import "components/ui/form/ImageUpload.css";
 
 @import "components/views/Home.css";
+@import "components/views/App.css";
 @import "components/views/Auth.css";
 
 @import "tailwindcss/utilities";

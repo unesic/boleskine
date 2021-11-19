@@ -1,5 +1,17 @@
 {
 	"language": "English",
+	"homepage": {
+		"head": "Boleskine",
+		"copy": [
+			"Note taking and expense tracking application with a handy overview on weekly and monthly income and expense totals accompanied by an analytics graph that provides a more thorough insight.",
+			"Authenticate by using an email and password combination or by using social media."
+		],
+		"buttons": {
+			"app": "Visit the app",
+			"github": "View source"
+		},
+		"subhead": "Tech stack"
+	},
 	"header": {
 		"user_copy": "Signed in as:",
 		"language": "Language:",

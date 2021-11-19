@@ -102,7 +102,6 @@
 		"postcss-import": "^14.0.0",
 		"postcss-loader": "^4.1.0",
 		"postcss-nested": "^5.0.5",
-		"rewire": "^5.0.0",
 		"tailwindcss": "^2.2.7",
 		"uuid": "^8.3.2"
 	}
