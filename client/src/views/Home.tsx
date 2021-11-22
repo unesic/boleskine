@@ -21,10 +21,10 @@ import {
 	tailwind,
 	typescript,
 	graphql,
-	github,
-	globe,
-	linkedin,
-	mail,
+	Github,
+	Globe,
+	LinkedIn,
+	Mail,
 } from "assets/icons";
 import { useTranslation } from "lib/hooks/useTranslation";
 
@@ -53,14 +53,14 @@ export const Home: React.FC<HomeProps> = memo(() => {
 
 	const links = useMemo(
 		() => [
-			{ icon: globe, label: "unesic.io", url: "https://unesic.io" },
-			{ icon: github, label: "Github", url: "https://github.com/unesic/" },
+			{ icon: <Globe />, label: "unesic.io", url: "https://unesic.io" },
+			{ icon: <Github />, label: "Github", url: "https://github.com/unesic/" },
 			{
-				icon: linkedin,
+				icon: <LinkedIn />,
 				label: "LinkedIn",
 				url: "https://www.linkedin.com/in/unesic/",
 			},
-			{ icon: mail, label: "Email", url: "mailto:info@unesic.io" },
+			{ icon: <Mail />, label: "Email", url: "mailto:info@unesic.io" },
 		],
 		[]
 	);
@@ -96,7 +96,7 @@ export const Home: React.FC<HomeProps> = memo(() => {
 							rel="noreferrer nofollow"
 							className="Button Button--github"
 						>
-							<img src={github} alt="Github icon" /> {_t.buttons.github}
+							<Github /> {_t.buttons.github}
 						</a>
 					</div>
 
@@ -125,7 +125,7 @@ export const Home: React.FC<HomeProps> = memo(() => {
 					{links.map(({ icon, url, label }, idx) => (
 						<li key={idx} className="footer-links__item">
 							<a href={url} className="footer-link">
-								<img src={icon} alt={label} className="footer-link__icon" />
+								{icon}
 								<span aria-hidden="true" className="footer-link__label">
 									{label}
 								</span>

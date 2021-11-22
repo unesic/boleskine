@@ -77,15 +77,13 @@
 				@apply flex justify-center space-x-8;
 
 				.footer-links__item {
-					.footer-link {
+					& > .footer-link {
 						@apply flex opacity-60 hover:opacity-100;
 						@apply transition-opacity duration-200;
+						@apply text-app-dark-500;
+						@apply dark:text-app-light-200;
 
-						&__icon {
-							@apply block;
-						}
-
-						&__label {
+						.footer-link__label {
 							@apply invisible w-0 h-0;
 						}
 					}
