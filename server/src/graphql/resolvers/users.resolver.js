@@ -178,6 +178,7 @@ module.exports = {
 		authUser: async (_, { email, firstName, lastName, image }, context) => {
 			if (context.req.headers.authorization) {
 				const req = checkAuth(context);
+				console.log(req);
 				if (req) {
 					const currUser = await User.findOne({ email: req.email });
 					const token = generateToken(currUser);
@@ -199,7 +200,7 @@ module.exports = {
 				if (!currUser.image) currUser.image = image;
 
 				user = await currUser.save();
-			} else if (!currUser) {
+			} else {
 				const newUser = new User({
 					email,
 					firstName,
