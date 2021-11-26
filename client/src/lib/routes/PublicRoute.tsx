@@ -49,12 +49,12 @@ export const PublicRoute: React.FC<PublicRouteProps> = ({
 	const _t = useTranslation("notifications");
 
 	useEffect(() => {
-		const authToken = localStorage.getItem("auth-token");
+		const authToken = localStorage.getItem("x-boleskine-unesic-auth");
 		if (authToken) {
 			const decoded: JwtPayload = jwtDecode(authToken);
 
 			if (decoded.exp! * 1000 < Date.now()) {
-				localStorage.removeItem("auth-token");
+				localStorage.removeItem("x-boleskine-unesic-auth");
 			} else {
 				authUser();
 				return;

@@ -46,11 +46,11 @@ export const Slice = createSlice({
 		},
 		userSignIn: (state, action: { payload: SignInType }) => {
 			state.user = { ...action.payload };
-			localStorage.setItem("auth-token", action.payload.token);
+			localStorage.setItem("x-boleskine-unesic-auth", action.payload.token);
 		},
 		userSignOut: (state) => {
 			state.user = { ...initialUserData };
-			localStorage.removeItem("auth-token");
+			localStorage.removeItem("x-boleskine-unesic-auth");
 		},
 
 		// Language reducers
