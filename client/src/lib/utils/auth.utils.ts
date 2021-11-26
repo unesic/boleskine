@@ -49,7 +49,7 @@ function parseGithubData(data: any) {
 	return {
 		email: email,
 		firstName: name.split(" ")[0],
-		lastName: name.splice(1).join(" "),
+		lastName: name.split(" ")[1],
 		image: avatar_url,
 	};
 }

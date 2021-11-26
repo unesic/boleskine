@@ -10,7 +10,7 @@ const {
 const User = require("../../models/User.model");
 const checkAuth = require("../../util/check-auth");
 
-const generateToken = (user, remember) => {
+const generateToken = (user, remember = undefined) => {
 	return jwt.sign(
 		{
 			id: user._id,
@@ -178,7 +178,7 @@ module.exports = {
 		authUser: async (_, { email, firstName, lastName, image }, context) => {
 			if (context.req.headers.authorization) {
 				const req = checkAuth(context);
-				console.log(req);
+
 				if (req) {
 					const currUser = await User.findOne({ email: req.email });
 					const token = generateToken(currUser);
@@ -206,9 +206,6 @@ module.exports = {
 					firstName,
 					lastName,
 					image,
-					firstName: "",
-					lastName: "",
-					image: "",
 					language: "en",
 					currency: "EUR",
 					darkMode: true,
@@ -216,7 +213,7 @@ module.exports = {
 				user = await newUser.save();
 			}
 
-			const token = generateToken(currUser);
+			const token = generateToken(user);
 
 			return {
 				...user._doc,

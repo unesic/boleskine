@@ -23,7 +23,7 @@ import { Store } from "store";
 import { App } from "App";
 
 const authLink = setContext((_, { headers }) => {
-	const token = localStorage.getItem("auth-token");
+	const token = localStorage.getItem("x-boleskine-unesic-auth");
 	return {
 		headers: {
 			...headers,

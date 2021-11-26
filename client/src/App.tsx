@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
 import { Router } from "Router";
 
 /**
@@ -9,7 +9,12 @@ import { Router } from "Router";
  */
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveDays, setMonths } from "store/track.slice";
-import { selectDarkMode, selectUser, setLanguage } from "store/auth.slice";
+import {
+	selectDarkMode,
+	selectUser,
+	setLanguage,
+	setDarkMode,
+} from "store/auth.slice";
 import { addNotification } from "store/app.slice";
 
 /**
@@ -63,6 +68,22 @@ export const App: React.FC<AppProps> = memo(() => {
 		if (darkMode) document.body.classList.add("dark");
 		else document.body.classList.remove("dark");
 	}, [darkMode]);
+
+	const handleModeChange = useCallback((e: any) => {
+		dispatch(setDarkMode(e.matches));
+	}, []);
+
+	useEffect(() => {
+		window
+			.matchMedia("(prefers-color-scheme: dark)")
+			.addEventListener("change", handleModeChange);
+
+		return () => {
+			window
+				.matchMedia("(prefers-color-scheme: dark)")
+				.removeEventListener("change", handleModeChange);
+		};
+	}, []);
 
 	const [getUserMonths] = useLazyQuery(GET_USER_MONTHS, {
 		onCompleted({ getUserMonths }) {
