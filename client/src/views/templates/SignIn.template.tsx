@@ -1,7 +1,7 @@
 /**
  * Base
  */
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 
@@ -45,15 +45,6 @@ export const SignInTemplate: React.FC<SignInTemplateProps> = memo(
 			validationSchema: validationSchema,
 			onSubmit: onSubmit,
 		});
-
-		useEffect(() => {
-			// console.log({
-			// 	values: formik.values,
-			// 	err: formik.errors,
-			// 	touched: formik.touched,
-			// 	errors,
-			// });
-		}, [formik.values, formik.errors, formik.touched, errors]);
 
 		return (
 			<div className="SignIn">
