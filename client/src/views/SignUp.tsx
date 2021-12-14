@@ -50,7 +50,7 @@ export const SignUp: React.FC<SignUpProps> = memo(({ history, location }) => {
 			if (location.state && location.state?.from.pathname !== "sign-out") {
 				history.push(location.state?.from.pathname);
 			} else {
-				history.push("/");
+				history.push("/app");
 			}
 		},
 		onError(err) {

@@ -25,7 +25,7 @@ export const useFormikSchema = () => {
 		() =>
 			Yup.object({
 				email: Yup.string().email(_t.email.default).required(_t.email.required),
-				password: Yup.string().required(_t.password),
+				password: Yup.string().required(_t.password.required),
 				remember: Yup.array()
 					.nullable()
 					.of(
