@@ -71,6 +71,7 @@ export const App: React.FC<AppProps> = memo(() => {
 
 	const handleModeChange = useCallback((e: any) => {
 		dispatch(setDarkMode(e.matches));
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	useEffect(() => {
@@ -83,6 +84,7 @@ export const App: React.FC<AppProps> = memo(() => {
 				.matchMedia("(prefers-color-scheme: dark)")
 				.removeEventListener("change", handleModeChange);
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const [getUserMonths] = useLazyQuery(GET_USER_MONTHS, {
