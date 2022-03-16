@@ -74,7 +74,7 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 		[_t]
 	);
 
-	if (!masterData || !masterData[activeYear.value]) return null;
+	if (!masterData) return null;
 
 	return (
 		<Card className="max-h-full">
