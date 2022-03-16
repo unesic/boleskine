@@ -25,7 +25,6 @@ export const Text: React.FC<TextProps> = memo(
 	({ errors, touched, label, ...props }) => {
 		return (
 			<div className="Field">
-				{console.log({ errors })}
 				<fieldset
 					className={`Field--Text ${
 						props.value !== "" ? "Field--Text--has-value" : ""

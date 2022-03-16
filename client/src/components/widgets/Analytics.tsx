@@ -74,7 +74,9 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 		[_t]
 	);
 
-	return masterData !== null ? (
+	if (!masterData) return null;
+
+	return (
 		<Card className="max-h-full">
 			<div className="AnalyticsChart">
 				<div className="AnalyticsChart__Inner">
@@ -121,5 +123,5 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 				))}
 			</div>
 		</Card>
-	) : null;
+	);
 });
