@@ -2,23 +2,25 @@
 	"name": "server",
 	"version": "1.0.0",
 	"description": "",
-	"main": "server.js",
+	"main": "src/index.js",
 	"engines": {
 		"node": "16.10.0",
 		"npm": "7.24.0"
 	},
 	"scripts": {
-		"build": "cd client && npm run build",
-		"install-client": "cd client && npm install",
-		"heroku-postbuild": "npm run install-client && npm run build",
-		"server:dev": "nodemon server/server.js",
-		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\"",
-		"start": "node server/server.js"
+		"start": "NODE_ENV=production node dist/index.js",
+		"build": "babel src -d dist",
+		"postinstall": "cd src/client && npm install",
+		"server:dev": "nodemon src/index.js",
+		"dev": "concurrently --kill-others-on-fail \"npm run server:dev\" \"npm run start --prefix client\""
 	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
 	"devDependencies": {
+		"@babel/cli": "^7.19.3",
+		"@babel/core": "^7.20.5",
+		"@babel/preset-env": "^7.20.2",
 		"dotenv": "^8.2.0",
 		"nodemon": "^2.0.7"
 	},

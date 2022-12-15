@@ -55,7 +55,7 @@
 	},
 	"scripts": {
 		"start": "react-scripts start",
-		"build": "react-scripts build",
+		"build": "BUILD_PATH=../../dist/client react-scripts build",
 		"test": "react-scripts test",
 		"eject": "react-scripts eject",
 		"postcss:watch": "TAILWIND_MODE=watch NODE_END=development postcss src/assets/main.css -o public/main.css -w",

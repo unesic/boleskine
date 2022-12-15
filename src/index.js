@@ -19,7 +19,7 @@ const cors = require("cors");
 /**
  * OAuth middleware
  */
-const oauth = require("./src/auth");
+const oauth = require("./auth");
 
 /**
  * Configure dotenv in development environment
@@ -27,7 +27,7 @@ const oauth = require("./src/auth");
 if (process.env.NODE_ENV !== "production") {
 	require("dotenv").config();
 }
-
+console.log({ env: process.env });
 /**
  * Initial setup
  */
@@ -41,20 +41,23 @@ app.use(
 	})
 );
 
-/**
- * Load in client directories
- */
-app.use(express.static(path.join(__dirname, "../client/build")));
+if (process.env.NODE_ENV === "production") {
+	console.log(process.env.NODE_ENV);
+	/**
+	 * Load in client directories
+	 */
+	app.use(express.static(path.join(__dirname, "./src/client/dist")));
 
-/**
- * Handle client routes
- */
-const clientRoutes = ["/", "/app", "/sign-in", "/sign-up"];
-clientRoutes.forEach((route) => {
-	app.get(route, (req, res) => {
-		res.sendFile(path.join(__dirname, "../client/build", "index.html"));
+	/**
+	 * Handle client routes
+	 */
+	const clientRoutes = ["/", "/app", "/sign-in", "/sign-up"];
+	clientRoutes.forEach((route) => {
+		app.get(route, (req, res) => {
+			res.sendFile(path.join(__dirname, "./src/client/dist", "index.html"));
+		});
 	});
-});
+}
 
 /**
  * Configure OAuth routes and callbacks.
@@ -62,10 +65,10 @@ clientRoutes.forEach((route) => {
 oauth(app);
 
 /**
- * Apollo Server setup
+ * Apollo Server setup./src/graphql/typeDefs
  */
-const typeDefs = require("./src/graphql/typeDefs");
-const resolvers = require("./src/graphql/resolvers");
+const typeDefs = require("./graphql/typeDefs");
+const resolvers = require("./graphql/resolvers");
 const server = new ApolloServer({
 	typeDefs: typeDefs,
 	resolvers: resolvers,
