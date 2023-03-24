@@ -18,9 +18,9 @@ interface SelectProps {
 	options: Option[];
 	value: Option | Option[] | null;
 	onChange: (o: Option | MultiValue<Option> | null) => void;
-	onBlur: () => void;
-	errors: string | undefined;
-	touched: boolean | undefined;
+	onBlur?: () => void;
+	errors?: string | undefined;
+	touched?: boolean | undefined;
 	placeholder?: string | null;
 	isMulti?: boolean;
 	isSearchable?: boolean;

@@ -50,6 +50,7 @@
 						@apply flex items-center space-x-1 mt-3;
 
 						& > .tech-icon {
+							@apply w-8 h-8;
 						}
 
 						& > .tech-label {

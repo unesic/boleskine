@@ -10,6 +10,8 @@ import redux from "./redux.svg";
 import router from "./router.svg";
 import tailwind from "./tailwind.svg";
 import typescript from "./typescript.svg";
+import render from "./render.svg";
+import vercel from "./vercel.svg";
 
 const Github = () => (
 	<svg
@@ -92,6 +94,8 @@ export {
 	formik,
 	express,
 	apollo,
+	render,
+	vercel,
 	Mail,
 	LinkedIn,
 	Globe,

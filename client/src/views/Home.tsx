@@ -12,7 +12,7 @@ import {
 	apollo,
 	express,
 	formik,
-	heroku,
+	render,
 	mongodb,
 	passport,
 	react,
@@ -46,7 +46,7 @@ export const Home: React.FC<HomeProps> = memo(() => {
 			{ icon: passport, label: "Passport" },
 			{ icon: graphql, label: "GraphQL" },
 			{ icon: mongodb, label: "Mongodb" },
-			{ icon: heroku, label: "Heroku" },
+			{ icon: render, label: "Render" },
 		],
 		[]
 	);

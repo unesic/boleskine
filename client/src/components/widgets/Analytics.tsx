@@ -20,7 +20,7 @@ import { AnalyticsGraph } from "./Analytics.lib/AnalyticsGraph";
  * Utils
  */
 import { getMasterData, splitDataYears } from "lib/utils/analytics.utils";
-import { MasterDataType, Period } from "lib/types/analytics.types";
+import { MasterDataType, Period, Periods } from "lib/types/analytics.types";
 import { useTranslation } from "lib/hooks/useTranslation";
 import { useMoment } from "lib/hooks/useMoment";
 
@@ -37,13 +37,13 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 		label: moment().year().toString(),
 	});
 	const [activeTab, setActiveTab] = useState<Option>({
-		value: "wow",
+		value: Periods.wow,
 		label: _t.analytics.display.options.wow,
 	});
 
 	useEffect(() => {
 		setActiveTab({
-			value: "wow",
+			value: Periods.wow,
 			label: _t.analytics.display.options.wow,
 		});
 	}, [_t]);
@@ -56,25 +56,32 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 		setMasterData(newMasterData);
 	}, [months]);
 
-	const options = useMemo(
-		() => [
-			{
-				value: "wow",
-				label: _t.analytics.display.options.wow,
-			},
-			{
-				value: "mom",
-				label: _t.analytics.display.options.mom,
-			},
-			{
-				value: "qoq",
-				label: _t.analytics.display.options.qoq,
-			},
-		],
+	const tabsOptions = useMemo(
+		() =>
+			Object.entries(_t.analytics.display.options).map(([k, v]) => ({
+				value: k as Period,
+				label: v,
+			})),
 		[_t]
 	);
 
-	if (!masterData || !masterData[activeYear.value]) return null;
+	const yearOptions = useMemo(
+		() =>
+			masterData
+				? Object.keys(masterData).map((key) => ({
+						value: key,
+						label: key,
+				  }))
+				: [],
+		[masterData]
+	);
+
+	const graphData = useMemo(
+		() => masterData?.[activeYear.value]?.[activeTab.value] || null,
+		[masterData, activeYear, activeTab]
+	);
+
+	if (!masterData) return null;
 
 	return (
 		<Card className="max-h-full">
@@ -86,12 +93,9 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 
 					<div className="AnalyticsChart__Inner__dropdown">
 						<Select
-							options={options}
+							options={tabsOptions}
 							value={activeTab}
 							onChange={(o) => setActiveTab(o as Option)}
-							onBlur={() => {}}
-							errors={undefined}
-							touched={false}
 						/>
 					</div>
 
@@ -101,26 +105,14 @@ export const Analytics: React.FC<AnalyticsProps> = memo(() => {
 
 					<div className="AnalyticsChart__Inner__dropdown">
 						<Select
-							options={Object.keys(masterData).map((key) => ({
-								value: key,
-								label: key,
-							}))}
+							options={yearOptions}
 							value={activeYear}
 							onChange={(o) => setActiveYear(o as Option)}
-							onBlur={() => {}}
-							errors={undefined}
-							touched={false}
 						/>
 					</div>
 				</div>
 
-				{Object.keys(masterData[activeYear.value]).map((key) => (
-					<div key={key} className={activeTab.value !== key ? "hidden" : ""}>
-						<AnalyticsGraph
-							data={masterData[activeYear.value][key as Period]}
-						/>
-					</div>
-				))}
+				<AnalyticsGraph data={graphData} />
 			</div>
 		</Card>
 	);

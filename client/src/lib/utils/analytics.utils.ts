@@ -1,5 +1,5 @@
 import moment from "moment";
-import { EntriesType, EntryType, MonthType } from "lib/types/shared.types";
+import { EntriesType, MonthType } from "lib/types/shared.types";
 import {
 	AnalysisTypeEntries,
 	AnalysisTypes,
@@ -44,17 +44,15 @@ export function getMasterData(data: SplitData) {
 		(Object.keys(formatted) as (keyof typeof Periods)[]).forEach((type) => {
 			totals[year][type] = null;
 
-			Object.entries(formatted[type as any]).forEach(
-				([key, value]: [key: string, value: EntriesType]) => {
-					const total = _calculateTotals(key, value);
-					if (!total.inc && !total.exp) return;
+			Object.entries(formatted[type]).forEach(([key, value]) => {
+				const total = _calculateTotals(key, value);
+				if (!total.inc && !total.exp) return;
 
-					const isArray = Array.isArray(totals[year][type]);
-					totals[year][type] = isArray
-						? [...(totals[year][type] as TotalType[]), total]
-						: [total];
-				}
-			);
+				const isArray = Array.isArray(totals[year][type]);
+				totals[year][type] = isArray
+					? [...(totals[year][type] as TotalType[]), total]
+					: [total];
+			});
 
 			(totals[year][type] as TotalType[])?.sort((curr: any, next: any) =>
 				curr.key < next.key ? -1 : curr.key > next.key ? 1 : 0
@@ -80,7 +78,7 @@ function _getFormattedYear(data: SplitData, year: string): AnalysisTypes {
 	return Object.entries(Periods).reduce(
 		(acc, [key, value]) => ({
 			...acc,
-			[value as any]: _formatMonths(key, data[year]),
+			[value]: _formatMonths(key, data[year]),
 		}),
 		{} as { [key in Periods]: AnalysisTypeEntries }
 	);
@@ -100,18 +98,18 @@ function _getFormattedYear(data: SplitData, year: string): AnalysisTypes {
 function _formatMonths(type: string, months: MonthType[]): AnalysisTypeEntries {
 	return months
 		.map((month) => month.entries)
-		.reduce((acc: EntriesType, curr: EntriesType) => [...acc, ...curr], [])
-		.reduce((acc: { [key: string]: EntriesType }, curr: EntryType) => {
+		.reduce((acc, curr) => [...acc, ...curr], [])
+		.reduce((acc, curr) => {
 			const timestamp = moment(curr.timestamp);
 			let key;
 			switch (type) {
-				case "wow":
+				case Periods.wow:
 					key = timestamp.format("YYYY-[Q]Q-MM-ww");
 					break;
-				case "mom":
+				case Periods.mom:
 					key = timestamp.format("YYYY-[Q]Q-MM");
 					break;
-				case "qoq":
+				case Periods.qoq:
 					key = timestamp.format("YYYY-[Q]Q");
 					break;
 				default:
@@ -123,7 +121,7 @@ function _formatMonths(type: string, months: MonthType[]): AnalysisTypeEntries {
 			acc[key] = isArray ? [...acc[key], curr] : [curr];
 
 			return acc;
-		}, {});
+		}, {} as { [key: string]: EntriesType });
 }
 
 /**

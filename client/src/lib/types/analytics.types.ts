@@ -11,7 +11,7 @@ export type TotalType = {
 };
 
 type TotalsType = {
-	[key in Mutable<Period>]: TotalType[] | null;
+	[key in Mutable<Period> as string]: TotalType[] | null;
 };
 
 export type MasterDataType = {
@@ -21,9 +21,9 @@ export type MasterDataType = {
 export type Period = keyof typeof Periods;
 
 export enum Periods {
-	wow = "wow" as any,
-	mom = "mom" as any,
-	qoq = "qoq" as any,
+	wow = "wow",
+	mom = "mom",
+	qoq = "qoq",
 }
 
 export type AnalysisTypeEntries = {
