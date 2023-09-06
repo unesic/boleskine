@@ -53,14 +53,14 @@ export const Home: React.FC<HomeProps> = memo(() => {
 
 	const links = useMemo(
 		() => [
-			{ icon: <Globe />, label: "unesic.io", url: "https://unesic.io" },
+			{ icon: <Globe />, label: "unesic.dev", url: "https://unesic.dev" },
 			{ icon: <Github />, label: "Github", url: "https://github.com/unesic/" },
 			{
 				icon: <LinkedIn />,
 				label: "LinkedIn",
 				url: "https://www.linkedin.com/in/unesic/",
 			},
-			{ icon: <Mail />, label: "Email", url: "mailto:info@unesic.io" },
+			{ icon: <Mail />, label: "Email", url: "mailto:info@unesic.dev" },
 		],
 		[]
 	);
